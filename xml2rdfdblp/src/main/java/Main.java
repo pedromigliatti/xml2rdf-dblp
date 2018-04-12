@@ -5,6 +5,8 @@ import javax.xml.stream.events.Characters;
 import javax.xml.stream.events.StartElement;
 import javax.xml.stream.events.XMLEvent;
 import java.io.*;
+import java.lang.reflect.Array;
+import java.util.Arrays;
 import java.util.Iterator;
 
 public class Main {
@@ -47,13 +49,43 @@ public class Main {
                 } else if(nameElement.equals("author")){
                     writer.write("<http://dblp.l3s.de/d2r/resource/publications/" + key + ">" +
                             " <http://dbpedia.org/ontology/author> ");
+                } else if(nameElement.equals("title")){
+                    writer.write("<http://dblp.l3s.de/d2r/resource/publications/" + key + ">" +
+                            " <http://purl.org/dc/elements/1.1/title> ");
+                } else if(nameElement.equals("pages")){
+                    writer.write("<http://dblp.l3s.de/d2r/resource/publications/" + key + ">" +
+                            " <http://swrc.ontoware.org/ontology#pages> ");
+                } else if(nameElement.equals("year")){
+                    writer.write("<http://dblp.l3s.de/d2r/resource/publications/" + key + ">" +
+                            " <http://purl.org/dc/terms/issued> ");
+                } else if(nameElement.equals("volume")) {
+                    writer.write("<http://dblp.l3s.de/d2r/resource/publications/" + key + ">" +
+                            " <http://swrc.ontoware.org/ontology#volume> ");
+                } else if(nameElement.equals("journal")) {
+                    writer.write("<http://dblp.l3s.de/d2r/resource/publications/" + key + ">" +
+                            " <http://swrc.ontoware.org/ontology#journal> ");
+                } else if(nameElement.equals("number")) {
+                    writer.write("<http://dblp.l3s.de/d2r/resource/publications/" + key + ">" +
+                            " <http://swrc.ontoware.org/ontology#number> ");
+                } else if(nameElement.equals("url")) {
+                    writer.write("<http://dblp.l3s.de/d2r/resource/publications/" + key + ">" +
+                            " <http://purl.org/dc/elements/1.1/identifier> ");
+                } else if(nameElement.equals("ee")){
+                    writer.write("<http://dblp.l3s.de/d2r/resource/publications/" + key + ">" +
+                            " <http://www.w3.org/2002/07/owl#sameAs> ");
                 }
             }
+        String [] characterList = {"author", "title", "pages", "volume", "journal", "number",
+                "url", };
             if(event.isCharacters()){
                 Characters character = event.asCharacters();
                 if(!character.getData().toString().equals("\n")) {
-                    if (nameElement.equals("author"))
-                        writer.write("<" + character.getData().toString() + ">." + "\n");
+                    if (Arrays.asList(characterList).contains(nameElement))
+                        writer.write("\"" + character.getData().toString() + "\"" + "^^<http://www.w3.org/2001/XMLSchema#string> ." + "\n");
+                    else if (nameElement.equals("year"))
+                        writer.write("\"" + character.getData().toString() + "\"" + "^^<http://www.w3.org/2001/XMLSchema#gYear> ." + "\n");
+                    else if (nameElement.equals("ee"))
+                        writer.write("<" + character.getData().toString() + "> ." + "\n");
                 }
             }
 
