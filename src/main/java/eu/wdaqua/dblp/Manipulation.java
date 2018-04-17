@@ -1,3 +1,5 @@
+package eu.wdaqua.dblp;
+
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
