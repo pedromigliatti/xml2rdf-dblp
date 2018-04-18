@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.util.Map;
 
 public class Utility {
-    //    author|editor|title|booktitle|pages|year|address|journal|volume|number|month|url|ee|cdrom|cite|publisher|note|crossref|isbn|series|school|chapter|publnr
 
     public static final String MDATE = " <mdate> ";
     public static final String AUTHOR = " <http://dbpedia.org/ontology/author> ";
@@ -23,6 +22,19 @@ public class Utility {
     public static final String EE = " <http://www.w3.org/2002/07/owl#sameAs> ";
     public static final String NOTE = " <note> ";
     public static final String CITE = " <cite> ";
+    public static final String EDITOR = "";
+    public static final String BOOKTITLE = "";
+    public static final String ADDRESS = "";
+    public static final String MOUTH = "";
+    public static final String CDROM = "";
+    public static final String PUBLISHER = "";
+    public static final String CROSSREF = "";
+    public static final String ISBN = "";
+    public static final String SERIES = "";
+    public static final String SCHOOL = "";
+    public static final String CHAPTER = "";
+    public static final String PUBLNR = "";
+
 
 
 
