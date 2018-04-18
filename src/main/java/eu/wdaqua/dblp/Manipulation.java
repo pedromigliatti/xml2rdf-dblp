@@ -130,6 +130,49 @@ public class Manipulation {
             }
         });
 
+        writer.append(finalElementPattern + elements.get("key") + ">" +
+                " <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ");
+        switch(type){
+            case ConstantList.ARTICLE:
+                writer.append("<http://swrc.ontoware.org/ontology#Article> .\n");
+                break;
+            case ConstantList.I:
+                writer.append("<http://swrc.ontoware.org/ontology#Article> .\n");
+                break;
+            case ConstantList.SUB:
+                writer.append("<http://swrc.ontoware.org/ontology#Article> .\n");
+                break;
+            case ConstantList.SUP:
+                writer.append("<http://swrc.ontoware.org/ontology#Article> .\n");
+                break;
+            case ConstantList.PROCEEDINGS:
+                writer.append("<http://purl.org/ontology/bibo/Proceedings> .\n");
+                break;
+            case ConstantList.INPROCEEDINGS:
+                writer.append("<http://swrc.ontoware.org/ontology#InProceedings> .\n");
+                break;
+            case ConstantList.TT:
+                writer.append("<http://swrc.ontoware.org/ontology#Article> .\n");
+                break;
+            case ConstantList.INCOLLECTION:
+                writer.append("<http://swrc.ontoware.org/ontology#InCollection> .\n");
+                break;
+            case ConstantList.BOOK:
+                writer.append("<http://swrc.ontoware.org/ontology#Book> .\n");
+                break;
+            case ConstantList.PHDTHESIS:
+                writer.append("<http://swrc.ontoware.org/ontology#PhDThesis> .\n");
+                break;
+            case ConstantList.MASTERSTHESIS:
+                writer.append("<http://sw-portal.deri.org/ontologies/swportal#MasterThesis> .\n");
+                break;
+            case ConstantList.WWW:
+                writer.append("<http://xmlns.com/foaf/0.1/Person> .\n");
+                break;
+
+        }
+
+
 
         Utility.writeStringBuffer(writer,Main.outputFile,true);
         writer.delete(0, writer.length());

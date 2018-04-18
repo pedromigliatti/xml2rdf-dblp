@@ -20,8 +20,8 @@ public class Utility {
     public static final String URL = " <http://purl.org/dc/elements/1.1/identifier> ";
     public static final String URL_WWW = " <http://schema.org/url> ";
     public static final String EE = " <http://www.w3.org/2002/07/owl#sameAs> ";
-    public static final String NOTE = " <http://www.w3.org/2004/02/skos/core#note> "; //I could not map
-    public static final String CITE = " <http://www.w3.org/1999/xhtml/vocab#cite> "; //I could not map
+    public static final String NOTE = " <http://www.w3.org/2004/02/skos/core#note> ";
+    public static final String CITE = " <http://www.w3.org/1999/xhtml/vocab#cite> ";
     public static final String EDITOR = " <http://schema.org/editor> ";
     public static final String BOOKTITLE = " <booktitle> ";
     public static final String ADDRESS = "<http://schema.org/address>";
