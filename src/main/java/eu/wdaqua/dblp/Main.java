@@ -1,5 +1,7 @@
 package eu.wdaqua.dblp;
 
+import com.ctc.wstx.api.WstxInputProperties;
+
 import javax.xml.stream.XMLEventReader;
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamException;
@@ -14,16 +16,15 @@ import java.io.IOException;
 import java.util.*;
 
 public class Main {
-//    public static String outputFile = "/home_expes/dd77474h/datasets/dblp_new/dump/dblp.nt";
-//    public static String inputFile = "/home_expes/dd77474h/datasets/dblp_new/dump/dblp.xml";
-    public static String outputFile = "/home/pedro/Documentos/WDAqua/dblp.nt";
-    public static String inputFile = "/home/pedro/Documentos/WDAqua/dblp.xml";
+    public static String outputFile = "/home_expes/dd77474h/datasets/dblp_new/dump/dblp.nt";
+    public static String inputFile = "/home_expes/dd77474h/datasets/dblp_new/dump/dblp.xml";
+//    public static String outputFile = "/home/pedro/Documentos/WDAqua/dblp.nt";
+//    public static String inputFile = "/home/pedro/Documentos/WDAqua/dblp.xml";
 
     public static void main(String[] args) throws IOException, XMLStreamException {
         XMLInputFactory factory = XMLInputFactory.newInstance();
 
         factory.setProperty(XMLInputFactory.IS_VALIDATING, true);
-
 
         //remeber that is necessary put the dblp.xml in the directory "files"
         FileInputStream fileXML = new FileInputStream(inputFile);
