@@ -8,7 +8,7 @@ import java.util.Map;
 
 public class Utility {
 
-    public static final String MDATE = " <mdate> ";
+    public static final String MDATE = " <http://schema.org/dateModified> ";
     public static final String AUTHOR = " <http://dbpedia.org/ontology/author> ";
     public static final String NAME = " <https://schema.org/name> ";
     public static final String TITLE = " <http://purl.org/dc/elements/1.1/title> ";
@@ -22,18 +22,18 @@ public class Utility {
     public static final String EE = " <http://www.w3.org/2002/07/owl#sameAs> ";
     public static final String NOTE = " <note> ";
     public static final String CITE = " <cite> ";
-    public static final String EDITOR = "";
-    public static final String BOOKTITLE = "";
-    public static final String ADDRESS = "";
-    public static final String MOUTH = "";
-    public static final String CDROM = "";
-    public static final String PUBLISHER = "";
-    public static final String CROSSREF = "";
-    public static final String ISBN = "";
-    public static final String SERIES = "";
-    public static final String SCHOOL = "";
-    public static final String CHAPTER = "";
-    public static final String PUBLNR = "";
+    public static final String EDITOR = " <http://schema.org/editor> ";
+    public static final String BOOKTITLE = " <booktitle> ";
+    public static final String ADDRESS = "<http://schema.org/address>";
+    public static final String MONTH = " <http://purl.org/dc/terms/issued> ";
+    public static final String CDROM = " <cdrom> ";
+    public static final String PUBLISHER = " <http://schema.org/publisher> ";
+    public static final String CROSSREF = " <crossref> ";
+    public static final String ISBN = " <isbn> ";
+    public static final String SERIES = " <series> ";
+    public static final String SCHOOL = " <school> ";
+    public static final String CHAPTER = " <chapter> ";
+    public static final String PUBLNR = " <publnr> ";
 
 
 
