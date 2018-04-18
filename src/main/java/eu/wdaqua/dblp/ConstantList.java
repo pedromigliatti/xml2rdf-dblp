@@ -27,11 +27,7 @@ public class ConstantList {
     public static final String PUBLNR = "publnr";
 
     public static final String ARTICLE = "article";
-    public static final String I = "i";
-    public static final String SUB = "sub";
-    public static final String SUP = "sup";
     public static final String PROCEEDINGS = "proceedings";
-    public static final String TT = "tt";
     public static final String INPROCEEDINGS = "inproceedings";
     public static final String INCOLLECTION = "incollection";
     public static final String BOOK = "book";

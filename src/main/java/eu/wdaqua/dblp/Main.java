@@ -25,6 +25,7 @@ public class Main {
         XMLInputFactory factory = XMLInputFactory.newInstance();
 
         factory.setProperty(XMLInputFactory.IS_VALIDATING, true);
+        factory.setProperty(WstxInputProperties.P_MAX_ENTITY_COUNT, Integer.valueOf(999999999));
 
         //remeber that is necessary put the dblp.xml in the directory "files"
         FileInputStream fileXML = new FileInputStream(inputFile);

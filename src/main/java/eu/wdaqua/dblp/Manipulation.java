@@ -136,23 +136,11 @@ public class Manipulation {
             case ConstantList.ARTICLE:
                 writer.append("<http://swrc.ontoware.org/ontology#Article> .\n");
                 break;
-            case ConstantList.I:
-                writer.append("<http://swrc.ontoware.org/ontology#Article> .\n");
-                break;
-            case ConstantList.SUB:
-                writer.append("<http://swrc.ontoware.org/ontology#Article> .\n");
-                break;
-            case ConstantList.SUP:
-                writer.append("<http://swrc.ontoware.org/ontology#Article> .\n");
-                break;
             case ConstantList.PROCEEDINGS:
                 writer.append("<http://purl.org/ontology/bibo/Proceedings> .\n");
                 break;
             case ConstantList.INPROCEEDINGS:
                 writer.append("<http://swrc.ontoware.org/ontology#InProceedings> .\n");
-                break;
-            case ConstantList.TT:
-                writer.append("<http://swrc.ontoware.org/ontology#Article> .\n");
                 break;
             case ConstantList.INCOLLECTION:
                 writer.append("<http://swrc.ontoware.org/ontology#InCollection> .\n");
