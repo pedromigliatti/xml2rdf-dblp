@@ -1,0 +1,34 @@
+<http://swrc.ontoware.org/ontology#Article> <http://www.w3.org/2002/07/owl#sameAs> <https://www.wikidata.org/wiki/Q191067> .
+<http://purl.org/ontology/bibo/Proceedings> <http://www.w3.org/2002/07/owl#sameAs> <https://www.wikidata.org/wiki/Q1143604> .
+<http://swrc.ontoware.org/ontology#InProceedings> <http://www.w3.org/2002/07/owl#sameAs> <https://www.wikidata.org/wiki/Q2020153> .
+<http://swrc.ontoware.org/ontology#InCollection> <http://www.w3.org/2002/07/owl#sameAs> <https://www.wikidata.org/wiki/Q1980247> .
+<http://swrc.ontoware.org/ontology#Book> <http://www.w3.org/2002/07/owl#sameAs> <https://www.wikidata.org/wiki/Q571> .
+<http://swrc.ontoware.org/ontology#PhDThesis> <http://www.w3.org/2002/07/owl#sameAs> <https://www.wikidata.org/wiki/Q187685> .
+<http://sw-portal.deri.org/ontologies/swportal#MasterThesis> <http://www.w3.org/2002/07/owl#sameAs> <https://www.wikidata.org/wiki/Q1907875> .
+<http://xmlns.com/foaf/0.1/Person> <http://www.w3.org/2002/07/owl#sameAs> <https://www.wikidata.org/wiki/Q5> .
+
+<http://schema.org/dateModified> <http://www.w3.org/2002/07/owl#sameAs> <> .
+<http://dbpedia.org/ontology/author> <http://www.w3.org/2002/07/owl#sameAs> <https://www.wikidata.org/wiki/Q36180> .
+<https://schema.org/name> <http://www.w3.org/2002/07/owl#sameAs> <https://www.wikidata.org/wiki/Q82799> .
+<http://purl.org/dc/elements/1.1/title> <http://www.w3.org/2002/07/owl#sameAs> <https://www.wikidata.org/wiki/Q783521> .
+<http://swrc.ontoware.org/ontology#pages> <http://www.w3.org/2002/07/owl#sameAs> <https://www.wikidata.org/wiki/Q1069725> .
+<http://purl.org/dc/terms/issued> <http://www.w3.org/2002/07/owl#sameAs> <https://www.wikidata.org/wiki/Property:P2378> .
+<http://swrc.ontoware.org/ontology#volume> <http://www.w3.org/2002/07/owl#sameAs> <https://www.wikidata.org/wiki/Q1238720> .
+<http://swrc.ontoware.org/ontology#journal> <http://www.w3.org/2002/07/owl#sameAs> <https://www.wikidata.org/wiki/Q737498> .
+<http://swrc.ontoware.org/ontology#number> <http://www.w3.org/2002/07/owl#sameAs> <https://www.wikidata.org/wiki/Q11563> .
+<http://purl.org/dc/elements/1.1/identifier> <http://www.w3.org/2002/07/owl#sameAs> <https://www.wikidata.org/wiki/Q61694> .
+<http://schema.org/url> <http://www.w3.org/2002/07/owl#sameAs> <https://www.wikidata.org/wiki/Q42253> .
+<http://www.w3.org/2002/07/owl#sameAs> <http://www.w3.org/2002/07/owl#sameAs> <> .
+<http://www.w3.org/2004/02/skos/core#note> <http://www.w3.org/2002/07/owl#sameAs> <https://www.wikidata.org/wiki/Q1619873> .
+<http://www.w3.org/1999/xhtml/vocab#cite> <http://www.w3.org/2002/07/owl#sameAs> <https://www.wikidata.org/wiki/Q1713> .
+<http://schema.org/editor> <http://www.w3.org/2002/07/owl#sameAs> <https://www.wikidata.org/wiki/Q1607826> .
+<booktitle>
+<http://schema.org/address> <http://www.w3.org/2002/07/owl#sameAs> <https://www.wikidata.org/wiki/Q319608> .
+<http://lsdis.cs.uga.edu/projects/semdis/opus#cdrom> <http://www.w3.org/2002/07/owl#sameAs> <https://www.wikidata.org/wiki/Q35990537> .
+<http://schema.org/publisher> <http://www.w3.org/2002/07/owl#sameAs> <https://www.wikidata.org/wiki/Q2085381> .
+<http://purl.org/net/nknouf/ns/bibtex#hasCrossref> <http://www.w3.org/2002/07/owl#sameAs> <https://www.wikidata.org/wiki/Q5188229> .
+<http://schema.org/isbn> <http://www.w3.org/2002/07/owl#sameAs> <https://www.wikidata.org/wiki/Q33057> .
+<http://lsdis.cs.uga.edu/projects/semdis/opus#in_series> <http://www.w3.org/2002/07/owl#sameAs> <> .
+<http://lsdis.cs.uga.edu/projects/semdis/opus#School> <http://www.w3.org/2002/07/owl#sameAs> <https://www.wikidata.org/wiki/Q3914> .
+<http://lsdis.cs.uga.edu/projects/semdis/opus#chapter> <http://www.w3.org/2002/07/owl#sameAs> <https://www.wikidata.org/wiki/Q1980247> .
+<publnr>

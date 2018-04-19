@@ -18,8 +18,14 @@ import java.util.*;
 public class Main {
     public static String outputFile = "/home_expes/dd77474h/datasets/dblp_new/dump/dblp.nt";
     public static String inputFile = "/home_expes/dd77474h/datasets/dblp_new/dump/dblp.xml";
+
+    //Directory of tests on Pedro's computer
 //    public static String outputFile = "/home/pedro/Documentos/WDAqua/dblp.nt";
-//    public static String inputFile = "/home/pedro/Documentos/WDAqua/dblp.xml";
+////    public static String inputFile = "/home/pedro/Documentos/WDAqua/dblp.xml";
+//    public static String inputFile = "/home/pedro/Documentos/WDAqua/personRecordsExample.xml";
+
+    public static List typeList = Arrays.asList("article","proceedings","inproceedings","incollection","book","phdthesis","mastersthesis","www");
+    public static List elementList = Arrays.asList("author","editor","title","booktitle","pages","year","address","journal","volume","number","month","url","ee","cdrom","cite","publisher","note","crossref","isbn","series","school","chapter","publnr");
 
     public static void main(String[] args) throws IOException, XMLStreamException {
         XMLInputFactory factory = XMLInputFactory.newInstance();
@@ -27,17 +33,21 @@ public class Main {
         factory.setProperty(XMLInputFactory.IS_VALIDATING, true);
         factory.setProperty(WstxInputProperties.P_MAX_ENTITY_COUNT, Integer.valueOf(999999999));
 
-        //remeber that is necessary put the dblp.xml in the directory "files"
         FileInputStream fileXML = new FileInputStream(inputFile);
 
         XMLEventReader reader = factory.createXMLEventReader(inputFile, fileXML);
 
         String elementName = "";
         String type = "";
-        List typeList = Arrays.asList("article","i","sub","sup","proceedings","tt","inproceedings","incollection","book","phdthesis","mastersthesis","www");
-        List<String> elementsList = Arrays.asList("author","editor","title","booktitle","pages","year","address","journal","volume","number","month","url","ee","cdrom","cite","publisher","note","crossref","isbn","series","school","chapter","publnr");
 
         Map<String,String> elements = new HashMap<String, String>();
+        Map<String,String> persons = new HashMap<String, String>();
+
+        persons = Manipulation.extractPersonRecords();
+
+        Manipulation.writeVocabulary(typeList, elementList);
+
+
 
         while (reader.hasNext()) {
             XMLEvent event = reader.nextEvent();
@@ -57,7 +67,7 @@ public class Main {
             }
             else if(event.isEndElement()){
                 if(event.asEndElement().getName().toString().contains(type)){
-                    Manipulation.mapToRDF(type, elements);
+                    Manipulation.mapToRDF(type, elements, persons);
                     elements.clear();
                 }
             }

@@ -23,7 +23,7 @@ public class Utility {
     public static final String NOTE = " <http://www.w3.org/2004/02/skos/core#note> ";
     public static final String CITE = " <http://www.w3.org/1999/xhtml/vocab#cite> ";
     public static final String EDITOR = " <http://schema.org/editor> ";
-    public static final String BOOKTITLE = " <booktitle> ";
+    public static final String BOOKTITLE = " <booktitle> "; //I could not map
     public static final String ADDRESS = "<http://schema.org/address>";
     public static final String MONTH = " <http://purl.org/dc/terms/issued> ";
     public static final String CDROM = " <http://lsdis.cs.uga.edu/projects/semdis/opus#cdrom> ";
@@ -34,6 +34,16 @@ public class Utility {
     public static final String SCHOOL = " <http://lsdis.cs.uga.edu/projects/semdis/opus#School> ";
     public static final String CHAPTER = " <http://lsdis.cs.uga.edu/projects/semdis/opus#chapter> ";
     public static final String PUBLNR = " <publnr> "; //I could not map
+
+    public static final String ARTICLE = "<http://swrc.ontoware.org/ontology#Article> ";
+    public static final String PROCEEDINGS = "<http://purl.org/ontology/bibo/Proceedings> ";
+    public static final String INPROCEEDINGS = "<http://swrc.ontoware.org/ontology#InProceedings> ";
+    public static final String INCOLLECTION = "<http://swrc.ontoware.org/ontology#InCollection> ";
+    public static final String BOOK = "<http://swrc.ontoware.org/ontology#Book> ";
+    public static final String PHDTHESIS = "<http://swrc.ontoware.org/ontology#PhDThesis> ";
+    public static final String MASTERSTHESIS = "<http://sw-portal.deri.org/ontologies/swportal#MasterThesis> ";
+    public static final String WWW = "<http://xmlns.com/foaf/0.1/Person> ";
+
 
 
 
