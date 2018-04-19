@@ -40,8 +40,8 @@ public class Main {
         String elementName = "";
         String type = "";
 
-        Map<String,String> elements = new HashMap<String, String>();
-        Map<String,String> persons = new HashMap<String, String>();
+        Map<String,String> elements = new HashMap<>();
+        Map<String,String> persons;
 
         persons = Manipulation.extractPersonRecords();
 
@@ -58,12 +58,12 @@ public class Main {
                 Iterator attributes = event.asStartElement().getAttributes();
                 while (attributes.hasNext()) {
                     Attribute attribute = (Attribute) attributes.next();
-                    elements.put(attribute.getName().toString(), attribute.getValue());
+                    elements.put(attribute.getValue(), attribute.getName().toString());
                 }
             }
             else if(event.isCharacters()){
                 if(!event.asCharacters().getData().toString().equals("\n"))
-                    elements.put(elementName.toString(), event.asCharacters().getData().toString());
+                    elements.put(event.asCharacters().getData().toString(),elementName.toString());
             }
             else if(event.isEndElement()){
                 if(event.asEndElement().getName().toString().contains(type)){

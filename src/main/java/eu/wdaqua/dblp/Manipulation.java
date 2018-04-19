@@ -21,132 +21,140 @@ public class Manipulation {
     public static void mapToRDF(String type, Map<String, String> elements, Map<String, String> persons) throws IOException {
 
         StringBuffer writer = new StringBuffer();
+        String key = "";
+
+        for(String item : elements.keySet()){
+            if(elements.get(item).equals("key")) {
+                key = item.replace("homepages/", "");
+            }
+        }
+        elements.remove(key);
 
         String elementPattern = "";
-        if (type.equals("article")) {
+        if (!type.equals("www")) {
             elementPattern = "<https://dblp.org/rec/html/";
-        } else if (type.equals("www")) {
+        } else {
             elementPattern = "<https://dblp.org/pid/";
         }
         String finalElementPattern = elementPattern;
+        String finalKey = key;
         elements.entrySet().forEach((pair) -> {
-            switch (pair.getKey()) {
+            writer.append(finalElementPattern + finalKey + ">");
+            switch (pair.getValue()) {
                 case ConstantList.MDATE:
                     writer.append(
                             Utility.MDATE +
-                                    "\"" + elements.get("mdate") + "\"" +
+                                    "\"" + pair.getKey() + "\"" +
                                     "^^<http://www.w3.org/2001/XMLSchema#date> ." +
                                     "\n");
                     break;
                 case ConstantList.AUTHOR:
-                    writer.append(finalElementPattern + elements.get("key") + ">");
                     if (!type.equals("www")) {
                         writer.append(Utility.AUTHOR);
-                        writer.append("<" + persons.get(elements.get("author")) + "> .\n");
+                        writer.append("<" + persons.get(pair.getKey()) + "> .\n");
                     }
                     else {
                         writer.append(Utility.NAME);
-                        writer.append("\"" + elements.get("author") + "\"" + "^^<http://www.w3.org/2001/XMLSchema#string> .\n");
+                        writer.append("\"" + pair.getKey() + "\"" + "^^<http://www.w3.org/2001/XMLSchema#string> .\n");
                     }
                     break;
                 case ConstantList.TITLE:
                     writer.append(
-                            Utility.TITLE + "\"" + elements.get("title") + "\"" + "^^<http://www.w3.org/2001/XMLSchema#string> .\n");
+                            Utility.TITLE + "\"" + pair.getKey() + "\"" + "^^<http://www.w3.org/2001/XMLSchema#string> .\n");
                     break;
                 case ConstantList.PAGES:
                     writer.append(
-                            Utility.PAGES + "\"" + elements.get("pages") + "\"" + "^^<http://www.w3.org/2001/XMLSchema#string> .\n");
+                            Utility.PAGES + "\"" + pair.getKey() + "\"" + "^^<http://www.w3.org/2001/XMLSchema#string> .\n");
                     break;
                 case ConstantList.YEAR:
                     writer.append(
-                            Utility.YEAR + "\"" + elements.get("year") + "\"" + "^^<http://www.w3.org/2001/XMLSchema#gYear> ." + "\n");
+                            Utility.YEAR + "\"" + pair.getKey() + "\"" + "^^<http://www.w3.org/2001/XMLSchema#gYear> ." + "\n");
                     break;
                 case ConstantList.VOLUME:
                     writer.append(
-                            Utility.VOLUME + "\"" + elements.get("volume") + "\"" + "^^<http://www.w3.org/2001/XMLSchema#string> .\n");
+                            Utility.VOLUME + "\"" + pair.getKey() + "\"" + "^^<http://www.w3.org/2001/XMLSchema#string> .\n");
                     break;
                 case ConstantList.JOURNAL:
                     writer.append(
-                            Utility.JOURNAL + "\"" + elements.get("journal") + "\"" + "^^<http://www.w3.org/2001/XMLSchema#string> .\n");
+                            Utility.JOURNAL + "\"" + pair.getKey() + "\"" + "^^<http://www.w3.org/2001/XMLSchema#string> .\n");
                     break;
                 case ConstantList.NUMBER:
                     writer.append(
-                            Utility.NUMBER + "\"" + elements.get("number") + "\"" + "^^<http://www.w3.org/2001/XMLSchema#string> .\n");
+                            Utility.NUMBER + "\"" + pair.getKey() + "\"" + "^^<http://www.w3.org/2001/XMLSchema#string> .\n");
                     break;
                 case ConstantList.URL:
-                    writer.append(finalElementPattern + elements.get("key") + ">");
                     if (!type.equals("www"))
                         writer.append(Utility.URL);
                     else
                         writer.append(Utility.URL_WWW);
-                    writer.append("\"" + elements.get("url") + "\"" + "^^<http://www.w3.org/2001/XMLSchema#string> .\n");
+                    writer.append("\"" + pair.getKey() + "\"" + "^^<http://www.w3.org/2001/XMLSchema#string> .\n");
                     break;
                 case ConstantList.EE:
                     writer.append(
-                            Utility.EE + "<" + elements.get("ee") + "> .\n");
+                            Utility.EE + "<" + pair.getKey() + "> .\n");
                     break;
                 case ConstantList.NOTE:
                     writer.append(
-                            Utility.NOTE + "<" + elements.get("note") + "> .\n");
+                            Utility.NOTE + "<" + pair.getKey() + "> .\n");
                     break;
                 case ConstantList.CITE:
                     writer.append(
-                            Utility.CITE + "<" + elements.get("cite") + "> .\n");
+                            Utility.CITE + "<" + pair.getKey() + "> .\n");
                     break;
                 case ConstantList.MONTH:
                     writer.append(
-                            Utility.MONTH + "\"" + elements.get("month") + "\"" + "^^<https://www.w3.org/2001/XMLSchema#gMonth> .\n");
+                            Utility.MONTH + "\"" + pair.getKey() + "\"" + "^^<https://www.w3.org/2001/XMLSchema#gMonth> .\n");
                     break;
                 case ConstantList.ADDRESS:
                     writer.append(
-                            Utility.ADDRESS + "\"" + elements.get("address") + "\"" + "^^<http://www.w3.org/2001/XMLSchema#string> .\n");
+                            Utility.ADDRESS + "\"" + pair.getKey() + "\"" + "^^<http://www.w3.org/2001/XMLSchema#string> .\n");
                     break;
                 case ConstantList.EDITOR:
                     writer.append(
-                            Utility.EDITOR + "\"" + elements.get("editor") + "\"" + "^^<http://www.w3.org/2001/XMLSchema#string> .\n");
+                            Utility.EDITOR + "\"" + pair.getKey() + "\"" + "^^<http://www.w3.org/2001/XMLSchema#string> .\n");
                     break;
                 case ConstantList.PUBLISHER:
                     writer.append(
-                            Utility.PUBLISHER + "\"" + elements.get("publisher") + "\"" + "^^<http://www.w3.org/2001/XMLSchema#string> .\n");
+                            Utility.PUBLISHER + "\"" + pair.getKey() + "\"" + "^^<http://www.w3.org/2001/XMLSchema#string> .\n");
                     break;
                 case ConstantList.BOOKTITLE:
                     writer.append(
-                            Utility.BOOKTITLE + "\"" + elements.get("booktitle") + "\"" + "^^<http://www.w3.org/2001/XMLSchema#string> .\n");
+                            Utility.BOOKTITLE + "\"" + pair.getKey() + "\"" + "^^<http://www.w3.org/2001/XMLSchema#string> .\n");
                     break;
                 case ConstantList.CDROM:
                     writer.append(
-                            Utility.CDROM + "\"" + elements.get("cdrom") + "\"" + "^^<http://www.w3.org/2001/XMLSchema#string> .\n");
+                            Utility.CDROM + "\"" + pair.getKey() + "\"" + "^^<http://www.w3.org/2001/XMLSchema#string> .\n");
                     break;
                 case ConstantList.CROSSREF:
                     writer.append(
-                            Utility.CROSSREF + "\"" + elements.get("crossref") + "\"" + "^^<http://www.w3.org/2001/XMLSchema#string> .\n");
+                            Utility.CROSSREF + "\"" + pair.getKey() + "\"" + "^^<http://www.w3.org/2001/XMLSchema#string> .\n");
                     break;
                 case ConstantList.ISBN:
                     writer.append(
-                            Utility.ISBN + "\"" + elements.get("isbn") + "\"" + "^^<http://www.w3.org/2001/XMLSchema#string> .\n");
+                            Utility.ISBN + "\"" + pair.getKey() + "\"" + "^^<http://www.w3.org/2001/XMLSchema#string> .\n");
                     break;
                 case ConstantList.SERIES:
                     writer.append(
-                            Utility.SERIES + "\"" + elements.get("series") + "\"" + "^^<http://www.w3.org/2001/XMLSchema#string> .\n");
+                            Utility.SERIES + "\"" + pair.getKey() + "\"" + "^^<http://www.w3.org/2001/XMLSchema#string> .\n");
                     break;
                 case ConstantList.SCHOOL:
                     writer.append(
-                            Utility.SCHOOL + "\"" + elements.get("school") + "\"" + "^^<http://www.w3.org/2001/XMLSchema#string> .\n");
+                            Utility.SCHOOL + "\"" + pair.getKey() + "\"" + "^^<http://www.w3.org/2001/XMLSchema#string> .\n");
                     break;
                 case ConstantList.CHAPTER:
                     writer.append(
-                            Utility.CHAPTER + "\"" + elements.get("chapter") + "\"" + "^^<http://www.w3.org/2001/XMLSchema#string> .\n");
+                            Utility.CHAPTER + "\"" + pair.getKey() + "\"" + "^^<http://www.w3.org/2001/XMLSchema#string> .\n");
                     break;
                 case ConstantList.PUBLNR:
                     writer.append(
-                            Utility.PUBLNR + "\"" + elements.get("publnr") + "\"" + "^^<http://www.w3.org/2001/XMLSchema#string> .\n");
+                            Utility.PUBLNR + "\"" + pair.getKey() + "\"" + "^^<http://www.w3.org/2001/XMLSchema#string> .\n");
                     break;
                 default:
                     break;
             }
         });
 
-        writer.append(
+        writer.append(finalElementPattern + finalKey + ">"+
                 " <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ");
         switch (type) {
             case ConstantList.ARTICLE:
@@ -358,6 +366,7 @@ public class Manipulation {
 
                     persons.put(personName, key.replace("homepages/","https://dblp.org/pid/" ));
                     extractName = false;
+                    key = "";
                 }
             }
         }
