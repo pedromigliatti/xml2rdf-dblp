@@ -45,111 +45,111 @@ public class Manipulation {
             switch (pair.getValue()) {
                 case ConstantList.MDATE:
                     writer.append(
-                            Utility.MDATE +
+                            Properties.MDATE +
                                     "\"" + pair.getKey().replace("\"","\\\"") + "\\\"" +
                                     "^^<http://www.w3.org/2001/XMLSchema#date> ." +
                                     "\n");
                     break;
                 case ConstantList.AUTHOR:
                     if (!type.equals("www")) {
-                        writer.append(Utility.AUTHOR);
+                        writer.append(Properties.AUTHOR);
                         writer.append("<" + persons.get(pair.getKey().replace("\"","\\\"")) + "> .\n");
                     }
                     else {
-                        writer.append(Utility.NAME);
+                        writer.append(Properties.NAME);
                         writer.append("\"" + pair.getKey().replace("\"","\\\"") + "\"" + "^^<http://www.w3.org/2001/XMLSchema#string> .\n");
                     }
                     break;
                 case ConstantList.TITLE:
                     writer.append(
-                            Utility.TITLE + "\"" + pair.getKey().replace("\"","\\\"") + "\"" + "^^<http://www.w3.org/2001/XMLSchema#string> .\n");
+                            Properties.TITLE + "\"" + pair.getKey().replace("\"","\\\"") + "\"" + "^^<http://www.w3.org/2001/XMLSchema#string> .\n");
                     break;
                 case ConstantList.PAGES:
                     writer.append(
-                            Utility.PAGES + "\"" + pair.getKey().replace("\"","\\\"") + "\"" + "^^<http://www.w3.org/2001/XMLSchema#string> .\n");
+                            Properties.PAGES + "\"" + pair.getKey().replace("\"","\\\"") + "\"" + "^^<http://www.w3.org/2001/XMLSchema#string> .\n");
                     break;
                 case ConstantList.YEAR:
                     writer.append(
-                            Utility.YEAR + "\"" + pair.getKey().replace("\"","\\\"") + "\"" + "^^<http://www.w3.org/2001/XMLSchema#gYear> ." + "\n");
+                            Properties.YEAR + "\"" + pair.getKey().replace("\"","\\\"") + "\"" + "^^<http://www.w3.org/2001/XMLSchema#gYear> ." + "\n");
                     break;
                 case ConstantList.VOLUME:
                     writer.append(
-                            Utility.VOLUME + "\"" + pair.getKey().replace("\"","\\\"") + "\"" + "^^<http://www.w3.org/2001/XMLSchema#integer> .\n");
+                            Properties.VOLUME + "\"" + pair.getKey().replace("\"","\\\"") + "\"" + "^^<http://www.w3.org/2001/XMLSchema#integer> .\n");
                     break;
                 case ConstantList.JOURNAL:
                     writer.append(
-                            Utility.JOURNAL + "<" + pair.getKey().replace("\"","\\\"") + "> .\n");
+                            Properties.JOURNAL + "<" + pair.getKey().replace("\"","\\\"") + "> .\n");
                     break;
                 case ConstantList.NUMBER:
                     writer.append(
-                            Utility.NUMBER + "\"" + pair.getKey().replace("\"","\\\"") + "\"" + "^^<http://www.w3.org/2001/XMLSchema#string> .\n");
+                            Properties.NUMBER + "\"" + pair.getKey().replace("\"","\\\"") + "\"" + "^^<http://www.w3.org/2001/XMLSchema#string> .\n");
                     break;
                 case ConstantList.URL:
                     if (!type.equals("www"))
-                        writer.append(Utility.URL);
+                        writer.append(Properties.URL);
                     else
-                        writer.append(Utility.URL_WWW);
+                        writer.append(Properties.URL_WWW);
                     writer.append("<http://dblp.uni-trier.de/" +  pair.getKey().replace("\"","\\\"") + "> .\n");
                     break;
                 case ConstantList.EE:
                     writer.append(
-                            Utility.EE + "<" + pair.getKey().replace("\"","\\\"") + "> .\n");
+                            Properties.EE + "<" + pair.getKey().replace("\"","\\\"") + "> .\n");
                     break;
                 case ConstantList.NOTE:
                     writer.append(
-                            Utility.NOTE + "<" + pair.getKey().replace("\"","\\\"") + "> .\n");
+                            Properties.NOTE + "<" + pair.getKey().replace("\"","\\\"") + "> .\n");
                     break;
                 case ConstantList.CITE:
                     writer.append(
-                            Utility.CITE + "<" + "https://dblp.org/rec/html/" + pair.getKey().replace("\"","\\\"") + "> .\n");
+                            Properties.CITE + "<" + "https://dblp.org/rec/html/" + pair.getKey().replace("\"","\\\"") + "> .\n");
                     break;
                 case ConstantList.MONTH:
                     writer.append(
-                            Utility.MONTH + "\"" + pair.getKey().replace("\"","\\\"") + "\"" + "^^<https://www.w3.org/2001/XMLSchema#gMonth> .\n");
+                            Properties.MONTH + "\"" + pair.getKey().replace("\"","\\\"") + "\"" + "^^<https://www.w3.org/2001/XMLSchema#gMonth> .\n");
                     break;
                 case ConstantList.ADDRESS:
                     writer.append(
-                            Utility.ADDRESS + "\"" + pair.getKey().replace("\"","\\\"") + "\"" + "^^<http://www.w3.org/2001/XMLSchema#string> .\n");
+                            Properties.ADDRESS + "\"" + pair.getKey().replace("\"","\\\"") + "\"" + "^^<http://www.w3.org/2001/XMLSchema#string> .\n");
                     break;
                 case ConstantList.EDITOR:
                     writer.append(
-                            Utility.EDITOR + "\"" + pair.getKey().replace("\"","\\\"") + "\"" + "^^<http://www.w3.org/2001/XMLSchema#string> .\n");
+                            Properties.EDITOR + "\"" + pair.getKey().replace("\"","\\\"") + "\"" + "^^<http://www.w3.org/2001/XMLSchema#string> .\n");
                     break;
                 case ConstantList.PUBLISHER:
                     writer.append(
-                            Utility.PUBLISHER + "\"" + pair.getKey().replace("\"","\\\"") + "\"" + "^^<http://www.w3.org/2001/XMLSchema#string> .\n");
+                            Properties.PUBLISHER + "\"" + pair.getKey().replace("\"","\\\"") + "\"" + "^^<http://www.w3.org/2001/XMLSchema#string> .\n");
                     break;
                 case ConstantList.BOOKTITLE:
                     writer.append(
-                            Utility.BOOKTITLE + "<" + pair.getKey().replace("\"","\\\"") + "> .\n");
+                            Properties.BOOKTITLE + "<" + pair.getKey().replace("\"","\\\"") + "> .\n");
                     break;
                 case ConstantList.CDROM:
                     writer.append(
-                            Utility.CDROM + "\"" + pair.getKey().replace("\"","\\\"") + "\"" + "^^<http://www.w3.org/2001/XMLSchema#string> .\n");
+                            Properties.CDROM + "\"" + pair.getKey().replace("\"","\\\"") + "\"" + "^^<http://www.w3.org/2001/XMLSchema#string> .\n");
                     break;
                 case ConstantList.CROSSREF:
                     writer.append(
-                            Utility.CROSSREF + "<" + pair.getKey().replace("\"","\\\"") + "> .\n");
+                            Properties.CROSSREF + "<" + pair.getKey().replace("\"","\\\"") + "> .\n");
                     break;
                 case ConstantList.ISBN:
                     writer.append(
-                            Utility.ISBN + "\"" + pair.getKey().replace("\"","\\\"") + "\"" + "^^<http://www.w3.org/2001/XMLSchema#string> .\n");
+                            Properties.ISBN + "\"" + pair.getKey().replace("\"","\\\"") + "\"" + "^^<http://www.w3.org/2001/XMLSchema#string> .\n");
                     break;
                 case ConstantList.SERIES:
                     writer.append(
-                            Utility.SERIES + "\"" + pair.getKey().replace("\"","\\\"") + "\"" + "^^<http://www.w3.org/2001/XMLSchema#string> .\n");
+                            Properties.SERIES + "\"" + pair.getKey().replace("\"","\\\"") + "\"" + "^^<http://www.w3.org/2001/XMLSchema#string> .\n");
                     break;
                 case ConstantList.SCHOOL:
                     writer.append(
-                            Utility.SCHOOL + "\"" + pair.getKey().replace("\"","\\\"") + "\"" + "^^<http://www.w3.org/2001/XMLSchema#string> .\n");
+                            Properties.SCHOOL + "\"" + pair.getKey().replace("\"","\\\"") + "\"" + "^^<http://www.w3.org/2001/XMLSchema#string> .\n");
                     break;
                 case ConstantList.CHAPTER:
                     writer.append(
-                            Utility.CHAPTER + "\"" + pair.getKey().replace("\"","\\\"") + "\"" + "^^<http://www.w3.org/2001/XMLSchema#string> .\n");
+                            Properties.CHAPTER + "\"" + pair.getKey().replace("\"","\\\"") + "\"" + "^^<http://www.w3.org/2001/XMLSchema#string> .\n");
                     break;
                 case ConstantList.PUBLNR:
                     writer.append(
-                            Utility.PUBLNR + "\"" + pair.getKey().replace("\"","\\\"") + "\"" + "^^<http://www.w3.org/2001/XMLSchema#string> .\n");
+                            Properties.PUBLNR + "\"" + pair.getKey().replace("\"","\\\"") + "\"" + "^^<http://www.w3.org/2001/XMLSchema#string> .\n");
                     break;
                 default:
                     int last = writer.lastIndexOf(finalElementPattern);
@@ -162,28 +162,28 @@ public class Manipulation {
                 " <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ");
         switch (type) {
             case ConstantList.ARTICLE:
-                writer.append(Utility.ARTICLE + ".\n");
+                writer.append(Classes.ARTICLE + ".\n");
                 break;
             case ConstantList.PROCEEDINGS:
-                writer.append(Utility.PROCEEDINGS + ".\n");
+                writer.append(Classes.PROCEEDINGS + ".\n");
                 break;
             case ConstantList.INPROCEEDINGS:
-                writer.append(Utility.INPROCEEDINGS + ".\n");
+                writer.append(Classes.INPROCEEDINGS + ".\n");
                 break;
             case ConstantList.INCOLLECTION:
-                writer.append(Utility.INCOLLECTION + ".\n");
+                writer.append(Classes.INCOLLECTION + ".\n");
                 break;
             case ConstantList.BOOK:
-                writer.append(Utility.BOOK + ".\n");
+                writer.append(Classes.BOOK + ".\n");
                 break;
             case ConstantList.PHDTHESIS:
-                writer.append(Utility.PHDTHESIS + ".\n");
+                writer.append(Classes.PHDTHESIS + ".\n");
                 break;
             case ConstantList.MASTERSTHESIS:
-                writer.append(Utility.MASTERSTHESIS + ".\n");
+                writer.append(Classes.MASTERSTHESIS + ".\n");
                 break;
             case ConstantList.WWW:
-                writer.append(Utility.WWW + ".\n");
+                writer.append(Classes.WWW + ".\n");
                 break;
             default:
                 break;
@@ -202,28 +202,28 @@ public class Manipulation {
         for (Object item : typeList) {
             switch (item.toString()) {
                 case ConstantList.ARTICLE:
-                    writer.append(Utility.ARTICLE + "<http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2000/01/rdf-schema#Class> .\n");
+                    writer.append(Classes.ARTICLE + "<http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2000/01/rdf-schema#Class> .\n");
                     break;
                 case ConstantList.PROCEEDINGS:
-                    writer.append(Utility.PROCEEDINGS + "<http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2000/01/rdf-schema#Class> .\n");
+                    writer.append(Classes.PROCEEDINGS + "<http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2000/01/rdf-schema#Class> .\n");
                     break;
                 case ConstantList.INPROCEEDINGS:
-                    writer.append(Utility.INPROCEEDINGS + "<http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2000/01/rdf-schema#Class> .\n");
+                    writer.append(Classes.INPROCEEDINGS + "<http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2000/01/rdf-schema#Class> .\n");
                     break;
                 case ConstantList.INCOLLECTION:
-                    writer.append(Utility.INCOLLECTION + "<http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2000/01/rdf-schema#Class> .\n");
+                    writer.append(Classes.INCOLLECTION + "<http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2000/01/rdf-schema#Class> .\n");
                     break;
                 case ConstantList.BOOK:
-                    writer.append(Utility.BOOK + "<http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2000/01/rdf-schema#Class> .\n");
+                    writer.append(Classes.BOOK + "<http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2000/01/rdf-schema#Class> .\n");
                     break;
                 case ConstantList.PHDTHESIS:
-                    writer.append(Utility.PHDTHESIS + "<http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2000/01/rdf-schema#Class> .\n");
+                    writer.append(Classes.PHDTHESIS + "<http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2000/01/rdf-schema#Class> .\n");
                     break;
                 case ConstantList.MASTERSTHESIS:
-                    writer.append(Utility.MASTERSTHESIS + "<http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2000/01/rdf-schema#Class> .\n");
+                    writer.append(Classes.MASTERSTHESIS + "<http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2000/01/rdf-schema#Class> .\n");
                     break;
                 case ConstantList.WWW:
-                    writer.append(Utility.WWW + "<http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2000/01/rdf-schema#Class> .\n");
+                    writer.append(Classes.WWW + "<http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2000/01/rdf-schema#Class> .\n");
                     break;
                 default:
                     break;
@@ -235,100 +235,100 @@ public class Manipulation {
         for (Object item : elementList) {
             switch (item.toString()) {
                 case ConstantList.MDATE:
-                    writer.append(Utility.MDATE +
+                    writer.append(Properties.MDATE +
                             "<http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .\n");
                     break;
                 case ConstantList.AUTHOR:
                     writer.append(
-                            Utility.AUTHOR + "<http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .\n");
+                            Properties.AUTHOR + "<http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .\n");
                     break;
                 case ConstantList.TITLE:
                     writer.append(
-                            Utility.TITLE + "<http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .\n");
+                            Properties.TITLE + "<http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .\n");
                     break;
                 case ConstantList.PAGES:
                     writer.append(
-                            Utility.PAGES + "<http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .\n");
+                            Properties.PAGES + "<http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .\n");
                     break;
                 case ConstantList.YEAR:
                     writer.append(
-                            Utility.YEAR + "<http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .\n");
+                            Properties.YEAR + "<http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .\n");
                     break;
                 case ConstantList.VOLUME:
                     writer.append(
-                            Utility.VOLUME + "<http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .\n");
+                            Properties.VOLUME + "<http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .\n");
                     break;
                 case ConstantList.JOURNAL:
                     writer.append(
-                            Utility.JOURNAL + "<http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .\n");
+                            Properties.JOURNAL + "<http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .\n");
                     break;
                 case ConstantList.NUMBER:
                     writer.append(
-                            Utility.NUMBER + "<http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .\n");
+                            Properties.NUMBER + "<http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .\n");
                     break;
                 case ConstantList.URL:
                     writer.append(
-                            Utility.URL + "<http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .\n");
+                            Properties.URL + "<http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .\n");
                     break;
                 case ConstantList.EE:
                     writer.append(
-                            Utility.EE + "<http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .\n");
+                            Properties.EE + "<http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .\n");
                     break;
                 case ConstantList.NOTE:
                     writer.append(
-                            Utility.NOTE + "<http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .\n");
+                            Properties.NOTE + "<http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .\n");
                     break;
                 case ConstantList.CITE:
                     writer.append(
-                            Utility.CITE + "<http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .\n");
+                            Properties.CITE + "<http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .\n");
                     break;
                 case ConstantList.MONTH:
                     writer.append(
-                            Utility.MONTH + "<http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .\n");
+                            Properties.MONTH + "<http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .\n");
                     break;
                 case ConstantList.ADDRESS:
                     writer.append(
-                            Utility.ADDRESS + "<http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .\n");
+                            Properties.ADDRESS + "<http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .\n");
                     break;
                 case ConstantList.EDITOR:
                     writer.append(
-                            Utility.EDITOR + "<http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .\n");
+                            Properties.EDITOR + "<http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .\n");
                     break;
                 case ConstantList.PUBLISHER:
                     writer.append(
-                            Utility.PUBLISHER + "<http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .\n");
+                            Properties.PUBLISHER + "<http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .\n");
                     break;
                 case ConstantList.BOOKTITLE:
                     writer.append(
-                            Utility.BOOKTITLE + "<http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .\n");
+                            Properties.BOOKTITLE + "<http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .\n");
                     break;
                 case ConstantList.CDROM:
                     writer.append(
-                            Utility.CDROM + "<http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .\n");
+                            Properties.CDROM + "<http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .\n");
                     break;
                 case ConstantList.CROSSREF:
                     writer.append(
-                            Utility.CROSSREF + "<http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .\n");
+                            Properties.CROSSREF + "<http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .\n");
                     break;
                 case ConstantList.ISBN:
                     writer.append(
-                            Utility.ISBN + "<http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .\n");
+                            Properties.ISBN + "<http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .\n");
                     break;
                 case ConstantList.SERIES:
                     writer.append(
-                            Utility.SERIES + "<http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .\n");
+                            Properties.SERIES + "<http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .\n");
                     break;
                 case ConstantList.SCHOOL:
                     writer.append(
-                            Utility.SCHOOL + "<http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .\n");
+                            Properties.SCHOOL + "<http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .\n");
                     break;
                 case ConstantList.CHAPTER:
                     writer.append(
-                            Utility.CHAPTER + "<http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .\n");
+                            Properties.CHAPTER + "<http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .\n");
                     break;
                 case ConstantList.PUBLNR:
                     writer.append(
-                            Utility.PUBLNR + "<http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .\n");
+                            Properties.PUBLNR + "<http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .\n");
                     break;
                 default:
                     break;
