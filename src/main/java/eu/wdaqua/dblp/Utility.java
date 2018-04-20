@@ -35,7 +35,7 @@ public class Utility {
     public static final String SERIES = " <http://lsdis.cs.uga.edu/projects/semdis/opus#in_series> ";
     public static final String SCHOOL = " <http://lsdis.cs.uga.edu/projects/semdis/opus#School> ";
     public static final String CHAPTER = " <http://lsdis.cs.uga.edu/projects/semdis/opus#chapter> ";
-    public static final String PUBLNR = " <publnr> "; //I could not map
+    public static final String PUBLNR = " <http://wdaqua.eu/publnr> "; //I could not map
 
     public static final String ARTICLE = "<http://swrc.ontoware.org/ontology#Article> ";
     public static final String PROCEEDINGS = "<http://purl.org/ontology/bibo/Proceedings> ";
