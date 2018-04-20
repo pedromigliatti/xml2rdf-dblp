@@ -31,10 +31,12 @@ public class Manipulation {
         elements.remove(key);
 
         String elementPattern = "";
-        if (!type.equals("www")) {
-            elementPattern = "<https://dblp.org/rec/html/";
-        } else {
+        if (type.equals("www")) {
             elementPattern = "<https://dblp.org/pid/";
+        } else if(type.equals("book")) {
+            elementPattern = "https://dblp.org/db/";
+        } else{
+            elementPattern = "<https://dblp.org/rec/html/";
         }
         String finalElementPattern = elementPattern;
         String finalKey = key;
