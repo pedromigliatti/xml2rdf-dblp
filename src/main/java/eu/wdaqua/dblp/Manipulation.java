@@ -101,7 +101,7 @@ public class Manipulation {
                     break;
                 case ConstantList.CITE:
                     writer.append(
-                            Utility.CITE + "<" + pair.getKey() + "> .\n");
+                            Utility.CITE + "<" + "https://dblp.org/rec/html/" + pair.getKey() + "> .\n");
                     break;
                 case ConstantList.MONTH:
                     writer.append(
