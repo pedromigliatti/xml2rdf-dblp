@@ -25,12 +25,12 @@ public class Utility {
     public static final String NOTE = " <http://www.w3.org/2004/02/skos/core#note> ";
     public static final String CITE = " <http://www.w3.org/1999/xhtml/vocab#cite> ";
     public static final String EDITOR = " <http://schema.org/editor> ";
-    public static final String BOOKTITLE = " <booktitle> "; //I could not map
+    public static final String BOOKTITLE = " <http://lsdis.cs.uga.edu/projects/semdis/opus#book_title> "; //" <booktitle> "; //I could not map
     public static final String ADDRESS = "<http://schema.org/address>";
     public static final String MONTH = " <http://purl.org/dc/terms/issued> ";
     public static final String CDROM = " <http://lsdis.cs.uga.edu/projects/semdis/opus#cdrom> ";
     public static final String PUBLISHER = " <http://schema.org/publisher> ";
-    public static final String CROSSREF = " <http://purl.org/net/nknouf/ns/bibtex#hasCrossref> ";
+    public static final String CROSSREF = " <http://data.europa.eu/eli/ontology#published_in> "; //" <http://purl.org/net/nknouf/ns/bibtex#hasCrossref> ";
     public static final String ISBN = " <http://schema.org/isbn> ";
     public static final String SERIES = " <http://lsdis.cs.uga.edu/projects/semdis/opus#in_series> ";
     public static final String SCHOOL = " <http://lsdis.cs.uga.edu/projects/semdis/opus#School> ";

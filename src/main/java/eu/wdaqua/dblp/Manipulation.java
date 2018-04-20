@@ -72,11 +72,11 @@ public class Manipulation {
                     break;
                 case ConstantList.VOLUME:
                     writer.append(
-                            Utility.VOLUME + "\"" + pair.getKey() + "\"" + "^^<http://www.w3.org/2001/XMLSchema#string> .\n");
+                            Utility.VOLUME + "\"" + pair.getKey() + "\"" + "^^<http://www.w3.org/2001/XMLSchema#integer> .\n");
                     break;
                 case ConstantList.JOURNAL:
                     writer.append(
-                            Utility.JOURNAL + "\"" + pair.getKey() + "\"" + "^^<http://www.w3.org/2001/XMLSchema#string> .\n");
+                            Utility.JOURNAL + "<" + pair.getKey() + "> .\n");
                     break;
                 case ConstantList.NUMBER:
                     writer.append(
@@ -87,7 +87,7 @@ public class Manipulation {
                         writer.append(Utility.URL);
                     else
                         writer.append(Utility.URL_WWW);
-                    writer.append("\"" + pair.getKey() + "\"" + "^^<http://www.w3.org/2001/XMLSchema#string> .\n");
+                    writer.append("<http://dblp.uni-trier.de/" +  pair.getKey() + "> .\n");
                     break;
                 case ConstantList.EE:
                     writer.append(
@@ -119,7 +119,7 @@ public class Manipulation {
                     break;
                 case ConstantList.BOOKTITLE:
                     writer.append(
-                            Utility.BOOKTITLE + "\"" + pair.getKey() + "\"" + "^^<http://www.w3.org/2001/XMLSchema#string> .\n");
+                            Utility.BOOKTITLE + "<" + pair.getKey() + "> .\n");
                     break;
                 case ConstantList.CDROM:
                     writer.append(
@@ -127,7 +127,7 @@ public class Manipulation {
                     break;
                 case ConstantList.CROSSREF:
                     writer.append(
-                            Utility.CROSSREF + "\"" + pair.getKey() + "\"" + "^^<http://www.w3.org/2001/XMLSchema#string> .\n");
+                            Utility.CROSSREF + "<" + pair.getKey() + "> .\n");
                     break;
                 case ConstantList.ISBN:
                     writer.append(
