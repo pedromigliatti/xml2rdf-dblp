@@ -370,9 +370,14 @@ public class Manipulation {
 
                     persons.put(personName, key.replace("homepages/","https://dblp.org/pid/" ));
                     extractName = false;
-                    key = "";
                 }
+            } else if(event.isEndElement()){
+            if(event.asEndElement().getName().toString().contains("www")){
+                extractName = false;
+                key = "";
             }
+
+        }
         }
         return persons;
     }
