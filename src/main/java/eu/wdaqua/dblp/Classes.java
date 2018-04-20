@@ -10,4 +10,6 @@ public class Classes {
     public static final String MASTERSTHESIS = "<http://sw-portal.deri.org/ontologies/swportal#MasterThesis> ";
     public static final String WWW = "<http://xmlns.com/foaf/0.1/Person> ";
 
+//    public
+
 }
