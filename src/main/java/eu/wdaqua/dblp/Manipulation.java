@@ -152,6 +152,8 @@ public class Manipulation {
                             Utility.PUBLNR + "\"" + pair.getKey() + "\"" + "^^<http://www.w3.org/2001/XMLSchema#string> .\n");
                     break;
                 default:
+                    int last = writer.lastIndexOf(finalElementPattern);
+                    if (last >= 0) { writer.delete(last, writer.length()); }
                     break;
             }
         });
