@@ -16,7 +16,7 @@ public class Classes {
     public static final String WWW = "<http://xmlns.com/foaf/0.1/Person> ";
 
     public static Map<String,String> getFields() throws IllegalAccessException {
-        Map<String, String> classes = new HashMap<>();
+        Map<String, String> classes = new HashMap<String, String>();
         for (Field f : Classes.class.getDeclaredFields()) {
             classes.put(f.getName(), f.get(Classes.class).toString());
         }

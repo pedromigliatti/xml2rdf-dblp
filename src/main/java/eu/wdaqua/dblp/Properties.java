@@ -33,7 +33,7 @@ public class Properties {
     public static final String PUBLNR = " <http://wdaqua.eu/publnr> "; //I could not map
 
     public static Map<String,String> getFields() throws IllegalAccessException {
-        Map<String, String> classes = new HashMap<>();
+        Map<String, String> classes = new HashMap<String, String>();
         for (Field f : Classes.class.getDeclaredFields()) {
             classes.put(f.getName(), f.get(Classes.class).toString());
         }
