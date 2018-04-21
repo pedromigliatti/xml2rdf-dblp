@@ -6,21 +6,33 @@ import javax.xml.namespace.QName;
 import javax.xml.stream.XMLEventReader;
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamException;
-import javax.xml.stream.events.Attribute;
 import javax.xml.stream.events.XMLEvent;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+
+import org.apache.jena.datatypes.xsd.XSDDatatype;
+import org.apache.jena.graph.Node;
+import org.apache.jena.graph.NodeFactory;
+import org.apache.jena.graph.Triple;
+import org.apache.jena.riot.RDFFormat;
+import org.apache.jena.riot.system.StreamRDF;
+import org.apache.jena.riot.system.StreamRDFWriter;
+
+import static eu.wdaqua.dblp.Main.outputFile;
 
 public class Manipulation {
 
     public static void mapToRDF(String type, Map<String, String> elements, Map<String, String> persons, Map<String, String> types, Map<String, String> properties) throws IOException {
 
-        StringBuffer writer = new StringBuffer();
+        StreamRDF writer = StreamRDFWriter.getWriterStream(new FileOutputStream(outputFile), RDFFormat.NTRIPLES) ;
+
+
+
         String key = "";
 
         for(String item : elements.keySet()){
@@ -40,132 +52,176 @@ public class Manipulation {
         }
         String finalElementPattern = elementPattern;
         String finalKey = key;
+        Node subject = NodeFactory.createURI(finalElementPattern + finalKey);
         elements.entrySet().forEach((pair) -> {
-            writer.append(finalElementPattern + finalKey + ">");
+            Node predicate;
+            Node object;
             switch (pair.getValue()) {
                 case ConstantList.MDATE:
-                    writer.append(
-                            Properties.MDATE +
-                                    "\"" + pair.getKey().replace("\"","\\\"") + "\"" +
-                                    "^^<http://www.w3.org/2001/XMLSchema#date> ." +
-                                    "\n");
+                    predicate = NodeFactory.createURI(Properties.MDATE);
+                    object = NodeFactory.createLiteral(pair.getKey(), XSDDatatype.XSDdate);
+                    Triple t = new Triple(subject,predicate,object);
+                    writer.triple(t);
                     break;
                 case ConstantList.AUTHOR:
                     if (!type.equals("www")) {
-                        writer.append(Properties.AUTHOR);
-                        writer.append("<" + persons.get(pair.getKey().replace("\"","\\\"")) + "> .\n");
+                        predicate = NodeFactory.createURI(Properties.AUTHOR);
+                        object = NodeFactory.createURI(persons.get(pair.getKey()));
+                        t = new Triple(subject,predicate,object);
+                        writer.triple(t);
                     }
                     else {
-                        writer.append(Properties.NAME);
-                        writer.append("\"" + pair.getKey().replace("\"","\\\"") + "\"" + "^^<http://www.w3.org/2001/XMLSchema#string> .\n");
+                        predicate = NodeFactory.createURI(Properties.NAME);
+                        object = NodeFactory.createLiteral(pair.getKey(), XSDDatatype.XSDstring);
+                        t = new Triple(subject,predicate,object);
+                        writer.triple(t);
                     }
                     break;
                 case ConstantList.TITLE:
-                    writer.append(
-                            Properties.TITLE + "\"" + pair.getKey().replace("\"","\\\"") + "\"" + "^^<http://www.w3.org/2001/XMLSchema#string> .\n");
+                    predicate = NodeFactory.createURI(Properties.TITLE);
+                    object = NodeFactory.createLiteral(pair.getKey(), XSDDatatype.XSDstring);
+                    t = new Triple(subject,predicate,object);
+                    writer.triple(t);
                     break;
                 case ConstantList.PAGES:
-                    writer.append(
-                            Properties.PAGES + "\"" + pair.getKey().replace("\"","\\\"") + "\"" + "^^<http://www.w3.org/2001/XMLSchema#string> .\n");
+                    predicate = NodeFactory.createURI(Properties.PAGES);
+                    object = NodeFactory.createLiteral(pair.getKey(), XSDDatatype.XSDstring);
+                    t = new Triple(subject,predicate,object);
+                    writer.triple(t);
                     break;
                 case ConstantList.YEAR:
-                    writer.append(
-                            Properties.YEAR + "\"" + pair.getKey().replace("\"","\\\"") + "\"" + "^^<http://www.w3.org/2001/XMLSchema#gYear> ." + "\n");
+                    predicate = NodeFactory.createURI(Properties.YEAR);
+                    object = NodeFactory.createLiteral(pair.getKey(), XSDDatatype.XSDgYear);
+                    t = new Triple(subject,predicate,object);
+                    writer.triple(t);
                     break;
                 case ConstantList.VOLUME:
-                    writer.append(
-                            Properties.VOLUME + "\"" + pair.getKey().replace("\"","\\\"") + "\"" + "^^<http://www.w3.org/2001/XMLSchema#integer> .\n");
+                    predicate = NodeFactory.createURI(Properties.VOLUME);
+                    object = NodeFactory.createLiteral(pair.getKey(), XSDDatatype.XSDinteger);
+                    t = new Triple(subject,predicate,object);
+                    writer.triple(t);
                     break;
                 case ConstantList.JOURNAL:
-                    writer.append(
-                            Properties.JOURNAL + "<" + pair.getKey().replace("\"","\\\"") + "> .\n");
+                    predicate = NodeFactory.createURI(Properties.JOURNAL);
+                    object = NodeFactory.createURI(pair.getKey());
+                    t = new Triple(subject,predicate,object);
+                    writer.triple(t);
                     break;
                 case ConstantList.NUMBER:
-                    writer.append(
-                            Properties.NUMBER + "\"" + pair.getKey().replace("\"","\\\"") + "\"" + "^^<http://www.w3.org/2001/XMLSchema#string> .\n");
+                    predicate = NodeFactory.createURI(Properties.NUMBER);
+                    object = NodeFactory.createLiteral(pair.getKey(), XSDDatatype.XSDstring);
+                    t = new Triple(subject,predicate,object);
+                    writer.triple(t);
                     break;
                 case ConstantList.URL:
                     if (!type.equals("www"))
-                        writer.append(Properties.URL);
+                        predicate = NodeFactory.createURI(Properties.URL);
                     else
-                        writer.append(Properties.URL_WWW);
-                    writer.append("<http://dblp.uni-trier.de/" +  pair.getKey().replace("\"","\\\"") + "> .\n");
+                        predicate = NodeFactory.createURI(Properties.URL_WWW);
+                    object = NodeFactory.createURI("<http://dblp.uni-trier.de/" +  pair.getKey());
+                    t = new Triple(subject,predicate,object);
+                    writer.triple(t);
                     break;
                 case ConstantList.EE:
-                    writer.append(
-                            Properties.EE + "<" + pair.getKey().replace("\"","\\\"") + "> .\n");
+                    predicate = NodeFactory.createURI(Properties.EE);
+                    object = NodeFactory.createURI(pair.getKey());
+                    t = new Triple(subject,predicate,object);
+                    writer.triple(t);
                     break;
                 case ConstantList.NOTE:
-                    writer.append(
-                            Properties.NOTE + "\"" + pair.getKey().replace("\"","\\\"") + "\"^^<http://www.w3.org/2001/XMLSchema#string> .\n");
+                    predicate = NodeFactory.createURI(Properties.NOTE);
+                    object = NodeFactory.createLiteral(pair.getKey(), XSDDatatype.XSDstring);
+                    t = new Triple(subject,predicate,object);
+                    writer.triple(t);
                     break;
                 case ConstantList.CITE:
-                    writer.append(
-                            Properties.CITE + "<" + "https://dblp.org/rec/html/" + pair.getKey().replace("\"","\\\"") + "> .\n");
+                    predicate = NodeFactory.createURI(Properties.CITE);
+                    object = NodeFactory.createURI("https://dblp.org/rec/html/" + pair.getKey());
+                    t = new Triple(subject,predicate,object);
+                    writer.triple(t);
                     break;
                 case ConstantList.MONTH:
-                    writer.append(
-                            Properties.MONTH + "\"" + pair.getKey().replace("\"","\\\"") + "\"" + "^^<https://www.w3.org/2001/XMLSchema#gMonth> .\n");
+                    predicate = NodeFactory.createURI(Properties.MONTH);
+                    object = NodeFactory.createLiteral(pair.getKey(), XSDDatatype.XSDgMonth);
+                    t = new Triple(subject,predicate,object);
+                    writer.triple(t);
                     break;
                 case ConstantList.ADDRESS:
-                    writer.append(
-                            Properties.ADDRESS + "\"" + pair.getKey().replace("\"","\\\"") + "\"" + "^^<http://www.w3.org/2001/XMLSchema#string> .\n");
+                    predicate = NodeFactory.createURI(Properties.ADDRESS);
+                    object = NodeFactory.createLiteral(pair.getKey(), XSDDatatype.XSDstring);
+                    t = new Triple(subject,predicate,object);
+                    writer.triple(t);
                     break;
                 case ConstantList.EDITOR:
-                    writer.append(
-                            Properties.EDITOR + "\"" + pair.getKey().replace("\"","\\\"") + "\"" + "^^<http://www.w3.org/2001/XMLSchema#string> .\n");
+                    predicate = NodeFactory.createURI(Properties.EDITOR);
+                    object = NodeFactory.createLiteral(pair.getKey(), XSDDatatype.XSDstring);
+                    t = new Triple(subject,predicate,object);
+                    writer.triple(t);
                     break;
                 case ConstantList.PUBLISHER:
-                    writer.append(
-                            Properties.PUBLISHER + "\"" + pair.getKey().replace("\"","\\\"") + "\"" + "^^<http://www.w3.org/2001/XMLSchema#string> .\n");
+                    predicate = NodeFactory.createURI(Properties.PUBLISHER);
+                    object = NodeFactory.createLiteral(pair.getKey(), XSDDatatype.XSDstring);
+                    t = new Triple(subject,predicate,object);
+                    writer.triple(t);
                     break;
                 case ConstantList.BOOKTITLE:
-                    writer.append(
-                            Properties.BOOKTITLE + "<" + pair.getKey().replace("\"","\\\"") + "> .\n");
+                    predicate = NodeFactory.createURI(Properties.BOOKTITLE);
+                    object = NodeFactory.createURI(pair.getKey());
+                    t = new Triple(subject,predicate,object);
+                    writer.triple(t);
                     break;
                 case ConstantList.CDROM:
-                    writer.append(
-                            Properties.CDROM + "\"" + pair.getKey().replace("\"","\\\"") + "\"" + "^^<http://www.w3.org/2001/XMLSchema#string> .\n");
+                    predicate = NodeFactory.createURI(Properties.BOOKTITLE);
+                    object = NodeFactory.createLiteral(pair.getKey(), XSDDatatype.XSDstring);
+                    t = new Triple(subject,predicate,object);
+                    writer.triple(t);
                     break;
                 case ConstantList.CROSSREF:
-                    writer.append(
-                            Properties.CROSSREF + "<" + pair.getKey().replace("\"","\\\"") + "> .\n");
+                    predicate = NodeFactory.createURI(Properties.CROSSREF);
+                    object = NodeFactory.createURI(pair.getKey());
+                    t = new Triple(subject,predicate,object);
+                    writer.triple(t);
                     break;
                 case ConstantList.ISBN:
-                    writer.append(
-                            Properties.ISBN + "\"" + pair.getKey().replace("\"","\\\"") + "\"" + "^^<http://www.w3.org/2001/XMLSchema#string> .\n");
+                    predicate = NodeFactory.createURI(Properties.ISBN);
+                    object = NodeFactory.createLiteral(pair.getKey(), XSDDatatype.XSDstring);
+                    t = new Triple(subject,predicate,object);
+                    writer.triple(t);
                     break;
                 case ConstantList.SERIES:
-                    writer.append(
-                            Properties.SERIES + "\"" + pair.getKey().replace("\"","\\\"") + "\"" + "^^<http://www.w3.org/2001/XMLSchema#string> .\n");
+                    predicate = NodeFactory.createURI(Properties.SERIES);
+                    object = NodeFactory.createLiteral(pair.getKey(), XSDDatatype.XSDstring);
+                    t = new Triple(subject,predicate,object);
+                    writer.triple(t);
                     break;
                 case ConstantList.SCHOOL:
-                    writer.append(
-                            Properties.SCHOOL + "\"" + pair.getKey().replace("\"","\\\"") + "\"" + "^^<http://www.w3.org/2001/XMLSchema#string> .\n");
+                    predicate = NodeFactory.createURI(Properties.SCHOOL);
+                    object = NodeFactory.createLiteral(pair.getKey(), XSDDatatype.XSDstring);
+                    t = new Triple(subject,predicate,object);
+                    writer.triple(t);
                     break;
                 case ConstantList.CHAPTER:
-                    writer.append(
-                            Properties.CHAPTER + "\"" + pair.getKey().replace("\"","\\\"") + "\"" + "^^<http://www.w3.org/2001/XMLSchema#string> .\n");
+                    predicate = NodeFactory.createURI(Properties.CHAPTER);
+                    object = NodeFactory.createLiteral(pair.getKey(), XSDDatatype.XSDstring);
+                    t = new Triple(subject,predicate,object);
+                    writer.triple(t);
                     break;
                 case ConstantList.PUBLNR:
-                    writer.append(
-                            Properties.PUBLNR + "\"" + pair.getKey().replace("\"","\\\"") + "\"" + "^^<http://www.w3.org/2001/XMLSchema#string> .\n");
-                    break;
-                default:
-                    int last = writer.lastIndexOf(finalElementPattern);
-                    if (last >= 0) { writer.delete(last, writer.length()); }
+                    predicate = NodeFactory.createURI(Properties.PUBLNR);
+                    object = NodeFactory.createLiteral(pair.getKey(), XSDDatatype.XSDstring);
+                    t = new Triple(subject,predicate,object);
+                    writer.triple(t);
                     break;
             }
         });
 
 
         if(types.containsKey(type.toUpperCase())){
-            writer.append(finalElementPattern + finalKey + ">"+
-                    " <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> " + types.get(type.toUpperCase()) + "\n");
+            Node predicate = NodeFactory.createURI("http://www.w3.org/1999/02/22-rdf-syntax-ns#type");
+            Node object = NodeFactory.createLiteral(types.get(type.toUpperCase()), XSDDatatype.XSDstring);
+            Triple t = new Triple(subject,predicate,object);
+            writer.triple(t);
         }
-
-        Utility.writeStringBuffer(writer, Main.outputFile, true);
-        writer.delete(0, writer.length());
     }
 
     public static void writeVocabulary(List<String> typeList, List<String> elementList, Map<String, String> types, Map<String, String> properties) throws IOException {
@@ -179,7 +235,7 @@ public class Manipulation {
             writer.append(pair.getValue() + "<http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .\n");
         });
 
-        Utility.writeStringBuffer(writer, Main.outputFile, false);
+        Utility.writeStringBuffer(writer, outputFile, false);
         writer.delete(0, writer.length());
     }
 
