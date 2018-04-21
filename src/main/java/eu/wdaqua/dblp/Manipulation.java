@@ -158,37 +158,11 @@ public class Manipulation {
             }
         });
 
-        writer.append(finalElementPattern + finalKey + ">"+
-                " <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ");
-        switch (type) {
-            case ConstantList.ARTICLE:
-                writer.append(Classes.ARTICLE + ".\n");
-                break;
-            case ConstantList.PROCEEDINGS:
-                writer.append(Classes.PROCEEDINGS + ".\n");
-                break;
-            case ConstantList.INPROCEEDINGS:
-                writer.append(Classes.INPROCEEDINGS + ".\n");
-                break;
-            case ConstantList.INCOLLECTION:
-                writer.append(Classes.INCOLLECTION + ".\n");
-                break;
-            case ConstantList.BOOK:
-                writer.append(Classes.BOOK + ".\n");
-                break;
-            case ConstantList.PHDTHESIS:
-                writer.append(Classes.PHDTHESIS + ".\n");
-                break;
-            case ConstantList.MASTERSTHESIS:
-                writer.append(Classes.MASTERSTHESIS + ".\n");
-                break;
-            case ConstantList.WWW:
-                writer.append(Classes.WWW + ".\n");
-                break;
-            default:
-                break;
-        }
 
+        if(types.containsKey(type.toUpperCase())){
+            writer.append(finalElementPattern + finalKey + ">"+
+                    " <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> " + types.get(type.toUpperCase()) + "\n");
+        }
 
         Utility.writeStringBuffer(writer, Main.outputFile, true);
         writer.delete(0, writer.length());
