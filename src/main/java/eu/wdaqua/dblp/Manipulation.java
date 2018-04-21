@@ -171,19 +171,13 @@ public class Manipulation {
     public static void writeVocabulary(List<String> typeList, List<String> elementList, Map<String, String> types, Map<String, String> properties) throws IOException {
         StringBuffer writer = new StringBuffer();
 
-        System.out.println("Starting to write the classes");
-
         types.entrySet().forEach((pair) -> {
             writer.append(pair.getValue() + "<http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/2000/01/rdf-schema#Class> .\n");
         });
 
-        System.out.println("Finishing to write the classes \nStarting to write the properties");
-
         properties.entrySet().forEach((pair) -> {
             writer.append(pair.getValue() + "<http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .\n");
         });
-
-        System.out.println("Finishing to write the properties");
 
         Utility.writeStringBuffer(writer, Main.outputFile, false);
         writer.delete(0, writer.length());
