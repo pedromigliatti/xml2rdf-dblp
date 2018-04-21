@@ -45,7 +45,7 @@ public class Manipulation {
             switch (pair.getValue()) {
                 case ConstantList.MDATE:
                     writer.append(
-                            Utility.MDATE +
+                            Properties.MDATE +
                                     "\"" + pair.getKey().replace("\"","\\\"") + "\"" +
                                     "^^<http://www.w3.org/2001/XMLSchema#date> ." +
                                     "\n");
@@ -97,7 +97,7 @@ public class Manipulation {
                     break;
                 case ConstantList.NOTE:
                     writer.append(
-                            Utility.NOTE + "\"" + pair.getKey().replace("\"","\\\"") + "\"^^<http://www.w3.org/2001/XMLSchema#string> .\n");
+                            Properties.NOTE + "\"" + pair.getKey().replace("\"","\\\"") + "\"^^<http://www.w3.org/2001/XMLSchema#string> .\n");
                     break;
                 case ConstantList.CITE:
                     writer.append(

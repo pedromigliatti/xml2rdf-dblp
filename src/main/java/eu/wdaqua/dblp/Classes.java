@@ -1,5 +1,8 @@
 package eu.wdaqua.dblp;
 
+import java.lang.reflect.Field;
+import java.util.List;
+
 public class Classes {
     public static final String ARTICLE = "<http://swrc.ontoware.org/ontology#Article> ";
     public static final String PROCEEDINGS = "<http://purl.org/ontology/bibo/Proceedings> ";
@@ -10,6 +13,11 @@ public class Classes {
     public static final String MASTERSTHESIS = "<http://sw-portal.deri.org/ontologies/swportal#MasterThesis> ";
     public static final String WWW = "<http://xmlns.com/foaf/0.1/Person> ";
 
-//    public
+    public static List<String> getFields(){
+        for (Field f : Classes.class.getDeclaredFields()) {
+            System.out.println(f.getName());
+        }
+        return null;
+    }
 
 }
