@@ -1,5 +1,9 @@
 package eu.wdaqua.dblp;
 
+import java.lang.reflect.Field;
+import java.util.HashMap;
+import java.util.Map;
+
 public class Properties {
     public static final String MDATE = " <http://schema.org/dateModified> ";
     public static final String AUTHOR = " <http://dbpedia.org/ontology/author> ";
@@ -28,4 +32,11 @@ public class Properties {
     public static final String CHAPTER = " <http://lsdis.cs.uga.edu/projects/semdis/opus#chapter> ";
     public static final String PUBLNR = " <http://wdaqua.eu/publnr> "; //I could not map
 
+    public static Map<String,String> getFields() throws IllegalAccessException {
+        Map<String, String> classes = new HashMap<>();
+        for (Field f : Classes.class.getDeclaredFields()) {
+            classes.put(f.getName(), f.get(Classes.class).toString());
+        }
+        return classes;
+    }
 }

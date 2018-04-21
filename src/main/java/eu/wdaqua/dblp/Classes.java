@@ -1,7 +1,9 @@
 package eu.wdaqua.dblp;
 
 import java.lang.reflect.Field;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Classes {
     public static final String ARTICLE = "<http://swrc.ontoware.org/ontology#Article> ";
@@ -13,11 +15,12 @@ public class Classes {
     public static final String MASTERSTHESIS = "<http://sw-portal.deri.org/ontologies/swportal#MasterThesis> ";
     public static final String WWW = "<http://xmlns.com/foaf/0.1/Person> ";
 
-    public static List<String> getFields(){
+    public static Map<String,String> getFields() throws IllegalAccessException {
+        Map<String, String> classes = new HashMap<>();
         for (Field f : Classes.class.getDeclaredFields()) {
-            System.out.println(f.getName());
+            classes.put(f.getName(), f.get(Classes.class).toString());
         }
-        return null;
+        return classes;
     }
 
 }

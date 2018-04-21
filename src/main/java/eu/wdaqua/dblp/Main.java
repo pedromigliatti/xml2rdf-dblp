@@ -27,7 +27,11 @@ public class Main {
     public static List typeList = Arrays.asList("article","proceedings","inproceedings","incollection","book","phdthesis","mastersthesis","www");
     public static List elementList = Arrays.asList("author","editor","title","booktitle","pages","year","address","journal","volume","number","month","url","ee","cdrom","cite","publisher","note","crossref","isbn","series","school","chapter","publnr");
 
-    public static void main(String[] args) throws IOException, XMLStreamException {
+    public static void main(String[] args) throws IOException, XMLStreamException, IllegalAccessException {
+
+        Map<String, String> types = Classes.getFields();
+        Map<String, String> properties = Classes.getFields();
+
         XMLInputFactory factory = XMLInputFactory.newInstance();
 
         factory.setProperty(XMLInputFactory.IS_VALIDATING, true);
@@ -45,7 +49,7 @@ public class Main {
 
         persons = Manipulation.extractPersonRecords();
 
-        Manipulation.writeVocabulary(typeList, elementList);
+        Manipulation.writeVocabulary(typeList, elementList, types, properties);
 
         String booktitle ="";
 
@@ -92,7 +96,7 @@ public class Main {
             else if(event.isEndElement()){
                 if(event.asEndElement().getName().toString().contains(type)){
 
-                    Manipulation.mapToRDF(type, elements, persons);
+                    Manipulation.mapToRDF(type, elements, persons, types, properties);
                     elements.clear();
                 }
             }
