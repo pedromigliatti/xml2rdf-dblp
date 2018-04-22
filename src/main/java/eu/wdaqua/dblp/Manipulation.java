@@ -27,12 +27,7 @@ import static eu.wdaqua.dblp.Main.outputFile;
 
 public class Manipulation {
 
-    public static void mapToRDF(String type, Map<String, String> elements, Map<String, String> persons, Map<String, String> types, Map<String, String> properties) throws IOException {
-
-        StreamRDF writer = StreamRDFWriter.getWriterStream(new FileOutputStream(outputFile), RDFFormat.NTRIPLES) ;
-
-
-
+    public static void mapToRDF(StreamRDF writer, String type, Map<String, String> elements, Map<String, String> persons, Map<String, String> types, Map<String, String> properties) throws IOException {
         String key = "";
 
         for(String item : elements.keySet()){
@@ -222,6 +217,7 @@ public class Manipulation {
             Triple t = new Triple(subject,predicate,object);
             writer.triple(t);
         }
+
     }
 
     public static void writeVocabulary(List<String> typeList, List<String> elementList, Map<String, String> types, Map<String, String> properties) throws IOException {

@@ -2,6 +2,10 @@ package eu.wdaqua.dblp;
 
 import com.ctc.wstx.api.WstxInputProperties;
 
+import org.apache.jena.riot.RDFFormat;
+import org.apache.jena.riot.system.StreamRDF;
+import org.apache.jena.riot.system.StreamRDFWriter;
+
 import javax.xml.stream.XMLEventReader;
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamException;
@@ -11,6 +15,7 @@ import javax.xml.stream.events.StartElement;
 import javax.xml.stream.events.XMLEvent;
 import java.io.BufferedWriter;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.*;
@@ -20,9 +25,9 @@ public class Main {
 //    public static String inputFile = "/home_expes/dd77474h/datasets/dblp_new/dump/dblp.xml";
 
 //    Directory of tests on Pedro's computer
-    public static String outputFile = "/home/pedro/Documentos/WDAqua/dblp.nt";
+    public static String outputFile = "/Users/Dennis/Downloads/dblp2.nt";
 //    public static String inputFile = "/home/pedro/Documentos/WDAqua/dblp.xml";
-    public static String inputFile = "/home/pedro/Documentos/WDAqua/personRecordsExample.xml";
+    public static String inputFile = "/Users/Dennis/Downloads/dblp.xml";
 
     public static List typeList = Arrays.asList("article","proceedings","inproceedings","incollection","book","phdthesis","mastersthesis","www");
     public static List elementList = Arrays.asList("author","editor","title","booktitle","pages","year","address","journal","volume","number","month","url","ee","cdrom","cite","publisher","note","crossref","isbn","series","school","chapter","publnr");
@@ -45,7 +50,7 @@ public class Main {
         String type = "";
 
         Map<String,String> elements = new HashMap<>();
-        Map<String,String> persons;
+        Map<String,String> persons = new HashMap<>();
 
         persons = Manipulation.extractPersonRecords();
 
@@ -54,6 +59,8 @@ public class Main {
         String booktitle ="";
 
         String key ="";
+
+        StreamRDF writer = StreamRDFWriter.getWriterStream(new FileOutputStream(outputFile), RDFFormat.NTRIPLES);
 
         while (reader.hasNext()) {
             XMLEvent event = reader.nextEvent();
@@ -96,7 +103,7 @@ public class Main {
             else if(event.isEndElement()){
                 if(event.asEndElement().getName().toString().contains(type)){
 
-                    Manipulation.mapToRDF(type, elements, persons, types, properties);
+                    Manipulation.mapToRDF(writer, type, elements, persons, types, properties);
                     elements.clear();
                 }
             }
