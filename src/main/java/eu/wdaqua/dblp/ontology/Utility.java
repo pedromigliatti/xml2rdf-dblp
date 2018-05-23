@@ -14,44 +14,45 @@ import java.util.List;
 
 public class Utility {
 
-    public static List<Triple> map(Node subject, String tag, String value){
-        List<Triple> triples = new ArrayList<Triple>();
+    public static Triple map(Node subject, String value, PropertyMapping propertyMapping){
+//        List<Triple> triples = new ArrayList<Triple>();
+        Triple t = null;
         for (PropertyMapping mapping : Properties.getMappings()) {
-            if (mapping.getTag().equals(tag)) {
+            if (mapping.getTag().equals(propertyMapping.getTag()) && mapping.getType().equals(propertyMapping.getType())) {
                 Node predicate;
                 Node object;
                 switch (mapping.getType()) {
                     case URI:
-                        predicate = createURI(mapping.getPropertyUri());
+                        predicate = createURI(propertyMapping.getPropertyUri());
                         object = createURI(value);
-                        triples.add(new Triple(subject, predicate, object));
+                        t = (new Triple(subject, predicate, object));
                         break;
                     case DATE:
-                        predicate = createURI(mapping.getPropertyUri());
+                        predicate = createURI(propertyMapping.getPropertyUri());
                         object = NodeFactory.createLiteral(value, XSDDatatype.XSDdate);
-                        triples.add(new Triple(subject, predicate, object));
+                         t = (new Triple(subject, predicate, object));
                         break;
                     case STRING:
-                        predicate = createURI(mapping.getPropertyUri());
-                        object = NodeFactory.createLiteral(value, XSDDatatype.XSDstring);
-                        triples.add(new Triple(subject, predicate, object));
+                        predicate = createURI(propertyMapping.getPropertyUri());
+                        object = NodeFactory.createLiteral(removeSpecialCharacteres(value), XSDDatatype.XSDstring);
+                        t = (new Triple(subject, predicate, object));
                         break;
                     case YEAR:
-                        predicate = createURI(mapping.getPropertyUri());
+                        predicate = createURI(propertyMapping.getPropertyUri());
                         object = NodeFactory.createLiteral(value, XSDDatatype.XSDgYear);
-                        triples.add(new Triple(subject, predicate, object));
+                        t = (new Triple(subject, predicate, object));
                         break;
                     case INTEGER:
-                        predicate = createURI(mapping.getPropertyUri());
+                        predicate = createURI(propertyMapping.getPropertyUri());
                         object = NodeFactory.createLiteral(value, XSDDatatype.XSDinteger);
-                        triples.add(new Triple(subject, predicate, object));
+                         t = (new Triple(subject, predicate, object));
                         break;
                     default:
                         System.out.println("Type not supported " + mapping.getType());
                 }
             }
         }
-        return triples;
+        return t;
     }
 
     public static Node createURI(String s){
@@ -62,10 +63,6 @@ public class Utility {
         if (s.contains("<")){
             System.out.println("This URI "+s+"contains illigal caracter <");
             s = s.replace("<","");
-        }
-        if (s.contains("\\|")){
-            System.out.println("This URI "+s+"contains illigal caracter |");
-            s = s.replace("\\|","");
         }
         if (s.contains("\\")){
             System.out.println("This URI "+s+"contains illigal caracter \\");
@@ -83,7 +80,19 @@ public class Utility {
             System.out.println("This URI "+s+"contains illigal caracter \"");
             s = s.replace("\"","");
         }
-        return NodeFactory.createURI(s);
+        return NodeFactory.createURI(removeSpecialCharacteres(s));
+    }
+
+    public static String removeSpecialCharacteres(String s){
+        if (s.contains("\\|")){
+            System.out.println("This URI "+s+"contains illigal caracter |");
+            s = s.replace("\\|","");
+        }
+        if (s.contains("|")){
+            System.out.println("This URI "+s+"contains illigal caracter |");
+            s = s.replace("|","");
+        }
+        return s;
     }
 
     //method to write all classes and properties to define the schema

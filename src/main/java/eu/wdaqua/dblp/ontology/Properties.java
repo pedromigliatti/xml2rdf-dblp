@@ -28,6 +28,7 @@ public class Properties {
             new PropertyMapping("cite","http://www.w3.org/1999/xhtml/vocab#cite",Type.CUSTOM),
             new PropertyMapping("editor","http://schema.org/editor",Type.STRING),
             new PropertyMapping("booktitle","http://lsdis.cs.uga.edu/projects/semdis/opus#book_title",Type.STRING), //"booktitle"; //I could not map
+            new PropertyMapping("booktitle","http://www.w3.org/2000/01/rdf-schema#label",Type.STRING),
             new PropertyMapping("address","http://schema.org/address",Type.STRING),
             new PropertyMapping("month","http://purl.org/dc/terms/issued",Type.DATE),
             new PropertyMapping("cdrom","http://lsdis.cs.uga.edu/projects/semdis/opus#cdrom",Type.STRING),
@@ -35,7 +36,9 @@ public class Properties {
             new PropertyMapping("crossref","http://data.europa.eu/eli/ontology#published_in",Type.URI), //"http://purl.org/net/nknouf/ns/bibtex#hasCrossref";
             new PropertyMapping("isbn","http://schema.org/isbn",Type.STRING),
             new PropertyMapping("series","http://lsdis.cs.uga.edu/projects/semdis/opus#in_series",Type.STRING),
+            new PropertyMapping("series","http://www.w3.org/2000/01/rdf-schema#label",Type.STRING),
             new PropertyMapping("school","http://lsdis.cs.uga.edu/projects/semdis/opus#School",Type.STRING),
+            new PropertyMapping("school","http://www.w3.org/2000/01/rdf-schema#label",Type.STRING),
             new PropertyMapping("chapter","http://lsdis.cs.uga.edu/projects/semdis/opus#chapter",Type.INTEGER),
             new PropertyMapping("orcid","http://wdaqua.eu/P496",Type.URI))); //I could not map
 
@@ -51,12 +54,14 @@ public class Properties {
         return map;
     }
 
-    public static PropertyMapping getMapping(String tag){
+    public static List<PropertyMapping> getMapping(String tag){
+        List<PropertyMapping> properties = new ArrayList<PropertyMapping>();
         for (PropertyMapping m : mappings){
             if (m.getTag().equals(tag)){
-                return m;
+                properties.add(m);
             }
         }
-        return null;
+
+        return properties;
     }
 }

@@ -33,8 +33,8 @@ public class Main {
 //    public static String inputFile = "/home_expes/dd77474h/datasets/dblp_new/dump/dblp.xml";
 
 //    Directory of tests on Pedro's computer
-    public static String outputFile = "/Users/Dennis/Downloads/dblp2.nt";
-    public static String inputFile = "/Users/Dennis/Downloads/dblp.xml.tmp7";
+    public static String outputFile = "/home/pedro/Documentos/WDAqua/dblpDocuments/dblp2.nt";
+    public static String inputFile = "/home/pedro/Documentos/WDAqua/dblpDocuments/dblp.xml";
 
     public static void main(String[] args) throws IOException, XMLStreamException, IllegalAccessException {
 
@@ -96,49 +96,53 @@ public class Main {
 //                        System.out.println(event.getLocation()+"  "+path.toString()+" "+key);
 //                    }
                     List<PropertyMapping> propertyMappings = Properties.getMappings();
-                    for (PropertyMapping propertyMapping : propertyMappings){
+//                    for (PropertyMapping propertyMapping : propertyMappings){
                         if (path.size()>2) { // there are some bugs in the dump
-                            System.out.println(Properties.getMappedTags().toString());
+//                            System.out.println(Properties.getMappedTags().toString());
                             if (Properties.getMappedTags().containsKey((path.get(2)))) {
-                                if (propertyMapping.getType() != Type.CUSTOM) {
-                                    List<Triple> triples = eu.wdaqua.dblp.ontology.Utility.map(subject, path.get(2), tagEntry);
-                                    for (Triple t : triples) {
-                                        writer.triple(t);
-                                    }
-                                } else {
-                                    if (path.get(2).equals("crossref")) {
-                                        String[] crossref = tagEntry.split("/");
-                                        Node predicate = createURI(propertyMapping.getPropertyUri());
-                                        Node object = createURI("http://dblp.uni-trier.de/db/" + crossref[0] + "/" + crossref[1]);
-                                        Triple t = new Triple(subject, predicate, object);
-                                        writer.triple(t);
-                                    } else if (path.get(2).equals("url")) {
-                                        Node predicate = createURI(propertyMapping.getPropertyUri());
-                                        Node object = createURI(tagEntry);
-                                        Triple t = new Triple(subject, predicate, object);
-                                        writer.triple(t);
-                                        //Use the tag for generating the booktitle uri
-                                        predicate = createURI(Properties.getMapping("booktitle").getPropertyUri());
-                                        object = createURI("http://dblp.uni-trier.de/" + tagEntry.split("#")[0]);
-                                        t = new Triple(subject, predicate, object);
-                                        writer.triple(t);
-                                    } else if (path.get(2).equals("journal")) {
-                                        Node predicate = createURI(propertyMapping.getPropertyUri());
-                                        Node object = createURI("http://dblp.uni-trier.de/db/" + key.split("/")[0] + "/" + key.split("/")[1]);
-                                        Triple t = new Triple(subject, predicate, object);
-                                        writer.triple(t);
-                                    } else if (path.get(2).equals("author")) {
-                                        Node predicate = createURI(propertyMapping.getPropertyUri());
-                                        Node object = createURI(persons.get(tagEntry));
-                                        Triple t = new Triple(subject, predicate, object);
+                                for (PropertyMapping propertyMapping : Properties.getMapping(path.get(2))) {
+                                    if (propertyMapping.getType() != Type.CUSTOM) {
+                                        Triple t = eu.wdaqua.dblp.ontology.Utility.map(subject, tagEntry,propertyMapping);
                                         writer.triple(t);
                                     } else {
-                                        System.out.println("This tag is not mapped " + path.get(2));
+                                        if (path.get(2).equals("crossref")) {
+                                            String[] crossref = tagEntry.split("/");
+                                            Node predicate = createURI(propertyMapping.getPropertyUri());
+                                            Node object = createURI("http://dblp.uni-trier.de/db/" + crossref[0] + "/" + crossref[1]);
+                                            Triple t = new Triple(subject, predicate, object);
+                                            writer.triple(t);
+                                        } else if (path.get(2).equals("url")) {
+                                            Node predicate = createURI(propertyMapping.getPropertyUri());
+                                            Node object = createURI(tagEntry);
+                                            Triple t = new Triple(subject, predicate, object);
+                                            writer.triple(t);
+                                            //Use the tag for generating the booktitle uri
+                                            for (PropertyMapping p : Properties.getMapping("booktitle")) {
+                                                if (!p.getPropertyUri().contains("#label")) {
+                                                    predicate = createURI(p.getPropertyUri());
+                                                    object = createURI("http://dblp.uni-trier.de/" + tagEntry.split("#")[0]);
+                                                    t = new Triple(subject, predicate, object);
+                                                    writer.triple(t);
+                                                }
+                                            }
+                                        } else if (path.get(2).equals("journal")) {
+                                            Node predicate = createURI(propertyMapping.getPropertyUri());
+                                            Node object = createURI("http://dblp.uni-trier.de/db/" + key.split("/")[0] + "/" + key.split("/")[1]);
+                                            Triple t = new Triple(subject, predicate, object);
+                                            writer.triple(t);
+                                        } else if (path.get(2).equals("author")) {
+                                            Node predicate = createURI(propertyMapping.getPropertyUri());
+                                            Node object = createURI(persons.get(tagEntry));
+                                            Triple t = new Triple(subject, predicate, object);
+                                            writer.triple(t);
+                                        } else {
+                                            System.out.println("This tag is not mapped " + path.get(2));
+                                        }
                                     }
                                 }
                             }
                         }
-                    }
+//                    }
                 }
             } else if(event.isEndElement()){
                 path.remove(path.size()-1);
