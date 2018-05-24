@@ -49,6 +49,8 @@ public class Main {
         Map<String,String> persons = Persons.extractPersonRecords();
         Utility.writeVocabulary(writer);
 
+        boolean affiliation = false;
+
         List<String> path = new ArrayList<>();
         Node subject = null;
         String key = "";
@@ -86,6 +88,9 @@ public class Main {
                         } else {
                             System.out.println("Unmapped class tag " + path.get(1));
                         }
+                    } else if(attribute.getName().toString().equals("type")){
+                        if(attribute.getValue().equals("affiliation"))
+                            affiliation = true;
                     }
                 }
             } else if(event.isCharacters()){
@@ -148,6 +153,22 @@ public class Main {
                                                     String name = tagEntry.replaceAll("[0-9]", "");
                                                     name = name.replaceAll("\\s$", "");
                                                     t = eu.wdaqua.dblp.ontology.Utility.map(subject, name, propertyMappingName);
+                                                    writer.triple(t);
+                                                }
+                                            }
+                                        } else if(path.get(2).equals("note")) {
+                                            if(affiliation){
+                                                for(PropertyMapping propertyMappingAff : Properties.getMapping("affiliation")) {
+                                                    Triple t = eu.wdaqua.dblp.ontology.Utility.map(subject, tagEntry, propertyMappingAff);
+                                                    writer.triple(t);
+                                                    affiliation = false;
+                                                }
+                                            } else {
+                                                Node predicate = createURI(propertyMapping.getPropertyUri());
+                                                Node object = createURI(tagEntry);
+                                                Triple t = null;
+                                                if (subject != null) {
+                                                    t = new Triple(subject, predicate, object);
                                                     writer.triple(t);
                                                 }
                                             }

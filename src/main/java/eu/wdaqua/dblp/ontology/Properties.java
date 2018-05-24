@@ -24,7 +24,8 @@ public class Properties {
             new PropertyMapping("url","http://purl.org/dc/elements/1.1/identifier",Type.CUSTOM),
             new PropertyMapping("url_www","http://schema.org/url",Type.URI),
             new PropertyMapping("ee","http://www.w3.org/2002/07/owl#sameAs",Type.URI),
-            new PropertyMapping("note","http://www.w3.org/2004/02/skos/core#note",Type.STRING),
+            new PropertyMapping("note","http://www.w3.org/2004/02/skos/core#note",Type.CUSTOM),
+            new PropertyMapping("affiliation","http://wdaqua.eu/affiliation",Type.STRING),
             new PropertyMapping("cite","http://www.w3.org/1999/xhtml/vocab#cite",Type.STRING),
             new PropertyMapping("editor","http://schema.org/editor",Type.STRING),
             new PropertyMapping("booktitle","http://lsdis.cs.uga.edu/projects/semdis/opus#book_title",Type.STRING), //"booktitle"; //I could not map
