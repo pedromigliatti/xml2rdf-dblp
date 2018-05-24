@@ -34,7 +34,7 @@ public class Main {
 
 //    Directory of tests on Pedro's computer
     public static String outputFile = "/home/pedro/Documentos/WDAqua/dblpDocuments/dblp2.nt";
-    public static String inputFile = "/home/pedro/Documentos/WDAqua/dblpDocuments/dblp.xml";
+    public static String inputFile = "/home/pedro/Documentos/WDAqua/dblpDocuments/dblp.xml.temp";
 
     public static void main(String[] args) throws IOException, XMLStreamException, IllegalAccessException {
 
@@ -113,14 +113,22 @@ public class Main {
                                             writer.triple(t);
                                         } else if (path.get(2).equals("url")) {
                                             Node predicate = createURI(propertyMapping.getPropertyUri());
-                                            Node object = createURI("http://dblp.uni-trier.de/" + tagEntry);
+                                            Node object;
+                                            if(!tagEntry.contains("http"))
+                                                object = createURI("http://dblp.uni-trier.de/" + tagEntry);
+                                            else
+                                                object = createURI(tagEntry);
                                             Triple t = new Triple(subject, predicate, object);
                                             writer.triple(t);
                                             //Use the tag for generating the booktitle uri
                                             for (PropertyMapping p : Properties.getMapping("booktitle")) {
                                                 if (!p.getPropertyUri().contains("#label")) {
                                                     predicate = createURI(p.getPropertyUri());
-                                                    object = createURI("http://dblp.uni-trier.de/" + tagEntry.split("#")[0]);
+                                                    if(!tagEntry.contains("http"))
+                                                        object = createURI("http://dblp.uni-trier.de/" + tagEntry.split("#")[0]);
+                                                    else
+                                                        object = createURI(tagEntry.split("#")[0]);
+                                                    object = createURI(tagEntry.split("#")[0]);
                                                     t = new Triple(subject, predicate, object);
                                                     writer.triple(t);
                                                 }
@@ -135,6 +143,14 @@ public class Main {
                                             Node object = createURI(persons.get(tagEntry));
                                             Triple t = new Triple(subject, predicate, object);
                                             writer.triple(t);
+                                            if(path.get(1).equals("www")){
+                                                for(PropertyMapping propertyMappingName : Properties.getMapping("name")) {
+                                                    String name = tagEntry.replaceAll("[0-9]", "");
+                                                    name = name.replaceAll("\\s$", "");
+                                                    t = eu.wdaqua.dblp.ontology.Utility.map(subject, name, propertyMappingName);
+                                                    writer.triple(t);
+                                                }
+                                            }
                                         } else {
                                             System.out.println("This tag is not mapped " + path.get(2));
                                         }

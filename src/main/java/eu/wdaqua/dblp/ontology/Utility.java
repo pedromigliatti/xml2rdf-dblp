@@ -24,6 +24,8 @@ public class Utility {
                 switch (mapping.getType()) {
                     case URI:
                         predicate = createURI(propertyMapping.getPropertyUri());
+                        if(!value.contains("http"))
+                            value = "http://dblp.uni-trier.de/db/" + value;
                         object = createURI(value);
                         t = (new Triple(subject, predicate, object));
                         break;
@@ -80,7 +82,10 @@ public class Utility {
             System.out.println("This URI "+s+"contains illigal caracter \"");
             s = s.replace("\"","");
         }
-        return NodeFactory.createURI(removeSpecialCharacteres(s));
+
+        s = removeSpecialCharacteres(s);
+
+        return NodeFactory.createURI(s);
     }
 
     public static String removeSpecialCharacteres(String s){

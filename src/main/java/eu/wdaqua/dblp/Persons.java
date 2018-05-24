@@ -36,7 +36,7 @@ public class Persons {
                     }
                 } else if (event.isCharacters() && extractName) {
                     if (!event.asCharacters().getData().toString().equals("\n")) {
-                        personName = event.asCharacters().getData().toString();
+                        personName = event.asCharacters().getData();
                         persons.put(personName, key.replace("homepages/", "https://dblp.org/pid/"));
                         extractName = false;
                     }
