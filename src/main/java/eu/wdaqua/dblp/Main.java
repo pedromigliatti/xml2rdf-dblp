@@ -113,7 +113,7 @@ public class Main {
                                             writer.triple(t);
                                         } else if (path.get(2).equals("url")) {
                                             Node predicate = createURI(propertyMapping.getPropertyUri());
-                                            Node object = createURI(tagEntry);
+                                            Node object = createURI("http://dblp.uni-trier.de/" + tagEntry);
                                             Triple t = new Triple(subject, predicate, object);
                                             writer.triple(t);
                                             //Use the tag for generating the booktitle uri
