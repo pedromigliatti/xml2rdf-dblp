@@ -165,12 +165,8 @@ public class Main {
                                                 }
                                             } else {
                                                 Node predicate = createURI(propertyMapping.getPropertyUri());
-                                                Node object = createURI(tagEntry);
-                                                Triple t = null;
-                                                if (subject != null) {
-                                                    t = new Triple(subject, predicate, object);
-                                                    writer.triple(t);
-                                                }
+                                                Triple t = eu.wdaqua.dblp.ontology.Utility.map(subject, tagEntry, new PropertyMapping("note","http://www.w3.org/2004/02/skos/core#note",Type.STRING));
+                                                writer.triple(t);
                                             }
                                         } else {
                                             System.out.println("This tag is not mapped " + path.get(2));
