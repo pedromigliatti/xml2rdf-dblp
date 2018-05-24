@@ -29,12 +29,12 @@ import java.util.*;
 import static eu.wdaqua.dblp.ontology.Utility.createURI;
 
 public class Main {
-//    public static String outputFile = "/home_expes/dd77474h/datasets/dblp_new/dump/dblp.nt";
-//    public static String inputFile = "/home_expes/dd77474h/datasets/dblp_new/dump/dblp.xml";
+    public static String outputFile = "/home_expes/dd77474h/datasets/dblp_new/dump/dump.nt";
+    public static String inputFile = "/home_expes/dd77474h/datasets/dblp_new/dump/dblp.xml";
 
 //    Directory of tests on Pedro's computer
-    public static String outputFile = "/home/pedro/Documentos/WDAqua/dblpDocuments/dblp2.nt";
-    public static String inputFile = "/home/pedro/Documentos/WDAqua/dblpDocuments/dblp.xml.temp";
+//    public static String outputFile = "/home/pedro/Documentos/WDAqua/dblpDocuments/dblp2.nt";
+//    public static String inputFile = "/home/pedro/Documentos/WDAqua/dblpDocuments/dblp.xml.temp";
 
     public static void main(String[] args) throws IOException, XMLStreamException, IllegalAccessException {
 
@@ -72,7 +72,7 @@ public class Main {
                         //generate the subject
                         //System.out.println("PATH "+path.get(1));
                         if (path.get(1).equals("www")) {
-                            subject = createURI("https://dblp.org/pid/" + attribute.getValue());
+                            subject = createURI("https://dblp.org/pid/" + attribute.getValue().replace("homepages/", ""));
                         } else if (path.get(1).equals("book")) {
                             subject = createURI("https://dblp.org/db/" + attribute.getValue());
                         } else {
