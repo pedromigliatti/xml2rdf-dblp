@@ -2,12 +2,11 @@ package eu.wdaqua.dblp;
 
 import com.ctc.wstx.api.WstxInputProperties;
 
-import eu.wdaqua.dblp.ontology.Classes;
-import eu.wdaqua.dblp.ontology.PropertyMapping;
+import eu.wdaqua.dblp.ontology.*;
 import eu.wdaqua.dblp.ontology.Properties;
-import eu.wdaqua.dblp.ontology.Type;
-import eu.wdaqua.dblp.ontology.Utility;
+import eu.wdaqua.dblp.ontology.Mapping;
 
+import org.apache.commons.lang3.ObjectUtils;
 import org.apache.jena.graph.Node;
 import org.apache.jena.graph.NodeFactory;
 import org.apache.jena.graph.Triple;
@@ -21,9 +20,7 @@ import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.events.Attribute;
 import javax.xml.stream.events.XMLEvent;
 
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.util.*;
 
 import static eu.wdaqua.dblp.ontology.Utility.createURI;
@@ -31,6 +28,8 @@ import static eu.wdaqua.dblp.ontology.Utility.createURI;
 public class Main {
     public static String outputFile = "/home_expes/dd77474h/datasets/dblp_new/dump/dump.nt";
     public static String inputFile = "/home_expes/dd77474h/datasets/dblp_new/dump/dblp.xml";
+
+    public static String vocabularyFile = "vocabulary.ttl";
 
 //    Directory of tests on Pedro's computer
 //    public static String outputFile = "/home/pedro/Documentos/WDAqua/dblpDocuments/dblp2.nt";
@@ -79,12 +78,14 @@ public class Main {
                             subject = createURI("https://dblp.org/rec/html/" + attribute.getValue());
                         }
                         //Map the classes
-                        Map<String, String> classes = Classes.getFields();
+                        Map<String, ObjectUtils.Null> classes = Classes.getMappedTags();
                         if (classes.containsKey(path.get(1))) {
                             Node predicate = createURI("http://www.w3.org/1999/02/22-rdf-syntax-ns#type");
-                            Node object = NodeFactory.createURI(classes.get(path.get(1)));
-                            Triple t = new Triple(subject, predicate, object);
-                            writer.triple(t);
+                            for(Mapping c : Classes.getMapping(path.get(1))) {
+                                Node object = NodeFactory.createURI(c.getPropertyUri());
+                                Triple t = new Triple(subject, predicate, object);
+                                writer.triple(t);
+                            }
                         } else {
                             System.out.println("Unmapped class tag " + path.get(1));
                         }
@@ -100,24 +101,24 @@ public class Main {
 //                    if (line>90200000){
 //                        System.out.println(event.getLocation()+"  "+path.toString()+" "+key);
 //                    }
-                    List<PropertyMapping> propertyMappings = Properties.getMappings();
-//                    for (PropertyMapping propertyMapping : propertyMappings){
+                    List<Mapping> mappings = Properties.getMappings();
+//                    for (Mapping propertyMapping : mappings){
                         if (path.size()>2) { // there are some bugs in the dump
 //                            System.out.println(Properties.getMappedTags().toString());
                             if (Properties.getMappedTags().containsKey((path.get(2)))) {
-                                for (PropertyMapping propertyMapping : Properties.getMapping(path.get(2))) {
-                                    if (propertyMapping.getType() != Type.CUSTOM) {
-                                        Triple t = eu.wdaqua.dblp.ontology.Utility.map(subject, tagEntry,propertyMapping);
+                                for (Mapping mapping : Properties.getMapping(path.get(2))) {
+                                    if (mapping.getType() != Type.CUSTOM) {
+                                        Triple t = eu.wdaqua.dblp.ontology.Utility.map(subject, tagEntry, mapping);
                                         writer.triple(t);
                                     } else {
                                         if (path.get(2).equals("crossref")) {
                                             String[] crossref = tagEntry.split("/");
-                                            Node predicate = createURI(propertyMapping.getPropertyUri());
+                                            Node predicate = createURI(mapping.getPropertyUri());
                                             Node object = createURI("http://dblp.uni-trier.de/db/" + crossref[0] + "/" + crossref[1]);
                                             Triple t = new Triple(subject, predicate, object);
                                             writer.triple(t);
                                         } else if (path.get(2).equals("url")) {
-                                            Node predicate = createURI(propertyMapping.getPropertyUri());
+                                            Node predicate = createURI(mapping.getPropertyUri());
                                             Node object;
                                             if(!tagEntry.contains("http"))
                                                 object = createURI("http://dblp.uni-trier.de/" + tagEntry);
@@ -126,7 +127,7 @@ public class Main {
                                             Triple t = new Triple(subject, predicate, object);
                                             writer.triple(t);
                                             //Use the tag for generating the booktitle uri
-                                            for (PropertyMapping p : Properties.getMapping("booktitle")) {
+                                            for (Mapping p : Properties.getMapping("booktitle")) {
                                                 if (!p.getPropertyUri().contains("#label")) {
                                                     predicate = createURI(p.getPropertyUri());
                                                     if(!tagEntry.contains("http"))
@@ -138,33 +139,33 @@ public class Main {
                                                 }
                                             }
                                         } else if (path.get(2).equals("journal")) {
-                                            Node predicate = createURI(propertyMapping.getPropertyUri());
+                                            Node predicate = createURI(mapping.getPropertyUri());
                                             Node object = createURI("http://dblp.uni-trier.de/db/" + key.split("/")[0] + "/" + key.split("/")[1]);
                                             Triple t = new Triple(subject, predicate, object);
                                             writer.triple(t);
                                         } else if (path.get(2).equals("author")) {
-                                            Node predicate = createURI(propertyMapping.getPropertyUri());
+                                            Node predicate = createURI(mapping.getPropertyUri());
                                             Node object = createURI(persons.get(tagEntry));
                                             Triple t = new Triple(subject, predicate, object);
                                             writer.triple(t);
                                             if(path.get(1).equals("www")){
-                                                for(PropertyMapping propertyMappingName : Properties.getMapping("name")) {
+                                                for(Mapping mappingName : Properties.getMapping("name")) {
                                                     String name = tagEntry.replaceAll("[0-9]", "");
                                                     name = name.replaceAll("\\s$", "");
-                                                    t = eu.wdaqua.dblp.ontology.Utility.map(subject, name, propertyMappingName);
+                                                    t = eu.wdaqua.dblp.ontology.Utility.map(subject, name, mappingName);
                                                     writer.triple(t);
                                                 }
                                             }
                                         } else if(path.get(2).equals("note")) {
                                             if(affiliation){
-                                                for(PropertyMapping propertyMappingAff : Properties.getMapping("affiliation")) {
-                                                    Triple t = eu.wdaqua.dblp.ontology.Utility.map(subject, tagEntry, propertyMappingAff);
+                                                for(Mapping mappingAff : Properties.getMapping("affiliation")) {
+                                                    Triple t = eu.wdaqua.dblp.ontology.Utility.map(subject, tagEntry, mappingAff);
                                                     writer.triple(t);
                                                     affiliation = false;
                                                 }
                                             } else {
-                                                Node predicate = createURI(propertyMapping.getPropertyUri());
-                                                Triple t = eu.wdaqua.dblp.ontology.Utility.map(subject, tagEntry, new PropertyMapping("note","http://www.w3.org/2004/02/skos/core#note",Type.STRING));
+                                                Node predicate = createURI(mapping.getPropertyUri());
+                                                Triple t = eu.wdaqua.dblp.ontology.Utility.map(subject, tagEntry, new Mapping("note","http://www.w3.org/2004/02/skos/core#note",Type.STRING));
                                                 writer.triple(t);
                                             }
                                         } else {
@@ -181,5 +182,16 @@ public class Main {
             }
         }
         writer.finish();
+
+        StringBuffer sb = new StringBuffer();
+        BufferedReader br = new BufferedReader(new FileReader(vocabularyFile));
+
+        String sCurrentLine;
+
+        while ((sCurrentLine = br.readLine()) != null) {
+            sb.append(sCurrentLine).append("\n");
+        }
+
+        Utility.writeStringBuffer(sb, outputFile, true);
     }
 }
