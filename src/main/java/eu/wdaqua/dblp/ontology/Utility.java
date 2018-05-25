@@ -85,6 +85,10 @@ public class Utility {
 
         s = removeSpecialCharacteres(s);
 
+        if(!s.contains("http"))
+            s = "http://dblp.uni-trier.de/" + s;
+
+
         return NodeFactory.createURI(s);
     }
 

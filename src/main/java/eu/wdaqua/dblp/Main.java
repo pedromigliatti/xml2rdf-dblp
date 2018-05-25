@@ -34,7 +34,7 @@ public class Main {
 
 //    Directory of tests on Pedro's computer
     public static String outputFile = "/home/pedro/Documentos/WDAqua/dblpDocuments/dblp2.nt";
-    public static String inputFile = "/home/pedro/Documentos/WDAqua/dblpDocuments/dblp.xml.temp";
+    public static String inputFile = "/home/pedro/Documentos/WDAqua/dblpDocuments/dblp.xml";
 
     public static void main(String[] args) throws IOException, XMLStreamException, IllegalAccessException {
 
