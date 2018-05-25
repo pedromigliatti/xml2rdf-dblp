@@ -1,106 +1,73 @@
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#label> .
 <http://swrc.ontoware.org/ontology#Article> <http://www.w3.org/2002/07/owl#sameAs> <https://www.wikidata.org/wiki/Q191067> .
-<http://swrc.ontoware.org/ontology#Article> rdfs:label "article"@en.
-
+<http://swrc.ontoware.org/ontology#Article> rdfs:label "article"@en .
 <http://purl.org/ontology/bibo/Proceedings> <http://www.w3.org/2002/07/owl#sameAs> <https://www.wikidata.org/wiki/Q2020153> .
-<http://purl.org/ontology/bibo/Proceedings> rdfs:label "academic conference"@en.
+<http://purl.org/ontology/bibo/Proceedings> rdfs:label "academic conference"@en .
 # I put the proceeding property as academic conference https://www.wikidata.org/wiki/Q2020153
 # But we have the link to proceedings too https://www.wikidata.org/wiki/Q1143604
 # I don't know which I must to use
-
 <http://swrc.ontoware.org/ontology#InProceedings> <http://www.w3.org/2002/07/owl#sameAs> <https://www.wikidata.org/wiki/Q191067> .
-<http://swrc.ontoware.org/ontology#InProceedings> rdfs:label "article"@en.
+<http://swrc.ontoware.org/ontology#InProceedings> rdfs:label "article"@en .
 # I put the inproceeding property as article
-
 <http://swrc.ontoware.org/ontology#InCollection> <http://www.w3.org/2002/07/owl#sameAs> <https://www.wikidata.org/wiki/Q1980247> .
-<http://swrc.ontoware.org/ontology#InCollection> rdfs:label "chapter"@en.
+<http://swrc.ontoware.org/ontology#InCollection> rdfs:label "chapter"@en .
 # I put the incollection as chapter, because the description that you past in the skype, but I dont rember if we decided another thing
-
 <http://swrc.ontoware.org/ontology#Book> <http://www.w3.org/2002/07/owl#sameAs> <https://www.wikidata.org/wiki/Q571> .
-<http://swrc.ontoware.org/ontology#Book> rdfs:label "book"@en.
-
+<http://swrc.ontoware.org/ontology#Book> rdfs:label "book"@en .
 <http://swrc.ontoware.org/ontology#PhDThesis> <http://www.w3.org/2002/07/owl#sameAs> <https://www.wikidata.org/wiki/Q187685> .
-<http://swrc.ontoware.org/ontology#PhDThesis> rdfs:label "doctoral thesis"@en.
-
+<http://swrc.ontoware.org/ontology#PhDThesis> rdfs:label "doctoral thesis"@en .
 <http://sw-portal.deri.org/ontologies/swportal#MasterThesis> <http://www.w3.org/2002/07/owl#sameAs> <https://www.wikidata.org/wiki/Q1907875> .
-<http://sw-portal.deri.org/ontologies/swportal#MasterThesis> rdfs:label "master's thesis"@en.
-
+<http://sw-portal.deri.org/ontologies/swportal#MasterThesis> rdfs:label "master's thesis"@en .
 <http://xmlns.com/foaf/0.1/Person> <http://www.w3.org/2002/07/owl#sameAs> <https://www.wikidata.org/wiki/Q215627> .
-<http://xmlns.com/foaf/0.1/Person> rdfs:label "person"
-
-
+<http://xmlns.com/foaf/0.1/Person> rdfs:label "person" .
 <http://schema.org/dateModified> <http://www.w3.org/2002/07/owl#sameAs> <https://www.wikidata.org/wiki/Property:P5017> .
-<http://schema.org/dateModified> rdfs:label "modified"@en.
-
+<http://schema.org/dateModified> rdfs:label "modified"@en .
 <http://dbpedia.org/ontology/author> <http://www.w3.org/2002/07/owl#sameAs> <https://www.wikidata.org/wiki/Q36180> .
-<http://dbpedia.org/ontology/author> rdfs:label "author"@en.
-
+<http://dbpedia.org/ontology/author> rdfs:label "author"@en .
 <https://schema.org/name> <http://www.w3.org/2002/07/owl#sameAs> <https://www.wikidata.org/wiki/Q82799> .
-<https://schema.org/name> rdfs:label "name"@en.
-
+<https://schema.org/name> rdfs:label "name"@en .
 <http://purl.org/dc/elements/1.1/title> <http://www.w3.org/2002/07/owl#sameAs> <https://www.wikidata.org/wiki/Q783521> .
-<http://purl.org/dc/elements/1.1/title> rdfs:label "title"@en.
-
+<http://purl.org/dc/elements/1.1/title> rdfs:label "title"@en .
 <http://swrc.ontoware.org/ontology#pages> <http://www.w3.org/2002/07/owl#sameAs> <https://www.wikidata.org/wiki/Q1069725> .
-<http://swrc.ontoware.org/ontology#pages> rdfs:label "pages"@en.
-
+<http://swrc.ontoware.org/ontology#pages> rdfs:label "pages"@en .
 <http://purl.org/dc/terms/issued> <http://www.w3.org/2002/07/owl#sameAs> <https://www.wikidata.org/wiki/Q1361758> .
-<http://purl.org/dc/terms/issued> rdfs:label "date of publication"@en.
+<http://purl.org/dc/terms/issued> rdfs:label "date of publication"@en .
 # Issued property is used in year of publication and month of publication, because this I don't if date of publication is the right label
-
 <http://swrc.ontoware.org/ontology#volume> <http://www.w3.org/2002/07/owl#sameAs> <https://www.wikidata.org/wiki/Q1238720> .
-<http://swrc.ontoware.org/ontology#volume> rdfs:label "volume"@en.
-
+<http://swrc.ontoware.org/ontology#volume> rdfs:label "volume"@en .
 <http://swrc.ontoware.org/ontology#journal> <http://www.w3.org/2002/07/owl#sameAs> <https://www.wikidata.org/wiki/Q737498> .
-<http://swrc.ontoware.org/ontology#journal> rdfs:label "academic journal"@en.
-
+<http://swrc.ontoware.org/ontology#journal> rdfs:label "academic journal"@en .
 <http://swrc.ontoware.org/ontology#number> <http://www.w3.org/2002/07/owl#sameAs> <https://www.wikidata.org/wiki/Q11563> .
-<http://swrc.ontoware.org/ontology#number> rdfs:label "number"@en.
-
+<http://swrc.ontoware.org/ontology#number> rdfs:label "number"@en .
 <http://purl.org/dc/elements/1.1/identifier> <http://www.w3.org/2002/07/owl#sameAs> <https://www.wikidata.org/wiki/Q61694> .
-<http://purl.org/dc/elements/1.1/identifier> rdfs:label "Uniform Resource Identifier"@en.
-
+<http://purl.org/dc/elements/1.1/identifier> rdfs:label "Uniform Resource Identifier"@en .
 <http://schema.org/url> <http://www.w3.org/2002/07/owl#sameAs> <https://www.wikidata.org/wiki/Q42253> .
-<http://schema.org/url> rdfs:label "Uniform Resource Locator"@en.
-
+<http://schema.org/url> rdfs:label "Uniform Resource Locator"@en .
 # I need search more about this property
 <http://www.w3.org/2002/07/owl#sameAs> <http://www.w3.org/2002/07/owl#sameAs> <> .
-
 <http://www.w3.org/2004/02/skos/core#note> <http://www.w3.org/2002/07/owl#sameAs> <https://www.wikidata.org/wiki/Q1619873> .
-<http://www.w3.org/2004/02/skos/core#note> rdfs:label "note"@en.
-
+<http://www.w3.org/2004/02/skos/core#note> rdfs:label "note"@en .
 <http://www.w3.org/1999/xhtml/vocab#cite> <http://www.w3.org/2002/07/owl#sameAs> <https://www.wikidata.org/wiki/Q1713> .
-<http://www.w3.org/1999/xhtml/vocab#cite> rdfs:label "citation"@en.
-
+<http://www.w3.org/1999/xhtml/vocab#cite> rdfs:label "citation"@en .
 <http://schema.org/editor> <http://www.w3.org/2002/07/owl#sameAs> <https://www.wikidata.org/wiki/Q1607826> .
-<http://schema.org/editor> rdfs:label "editor"@en.
-
-<http://lsdis.cs.uga.edu/projects/semdis/opus#book_title> <http://www.w3.org/2002/07/owl#sameAs> <https://www.wikidata.org/wiki/Q13442814>
-<http://lsdis.cs.uga.edu/projects/semdis/opus#book_title> rdfs:label "scholarly article"@en.
-
+<http://schema.org/editor> rdfs:label "editor"@en .
+<http://lsdis.cs.uga.edu/projects/semdis/opus#book_title> <http://www.w3.org/2002/07/owl#sameAs> <https://www.wikidata.org/wiki/Q13442814> .
+<http://lsdis.cs.uga.edu/projects/semdis/opus#book_title> rdfs:label "scholarly article"@en .
 <http://schema.org/address> <http://www.w3.org/2002/07/owl#sameAs> <https://www.wikidata.org/wiki/Q319608> .
-<http://schema.org/address> rdfs:label "address"@en.
-
+<http://schema.org/address> rdfs:label "address"@en .
 <http://lsdis.cs.uga.edu/projects/semdis/opus#cdrom> <http://www.w3.org/2002/07/owl#sameAs> <https://www.wikidata.org/wiki/Q35990537> .
-<http://lsdis.cs.uga.edu/projects/semdis/opus#cdrom> rdfs:label "CDROM: Classification of Duplicate gene RetentiOn Mechanisms"@en.
-
+<http://lsdis.cs.uga.edu/projects/semdis/opus#cdrom> rdfs:label "CDROM: Classification of Duplicate gene RetentiOn Mechanisms"@en .
 <http://schema.org/publisher> <http://www.w3.org/2002/07/owl#sameAs> <https://www.wikidata.org/wiki/Q2085381> .
-<http://schema.org/publisher> rdfs:label "publisher"@en.
-
+<http://schema.org/publisher> rdfs:label "publisher"@en .
 #<http://purl.org/net/nknouf/ns/bibtex#hasCrossref> <http://www.w3.org/2002/07/owl#sameAs> <https://www.wikidata.org/wiki/Q5188229> .
-#<http://purl.org/net/nknouf/ns/bibtex#hasCrossref> rdfs:label "Crossref"@en.
+#<http://purl.org/net/nknouf/ns/bibtex#hasCrossref> rdfs:label "Crossref"@en .
 #
 <http://data.europa.eu/eli/ontology#published_in>  <http://www.w3.org/2002/07/owl#sameAs> <https://www.wikidata.org/wiki/Q5188229> .
-
 <http://schema.org/isbn> <http://www.w3.org/2002/07/owl#sameAs> <https://www.wikidata.org/wiki/Q33057> .
-<http://schema.org/isbn> rdfs:label "International Standard Book Number"@en.
-
+<http://schema.org/isbn> rdfs:label "International Standard Book Number"@en .
 #I dont find wikidata link for this property
 <http://lsdis.cs.uga.edu/projects/semdis/opus#in_series> <http://www.w3.org/2002/07/owl#sameAs> <> .
-
 <http://lsdis.cs.uga.edu/projects/semdis/opus#School> <http://www.w3.org/2002/07/owl#sameAs> <https://www.wikidata.org/wiki/Q3914> .
-<http://lsdis.cs.uga.edu/projects/semdis/opus#School> rdfs:label "school"@en.
-
+<http://lsdis.cs.uga.edu/projects/semdis/opus#School> rdfs:label "school"@en .
 <http://lsdis.cs.uga.edu/projects/semdis/opus#chapter> <http://www.w3.org/2002/07/owl#sameAs> <https://www.wikidata.org/wiki/Q1980247> .
-<http://lsdis.cs.uga.edu/projects/semdis/opus#chapter> rdfs:label "chapter"@en.
-
-<publnr>
+<http://lsdis.cs.uga.edu/projects/semdis/opus#chapter> rdfs:label "chapter"@en .

@@ -5,7 +5,7 @@ public class PropertyMapping {
     private String propertyUri;
     private Type type;
 
-    PropertyMapping(String tag, String propertyUri, Type type){
+    public PropertyMapping(String tag, String propertyUri, Type type){
         this.tag = tag;
         this.propertyUri = propertyUri;
         this.type = type;
