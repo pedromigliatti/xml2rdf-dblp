@@ -17,11 +17,9 @@ public class Utility {
     public static Triple map(Node subject, String value, PropertyMapping propertyMapping){
 //        List<Triple> triples = new ArrayList<Triple>();
         Triple t = null;
-        for (PropertyMapping mapping : Properties.getMappings()) {
-            if (mapping.getTag().equals(propertyMapping.getTag()) && mapping.getType().equals(propertyMapping.getType())) {
                 Node predicate;
                 Node object;
-                switch (mapping.getType()) {
+                switch (propertyMapping.getType()) {
                     case URI:
                         predicate = createURI(propertyMapping.getPropertyUri());
                         if(!value.contains("http"))
@@ -50,10 +48,8 @@ public class Utility {
                          t = (new Triple(subject, predicate, object));
                         break;
                     default:
-                        System.out.println("Type not supported " + mapping.getType());
+                        System.out.println("Type not supported " + propertyMapping.getType());
                 }
-            }
-        }
         return t;
     }
 
