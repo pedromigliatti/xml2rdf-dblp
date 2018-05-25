@@ -133,7 +133,6 @@ public class Main {
                                                         object = createURI("http://dblp.uni-trier.de/" + tagEntry.split("#")[0]);
                                                     else
                                                         object = createURI(tagEntry.split("#")[0]);
-                                                    object = createURI(tagEntry.split("#")[0]);
                                                     t = new Triple(subject, predicate, object);
                                                     writer.triple(t);
                                                 }
