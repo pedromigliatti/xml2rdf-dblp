@@ -1,0 +1,63 @@
+<http://www.eurocris.org/ontologies/cerif/1.3#Publication> <http://www.w3.org/2002/07/owl#sameAs> <http://www.wikidata.org/entity/Q732577> .
+<http://www.eurocris.org/ontologies/cerif/1.3#Publication> <http://www.w3.org/2000/01/rdf-schema#labellabel> "publication"@en .
+<http://swrc.ontoware.org/ontology#Article> <http://www.w3.org/2002/07/owl#sameAs> <http://www.wikidata.org/entity/Q191067> .
+<http://swrc.ontoware.org/ontology#Article> <http://www.w3.org/2000/01/rdf-schema#labellabel> "article"@en .
+<http://purl.org/ontology/bibo/Proceedings> <http://www.w3.org/2002/07/owl#sameAs> <http://www.wikidata.org/entity/Q2020153> .
+<http://purl.org/ontology/bibo/Proceedings> <http://www.w3.org/2000/01/rdf-schema#labellabel> "academic conference"@en .
+<http://swrc.ontoware.org/ontology#InProceedings> <http://www.w3.org/2002/07/owl#sameAs> <http://www.wikidata.org/entity/Q191067> .
+<http://swrc.ontoware.org/ontology#InProceedings> <http://www.w3.org/2000/01/rdf-schema#labellabel> "article"@en .
+<http://swrc.ontoware.org/ontology#InCollection> <http://www.w3.org/2002/07/owl#sameAs> <http://www.wikidata.org/entity/Q1980247> .
+<http://swrc.ontoware.org/ontology#InCollection> <http://www.w3.org/2000/01/rdf-schema#labellabel> "chapter"@en .
+<http://swrc.ontoware.org/ontology#Book> <http://www.w3.org/2002/07/owl#sameAs> <http://www.wikidata.org/entity/Q571> .
+<http://swrc.ontoware.org/ontology#Book> <http://www.w3.org/2000/01/rdf-schema#labellabel> "book"@en .
+<http://swrc.ontoware.org/ontology#PhDThesis> <http://www.w3.org/2002/07/owl#sameAs> <http://www.wikidata.org/entity/Q187685> .
+<http://swrc.ontoware.org/ontology#PhDThesis> <http://www.w3.org/2000/01/rdf-schema#labellabel> "doctoral thesis"@en .
+<http://sw-portal.deri.org/ontologies/swportal#MasterThesis> <http://www.w3.org/2002/07/owl#sameAs> <http://www.wikidata.org/entity/Q1907875> .
+<http://sw-portal.deri.org/ontologies/swportal#MasterThesis> <http://www.w3.org/2000/01/rdf-schema#labellabel> "master's thesis"@en .
+<http://xmlns.com/foaf/0.1/Person> <http://www.w3.org/2002/07/owl#sameAs> <http://www.wikidata.org/entity/Q215627> .
+<http://xmlns.com/foaf/0.1/Person> <http://www.w3.org/2000/01/rdf-schema#labellabel> "person" .
+<http://schema.org/dateModified> <http://www.w3.org/2002/07/owl#sameAs> <http://www.wikidata.org/entity/Property:P5017> .
+<http://schema.org/dateModified> <http://www.w3.org/2000/01/rdf-schema#labellabel> "modified"@en .
+<http://dbpedia.org/ontology/author> <http://www.w3.org/2002/07/owl#sameAs> <http://www.wikidata.org/entity/Q36180> .
+<http://dbpedia.org/ontology/author> <http://www.w3.org/2000/01/rdf-schema#labellabel> "author"@en .
+<https://schema.org/name> <http://www.w3.org/2002/07/owl#sameAs> <http://www.wikidata.org/entity/Q82799> .
+<https://schema.org/name> <http://www.w3.org/2000/01/rdf-schema#labellabel> "name"@en .
+<http://purl.org/dc/elements/1.1/title> <http://www.w3.org/2002/07/owl#sameAs> <http://www.wikidata.org/entity/Q783521> .
+<http://purl.org/dc/elements/1.1/title> <http://www.w3.org/2000/01/rdf-schema#labellabel> "title"@en .
+<http://swrc.ontoware.org/ontology#pages> <http://www.w3.org/2002/07/owl#sameAs> <http://www.wikidata.org/entity/Q1069725> .
+<http://swrc.ontoware.org/ontology#pages> <http://www.w3.org/2000/01/rdf-schema#labellabel> "pages"@en .
+<http://purl.org/dc/terms/issued> <http://www.w3.org/2002/07/owl#sameAs> <http://www.wikidata.org/entity/Q1361758> .
+<http://purl.org/dc/terms/issued> <http://www.w3.org/2000/01/rdf-schema#labellabel> "date of publication"@en .
+<http://swrc.ontoware.org/ontology#volume> <http://www.w3.org/2002/07/owl#sameAs> <http://www.wikidata.org/entity/Q1238720> .
+<http://swrc.ontoware.org/ontology#volume> <http://www.w3.org/2000/01/rdf-schema#labellabel> "volume"@en .
+<http://swrc.ontoware.org/ontology#journal> <http://www.w3.org/2002/07/owl#sameAs> <http://www.wikidata.org/entity/Q737498> .
+<http://swrc.ontoware.org/ontology#journal> <http://www.w3.org/2000/01/rdf-schema#labellabel> "academic journal"@en .
+<http://swrc.ontoware.org/ontology#number> <http://www.w3.org/2002/07/owl#sameAs> <http://www.wikidata.org/entity/Q11563> .
+<http://swrc.ontoware.org/ontology#number> <http://www.w3.org/2000/01/rdf-schema#labellabel> "number"@en .
+<http://purl.org/dc/elements/1.1/identifier> <http://www.w3.org/2002/07/owl#sameAs> <http://www.wikidata.org/entity/Q61694> .
+<http://purl.org/dc/elements/1.1/identifier> <http://www.w3.org/2000/01/rdf-schema#labellabel> "Uniform Resource Identifier"@en .
+<http://schema.org/url> <http://www.w3.org/2002/07/owl#sameAs> <http://www.wikidata.org/entity/Q42253> .
+<http://schema.org/url> <http://www.w3.org/2000/01/rdf-schema#labellabel> "Uniform Resource Locator"@en .
+<http://www.w3.org/2002/07/owl#sameAs> <http://www.w3.org/2002/07/owl#sameAs> <> .
+<http://www.w3.org/2004/02/skos/core#note> <http://www.w3.org/2002/07/owl#sameAs> <http://www.wikidata.org/entity/Q1619873> .
+<http://www.w3.org/2004/02/skos/core#note> <http://www.w3.org/2000/01/rdf-schema#labellabel> "note"@en .
+<http://www.w3.org/1999/xhtml/vocab#cite> <http://www.w3.org/2002/07/owl#sameAs> <http://www.wikidata.org/entity/Q1713> .
+<http://www.w3.org/1999/xhtml/vocab#cite> <http://www.w3.org/2000/01/rdf-schema#labellabel> "citation"@en .
+<http://schema.org/editor> <http://www.w3.org/2002/07/owl#sameAs> <http://www.wikidata.org/entity/Q1607826> .
+<http://schema.org/editor> <http://www.w3.org/2000/01/rdf-schema#labellabel> "editor"@en .
+<http://lsdis.cs.uga.edu/projects/semdis/opus#book_title> <http://www.w3.org/2002/07/owl#sameAs> <http://www.wikidata.org/entity/Q13442814> .
+<http://lsdis.cs.uga.edu/projects/semdis/opus#book_title> <http://www.w3.org/2000/01/rdf-schema#labellabel> "scholarly article"@en .
+<http://schema.org/address> <http://www.w3.org/2002/07/owl#sameAs> <http://www.wikidata.org/entity/Q319608> .
+<http://schema.org/address> <http://www.w3.org/2000/01/rdf-schema#labellabel> "address"@en .
+<http://lsdis.cs.uga.edu/projects/semdis/opus#cdrom> <http://www.w3.org/2002/07/owl#sameAs> <http://www.wikidata.org/entity/Q35990537> .
+<http://lsdis.cs.uga.edu/projects/semdis/opus#cdrom> <http://www.w3.org/2000/01/rdf-schema#labellabel> "CDROM: Classification of Duplicate gene RetentiOn Mechanisms"@en .
+<http://schema.org/publisher> <http://www.w3.org/2002/07/owl#sameAs> <http://www.wikidata.org/entity/Q2085381> .
+<http://schema.org/publisher> <http://www.w3.org/2000/01/rdf-schema#labellabel> "publisher"@en .
+<http://data.europa.eu/eli/ontology#published_in> <http://www.w3.org/2002/07/owl#sameAs> <http://www.wikidata.org/entity/Q5188229> .
+<http://schema.org/isbn> <http://www.w3.org/2002/07/owl#sameAs> <http://www.wikidata.org/entity/Q33057> .
+<http://schema.org/isbn> <http://www.w3.org/2000/01/rdf-schema#labellabel> "International Standard Book Number"@en .
+<http://lsdis.cs.uga.edu/projects/semdis/opus#in_series> <http://www.w3.org/2002/07/owl#sameAs> <> .
+<http://lsdis.cs.uga.edu/projects/semdis/opus#School> <http://www.w3.org/2002/07/owl#sameAs> <http://www.wikidata.org/entity/Q3914> .
+<http://lsdis.cs.uga.edu/projects/semdis/opus#School> <http://www.w3.org/2000/01/rdf-schema#labellabel> "school"@en .
+<http://lsdis.cs.uga.edu/projects/semdis/opus#chapter> <http://www.w3.org/2002/07/owl#sameAs> <http://www.wikidata.org/entity/Q1980247> .
+<http://lsdis.cs.uga.edu/projects/semdis/opus#chapter> <http://www.w3.org/2000/01/rdf-schema#labellabel> "chapter"@en .

@@ -29,7 +29,7 @@ public class Main {
     public static String outputFile = "/home_expes/dd77474h/datasets/dblp_new/dump/dump.nt";
     public static String inputFile = "/home_expes/dd77474h/datasets/dblp_new/dump/dblp.xml";
 
-    public static String vocabularyFile = "vocabulary.ttl";
+    public static String vocabularyFile = "vocabulary.nt";
 
 //    Directory of tests on Pedro's computer
 //    public static String outputFile = "/home/pedro/Documentos/WDAqua/dblpDocuments/dblp2.nt";
