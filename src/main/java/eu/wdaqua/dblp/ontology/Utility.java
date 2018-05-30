@@ -115,9 +115,8 @@ public class Utility {
 
     //method to write all classes and properties to define the schema
     public static void writeVocabulary(StreamRDF writer) throws IOException {
-        try {
-            for (Field f : Classes.class.getDeclaredFields()) {
-                Node subject = createURI(f.get(Classes.class).toString());
+            for (Mapping m : Classes.getMappings()) {
+                Node subject = createURI(m.getPropertyUri());
                 Node object = createURI("http://www.w3.org/1999/02/22-rdf-syntax-ns#Classes");
                 Triple t = new Triple(subject, RDF.type.asNode(),object);
                 writer.triple(t);
@@ -129,8 +128,5 @@ public class Utility {
                 Triple t = new Triple(subject, RDF.type.asNode(), object);
                 writer.triple(t);
             }
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        }
     }
 }
