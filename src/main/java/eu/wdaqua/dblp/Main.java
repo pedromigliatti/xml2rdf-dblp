@@ -51,6 +51,7 @@ public class Main {
         boolean affiliation = false;
 
         List<String> path = new ArrayList<>();
+        Node booktitle = null;
         Node subject = null;
         String key = "";
         int line =0;
@@ -117,6 +118,11 @@ public class Main {
                                             Node object = createURI("http://dblp.uni-trier.de/db/" + crossref[0] + "/" + crossref[1]);
                                             Triple t = new Triple(subject, predicate, object);
                                             writer.triple(t);
+                                        } else if(path.get(2).equals("booktitle")){
+                                            Node predicate = createURI(mapping.getPropertyUri());
+                                            Node object = NodeFactory.createLiteral(tagEntry);
+                                            Triple t = new Triple(booktitle, predicate, object);
+                                            writer.triple(t);
                                         } else if (path.get(2).equals("url")) {
                                             Node predicate = createURI(mapping.getPropertyUri());
                                             Node object;
@@ -134,6 +140,7 @@ public class Main {
                                                         object = createURI("http://dblp.uni-trier.de/" + tagEntry.split("#")[0]);
                                                     else
                                                         object = createURI(tagEntry.split("#")[0]);
+                                                    booktitle = object;
                                                     t = new Triple(subject, predicate, object);
                                                     writer.triple(t);
                                                 }
