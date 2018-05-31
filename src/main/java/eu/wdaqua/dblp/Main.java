@@ -98,20 +98,21 @@ public class Main {
                 String tagEntry = event.asCharacters().getData().toString();
                 if (!tagEntry.equals("\n")) {
                     //Map the properties
-//                    if (line>90200000){
-//                        System.out.println(event.getLocation()+"  "+path.toString()+" "+key);
-//                    }
-                    List<Mapping> mappings = Properties.getMappings();
-//                    for (Mapping propertyMapping : mappings){
                         if (path.size()>2) { // there are some bugs in the dump
 //                            System.out.println(Properties.getMappedTags().toString());
-                            if (Properties.getMappedTags().containsKey((path.get(2)))) {
-                                for (Mapping mapping : Properties.getMapping(path.get(2))) {
+                            for (Mapping mapping: Properties.getMappings()){
+                                if (String.join("/", path).contains(mapping.getTag())){
                                     if (mapping.getType() != Type.CUSTOM) {
                                         Triple t = eu.wdaqua.dblp.ontology.Utility.map(subject, tagEntry, mapping);
                                         writer.triple(t);
                                     } else {
                                         if (path.get(2).equals("crossref")) {
+                                            String[] crossref = tagEntry.split("/");
+                                            Node predicate = createURI(mapping.getPropertyUri());
+                                            Node object = createURI("http://dblp.uni-trier.de/db/" + crossref[0] + "/" + crossref[1]);
+                                            Triple t = new Triple(subject, predicate, object);
+                                            writer.triple(t);
+                                        } else if (path.get(2).equals("booktitle")) {
                                             String[] crossref = tagEntry.split("/");
                                             Node predicate = createURI(mapping.getPropertyUri());
                                             Node object = createURI("http://dblp.uni-trier.de/db/" + crossref[0] + "/" + crossref[1]);
