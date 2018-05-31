@@ -51,6 +51,7 @@ public class Main {
         boolean affiliation = false;
 
         List<String> path = new ArrayList<>();
+        Node booktitle = null;
         Node subject = null;
         String key = "";
         int line =0;
@@ -135,6 +136,7 @@ public class Main {
                                                         object = createURI("http://dblp.uni-trier.de/" + tagEntry.split("#")[0]);
                                                     else
                                                         object = createURI(tagEntry.split("#")[0]);
+                                                    booktitle = object;
                                                     t = new Triple(subject, predicate, object);
                                                     writer.triple(t);
                                                 }

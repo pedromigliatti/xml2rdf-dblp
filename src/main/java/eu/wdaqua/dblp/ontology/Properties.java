@@ -28,8 +28,8 @@ public class Properties {
             new Mapping("affiliation","http://wdaqua.eu/affiliation",Type.STRING),
             new Mapping("cite","http://www.w3.org/1999/xhtml/vocab#cite",Type.STRING),
             new Mapping("editor","http://schema.org/editor",Type.STRING),
-            new Mapping("booktitle","http://lsdis.cs.uga.edu/projects/semdis/opus#book_title",Type.STRING), //"booktitle"; //I could not map
-            new Mapping("booktitle","http://www.w3.org/2000/01/rdf-schema#label",Type.STRING),
+            new Mapping("booktitle","http://data.europa.eu/eli/ontology#published_in",Type.STRING), //"booktitle"; //I could not map
+            new Mapping("booktitle","http://www.w3.org/2000/01/rdf-schema#label",Type.CUSTOM),
             new Mapping("address","http://schema.org/address",Type.STRING),
             new Mapping("month","http://purl.org/dc/terms/issued",Type.DATE),
             new Mapping("cdrom","http://lsdis.cs.uga.edu/projects/semdis/opus#cdrom",Type.STRING),

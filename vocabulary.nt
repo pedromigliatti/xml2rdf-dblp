@@ -19,6 +19,7 @@
 <http://schema.org/dateModified> <http://www.w3.org/2002/07/owl#equivalentClass> <http://www.wikidata.org/entity/Property:P5017> .
 <http://schema.org/dateModified> <http://www.w3.org/2000/01/rdf-schema#label> "modified"@en .
 <http://dbpedia.org/ontology/author> <http://www.w3.org/2002/07/owl#equivalentClass> <http://www.wikidata.org/entity/Q36180> .
+<http://dbpedia.org/ontology/author> <http://www.w3.org/2002/07/owl#equivalentClass> <http://www.wikidata.org/entity/Q482980> .
 <http://dbpedia.org/ontology/author> <http://www.w3.org/2000/01/rdf-schema#label> "author"@en .
 <https://schema.org/name> <http://www.w3.org/2002/07/owl#equivalentClass> <http://www.wikidata.org/entity/Q82799> .
 <https://schema.org/name> <http://www.w3.org/2000/01/rdf-schema#label> "name"@en .
@@ -53,7 +54,7 @@
 <http://lsdis.cs.uga.edu/projects/semdis/opus#cdrom> <http://www.w3.org/2000/01/rdf-schema#label> "CDROM: Classification of Duplicate gene RetentiOn Mechanisms"@en .
 <http://schema.org/publisher> <http://www.w3.org/2002/07/owl#equivalentClass> <http://www.wikidata.org/entity/Q2085381> .
 <http://schema.org/publisher> <http://www.w3.org/2000/01/rdf-schema#label> "publisher"@en .
-<http://data.europa.eu/eli/ontology#published_in> <http://www.w3.org/2002/07/owl#equivalentClass> <http://www.wikidata.org/entity/Q5188229> .
+<http://data.europa.eu/eli/ontology#published_in> <http://www.w3.org/2002/07/owl#equivalentProperty> <http://www.wikidata.org/entity/P1433> .
 <http://schema.org/isbn> <http://www.w3.org/2002/07/owl#equivalentClass> <http://www.wikidata.org/entity/Q33057> .
 <http://schema.org/isbn> <http://www.w3.org/2000/01/rdf-schema#label> "International Standard Book Number"@en .
 <http://lsdis.cs.uga.edu/projects/semdis/opus#in_series> <http://www.w3.org/2002/07/owl#equivalentClass> <> .
@@ -61,3 +62,6 @@
 <http://lsdis.cs.uga.edu/projects/semdis/opus#School> <http://www.w3.org/2000/01/rdf-schema#label> "school"@en .
 <http://lsdis.cs.uga.edu/projects/semdis/opus#chapter> <http://www.w3.org/2002/07/owl#equivalentClass> <http://www.wikidata.org/entity/Q1980247> .
 <http://lsdis.cs.uga.edu/projects/semdis/opus#chapter> <http://www.w3.org/2000/01/rdf-schema#label> "chapter"@en .
+<http://wdaqua.eu/affiliation> <http://www.w3.org/2002/07/owl#equivalentProperty> <http://www.wikidata.org/entity/P108> .
+<http://wdaqua.eu/affiliation> <http://www.w3.org/2002/07/owl#equivalentProperty> <http://www.wikidata.org/entity/P1416> .
+<http://wdaqua.eu/affiliation> <http://www.w3.org/2000/01/rdf-schema#label> "affiliation"@en .
