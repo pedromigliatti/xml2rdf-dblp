@@ -14,8 +14,21 @@ public class Properties {
             new Mapping("author","http://dbpedia.org/ontology/author",Type.CUSTOM),
             new Mapping("name","https://schema.org/name",Type.STRING),
             new Mapping("name","http://www.w3.org/2000/01/rdf-schema#label",Type.STRING),
-            new Mapping("title","http://purl.org/dc/elements/1.1/title",Type.STRING),
-            new Mapping("title","http://www.w3.org/2000/01/rdf-schema#label",Type.STRING),
+            new Mapping("article/title","http://purl.org/dc/elements/1.1/title",Type.STRING),
+            new Mapping("article/title","http://www.w3.org/2000/01/rdf-schema#label",Type.STRING),
+
+            new Mapping("proceedings/title","http://purl.org/dc/elements/1.1/title",Type.STRING),
+            new Mapping("proceedings/title","http://www.w3.org/2000/01/rdf-schema#label",Type.STRING),
+            new Mapping("inproceedings/title","http://purl.org/dc/elements/1.1/title",Type.STRING),
+            new Mapping("inproceedings/title","http://www.w3.org/2000/01/rdf-schema#label",Type.STRING),
+            new Mapping("book/title","http://purl.org/dc/elements/1.1/title",Type.STRING),
+            new Mapping("book/title","http://www.w3.org/2000/01/rdf-schema#label",Type.STRING),
+            new Mapping("phdthesis/title","http://purl.org/dc/elements/1.1/title",Type.STRING),
+            new Mapping("phdthesis/title","http://www.w3.org/2000/01/rdf-schema#label",Type.STRING),
+            new Mapping("mastersthesis/title","http://purl.org/dc/elements/1.1/title",Type.STRING),
+            new Mapping("mastersthesis/title","http://www.w3.org/2000/01/rdf-schema#label",Type.STRING), // not title mapping except for www, i.e. persons
+
+
             new Mapping("pages","http://swrc.ontoware.org/ontology#pages",Type.STRING),
             new Mapping("year","http://purl.org/dc/terms/issued",Type.YEAR),
             new Mapping("volume","http://swrc.ontoware.org/ontology#volume",Type.INTEGER),

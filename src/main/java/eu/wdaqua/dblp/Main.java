@@ -113,11 +113,10 @@ public class Main {
                                             Node object = createURI("http://dblp.uni-trier.de/db/" + crossref[0] + "/" + crossref[1]);
                                             Triple t = new Triple(subject, predicate, object);
                                             writer.triple(t);
-                                        } else if (path.get(2).equals("booktitle")) {
-                                            String[] crossref = tagEntry.split("/");
+                                        } else if(path.get(2).equals("booktitle")){
                                             Node predicate = createURI(mapping.getPropertyUri());
-                                            Node object = createURI("http://dblp.uni-trier.de/db/" + crossref[0] + "/" + crossref[1]);
-                                            Triple t = new Triple(subject, predicate, object);
+                                            Node object = NodeFactory.createLiteral(tagEntry);
+                                            Triple t = new Triple(booktitle, predicate, object);
                                             writer.triple(t);
                                         } else if (path.get(2).equals("url")) {
                                             Node predicate = createURI(mapping.getPropertyUri());
