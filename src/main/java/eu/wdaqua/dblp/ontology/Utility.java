@@ -6,12 +6,15 @@ import org.apache.jena.graph.NodeFactory;
 import org.apache.jena.graph.Triple;
 import org.apache.jena.riot.system.StreamRDF;
 import org.apache.jena.vocabulary.RDF;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.lang.reflect.Field;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Utility {
 
@@ -128,5 +131,31 @@ public class Utility {
                 Triple t = new Triple(subject, RDF.type.asNode(), object);
                 writer.triple(t);
             }
+    }
+
+    public static Map<String,String> readMonthJson(String path){
+        JSONParser parser = new JSONParser();
+
+        Map<String, String> months = new HashMap<>();
+
+        try{
+            Object obj = parser.parse(new FileReader(path));
+
+            JSONArray jsonArray = (JSONArray) obj;
+
+            for (Object object : jsonArray) {
+                JSONObject jsonObject = (JSONObject) object;
+
+                String uri = jsonObject.get("m_s").toString();
+                String month = jsonObject.get("m_sLabel").toString();
+
+                months.put(month, uri);
+            }
+
+
+        } catch (ParseException | IOException e) {
+            e.printStackTrace();
+        }
+        return months;
     }
 }

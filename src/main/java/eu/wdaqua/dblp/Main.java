@@ -10,6 +10,7 @@ import org.apache.jena.riot.RDFFormat;
 import org.apache.jena.riot.system.StreamRDF;
 import org.apache.jena.riot.system.StreamRDFWriter;
 
+import javax.rmi.CORBA.Util;
 import javax.xml.stream.XMLEventReader;
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamException;
@@ -29,12 +30,15 @@ public class Main {
 //    public static String inputFile = "/home_expes/dd77474h/datasets/dblp_new/dump/dblp.xml";
 
     public static String vocabularyFile = "vocabulary.nt";
+    public static String monthFile = "query.json";
 
 //    Directory of tests on Pedro's computer
     public static String outputFile = "/home/pedro/Documentos/WDAqua/dblpDocuments/dblp2.nt";
     public static String inputFile = "/home/pedro/Documentos/WDAqua/dblpDocuments/dblp.xml.temp";
 
     public static void main(String[] args) throws IOException, XMLStreamException, IllegalAccessException {
+
+        Map<String, String> month = Utility.readMonthJson(monthFile);
 
         XMLInputFactory factory = XMLInputFactory.newInstance();
         factory.setProperty(XMLInputFactory.IS_VALIDATING, true);
@@ -119,11 +123,11 @@ public class Main {
                                             Node object = createURI("http://dblp.uni-trier.de/db/" + crossref[0] + "/" + crossref[1]);
                                             Triple t = new Triple(subject, predicate, object);
                                             writer.triple(t);
-                                        } else if (path.get(2).equals("series")){
-                                            for(Mapping p : Properties.getMapping("series")){
+                                        } else if (path.get(2).equals("series")) {
+                                            for (Mapping p : Properties.getMapping("series")) {
                                                 Node predicate = createURI(p.getPropertyUri());
                                                 Triple t;
-                                                if(!p.getPropertyUri().contains("#label")) {
+                                                if (!p.getPropertyUri().contains("#label")) {
                                                     Node object = createURI(href);
                                                     t = new Triple(subject, predicate, object);
                                                 } else {
@@ -133,6 +137,11 @@ public class Main {
                                                 }
                                                 writer.triple(t);
                                             }
+                                        } else if (path.get(2).equals("month")) {
+                                            Node predicate = createURI(mapping.getPropertyUri());
+                                            Node object = createURI(month.get(tagEntry));
+                                            Triple t = new Triple(subject, predicate, object);
+                                            writer.triple(t);
                                         } else if (path.get(2).equals("booktitle")) {
                                             booktitle = tagEntry;
                                         } else if (path.get(2).equals("url")) {

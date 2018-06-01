@@ -45,7 +45,7 @@ public class Properties {
             new Mapping("booktitle","http://data.europa.eu/eli/ontology#published_in",Type.CUSTOM),
             new Mapping("booktitle","http://www.w3.org/2000/01/rdf-schema#label",Type.CUSTOM),
             new Mapping("address","http://schema.org/address",Type.STRING),
-            new Mapping("month","http://purl.org/dc/terms/issued",Type.DATE),
+            new Mapping("month","http://purl.org/dc/terms/issued",Type.CUSTOM),
             new Mapping("cdrom","http://lsdis.cs.uga.edu/projects/semdis/opus#cdrom",Type.STRING),
             new Mapping("publisher","http://schema.org/publisher",Type.STRING),
             new Mapping("crossref","http://data.europa.eu/eli/ontology#published_in",Type.URI), //"http://purl.org/net/nknouf/ns/bibtex#hasCrossref";
