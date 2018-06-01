@@ -106,7 +106,7 @@ public class Main {
                     }
                 }
             } else if (event.isCharacters()) {
-                String tagEntry = event.asCharacters().getData().toString();
+                String tagEntry = event.asCharacters().getData();
                 if (!tagEntry.equals("\n")) {
                     //Map the properties
                         if (path.size()>2) { // there are some bugs in the dump
@@ -153,7 +153,6 @@ public class Main {
                                                 object = createURI(tagEntry);
                                             Triple t = new Triple(subject, predicate, object);
                                             writer.triple(t);
-                                            //Use the tag for generating the booktitle uri
                                             if (!path.get(1).equals("www")) {
                                                 for (Mapping p : Properties.getMapping("booktitle")) {
                                                     if (!p.getPropertyUri().contains("#label")) {
