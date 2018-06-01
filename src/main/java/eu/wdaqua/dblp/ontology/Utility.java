@@ -110,8 +110,8 @@ public class Utility {
             s = s.replace("\\|","");
         }
         if (s.contains("|")){
-            System.out.println("This URI "+s+"contains illigal caracter |");
-            s = s.replace("|","");
+            //System.out.println("This URI "+s+"contains illigal caracter |");
+            s = s.replace("|","\u0007C");
         }
         return s;
     }
