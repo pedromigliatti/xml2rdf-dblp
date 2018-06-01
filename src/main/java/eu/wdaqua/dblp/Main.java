@@ -1,11 +1,7 @@
 package eu.wdaqua.dblp;
 
 import com.ctc.wstx.api.WstxInputProperties;
-
 import eu.wdaqua.dblp.ontology.*;
-import eu.wdaqua.dblp.ontology.Properties;
-import eu.wdaqua.dblp.ontology.Mapping;
-
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.jena.graph.Node;
 import org.apache.jena.graph.NodeFactory;
@@ -21,19 +17,22 @@ import javax.xml.stream.events.Attribute;
 import javax.xml.stream.events.XMLEvent;
 
 import java.io.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 import static eu.wdaqua.dblp.ontology.Utility.createURI;
 
 public class Main {
-    public static String outputFile = "/home_expes/dd77474h/datasets/dblp_new/dump/dump.nt";
-    public static String inputFile = "/home_expes/dd77474h/datasets/dblp_new/dump/dblp.xml";
+//    public static String outputFile = "/home_expes/dd77474h/datasets/dblp_new/dump/dump.nt";
+//    public static String inputFile = "/home_expes/dd77474h/datasets/dblp_new/dump/dblp.xml";
 
     public static String vocabularyFile = "vocabulary.nt";
 
 //    Directory of tests on Pedro's computer
-//    public static String outputFile = "/home/pedro/Documentos/WDAqua/dblpDocuments/dblp2.nt";
-//    public static String inputFile = "/home/pedro/Documentos/WDAqua/dblpDocuments/dblp.xml.temp";
+    public static String outputFile = "/home/pedro/Documentos/WDAqua/dblpDocuments/dblp2.nt";
+    public static String inputFile = "/home/pedro/Documentos/WDAqua/dblpDocuments/dblp.xml.temp";
 
     public static void main(String[] args) throws IOException, XMLStreamException, IllegalAccessException {
 
@@ -45,19 +44,20 @@ public class Main {
 
         StreamRDF writer = StreamRDFWriter.getWriterStream(new FileOutputStream(outputFile), RDFFormat.NTRIPLES);
 
-        Map<String,String> persons = Persons.extractPersonRecords();
+        Map<String, String> persons = Persons.extractPersonRecords();
         Utility.writeVocabulary(writer);
 
         boolean affiliation = false;
 
         List<String> path = new ArrayList<>();
-        Node booktitle = null;
+        List<Node> published_in = new ArrayList<>();
         Node subject = null;
         String key = "";
-        int line =0;
+        String journal = "";
+        int line = 0;
         while (reader.hasNext()) {
             line++;
-            if (line%100000==0){
+            if (line % 100000 == 0) {
                 System.out.println(line);
             }
             XMLEvent event = reader.nextEvent();
@@ -82,7 +82,7 @@ public class Main {
                         Map<String, ObjectUtils.Null> classes = Classes.getMappedTags();
                         if (classes.containsKey(path.get(1))) {
                             Node predicate = createURI("http://www.w3.org/1999/02/22-rdf-syntax-ns#type");
-                            for(Mapping c : Classes.getMapping(path.get(1))) {
+                            for (Mapping c : Classes.getMapping(path.get(1))) {
                                 Node object = NodeFactory.createURI(c.getPropertyUri());
                                 Triple t = new Triple(subject, predicate, object);
                                 writer.triple(t);
@@ -90,12 +90,12 @@ public class Main {
                         } else {
                             System.out.println("Unmapped class tag " + path.get(1));
                         }
-                    } else if(attribute.getName().toString().equals("type")){
-                        if(attribute.getValue().equals("affiliation"))
+                    } else if (attribute.getName().toString().equals("type")) {
+                        if (attribute.getValue().equals("affiliation"))
                             affiliation = true;
                     }
                 }
-            } else if(event.isCharacters()){
+            } else if (event.isCharacters()) {
                 String tagEntry = event.asCharacters().getData().toString();
                 if (!tagEntry.equals("\n")) {
                     //Map the properties
@@ -114,37 +114,48 @@ public class Main {
                                             Triple t = new Triple(subject, predicate, object);
                                             writer.triple(t);
                                         } else if(path.get(2).equals("booktitle")){
-                                            Node predicate = createURI(mapping.getPropertyUri());
-                                            Node object = NodeFactory.createLiteral(tagEntry);
-                                            Triple t = new Triple(booktitle, predicate, object);
-                                            writer.triple(t);
+                                            journal = tagEntry;
                                         } else if (path.get(2).equals("url")) {
                                             Node predicate = createURI(mapping.getPropertyUri());
                                             Node object;
-                                            if(!tagEntry.contains("http"))
+                                            if (!tagEntry.contains("http"))
                                                 object = createURI("http://dblp.uni-trier.de/" + tagEntry);
                                             else
                                                 object = createURI(tagEntry);
                                             Triple t = new Triple(subject, predicate, object);
                                             writer.triple(t);
                                             //Use the tag for generating the booktitle uri
-                                            for (Mapping p : Properties.getMapping("booktitle")) {
-                                                if (!p.getPropertyUri().contains("#label")) {
-                                                    predicate = createURI(p.getPropertyUri());
-                                                    if(!tagEntry.contains("http"))
-                                                        object = createURI("http://dblp.uni-trier.de/" + tagEntry.split("#")[0]);
-                                                    else
-                                                        object = createURI(tagEntry.split("#")[0]);
-                                                    booktitle = object;
-                                                    t = new Triple(subject, predicate, object);
+                                            if(!path.get(1).equals("www")) {
+                                                for (Mapping p : Properties.getMapping("booktitle")) {
+                                                    if (!p.getPropertyUri().contains("#label")) {
+                                                        predicate = createURI(p.getPropertyUri());
+                                                        tagEntry = tagEntry.split("#")[0];
+                                                        String[] tagEntrySplited = tagEntry.split("/");
+                                                        String newTagEntry = "";
+                                                        for (int i = 0; i < tagEntrySplited.length - 1; i++) {
+                                                            if (!tagEntrySplited[i].equals(""))
+                                                                newTagEntry = newTagEntry + "/" + tagEntrySplited[i];
+                                                        }
+                                                        if (!tagEntry.contains("http"))
+                                                            object = createURI("http://dblp.uni-trier.de/" + newTagEntry);
+                                                        else
+                                                            object = createURI(newTagEntry);
+                                                        published_in.add(object);
+                                                        t = new Triple(subject, predicate, object);
+                                                        writer.triple(t);
+                                                    }
+                                                }
+                                                for (Node p : published_in) {
+                                                    predicate = createURI("http://www.w3.org/2000/01/rdf-schema#label");
+                                                    object = NodeFactory.createLiteral(journal);
+                                                    t = new Triple(p, predicate, object);
                                                     writer.triple(t);
                                                 }
+                                                published_in.clear();
+                                                journal = "";
                                             }
                                         } else if (path.get(2).equals("journal")) {
-                                            Node predicate = createURI(mapping.getPropertyUri());
-                                            Node object = createURI("http://dblp.uni-trier.de/db/" + key.split("/")[0] + "/" + key.split("/")[1]);
-                                            Triple t = new Triple(subject, predicate, object);
-                                            writer.triple(t);
+                                            journal = tagEntry;
                                         } else if (path.get(2).equals("author")) {
                                             Node predicate = createURI(mapping.getPropertyUri());
                                             Node object = createURI(persons.get(tagEntry));
@@ -177,10 +188,9 @@ public class Main {
                                 }
                             }
                         }
-//                    }
                 }
-            } else if(event.isEndElement()){
-                path.remove(path.size()-1);
+            } else if (event.isEndElement()) {
+                path.remove(path.size() - 1);
             }
         }
         writer.finish();
