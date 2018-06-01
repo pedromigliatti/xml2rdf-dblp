@@ -1,5 +1,6 @@
 package eu.wdaqua.dblp;
 
+import com.beust.jcommander.JCommander;
 import com.ctc.wstx.api.WstxInputProperties;
 import eu.wdaqua.dblp.ontology.*;
 import org.apache.commons.lang3.ObjectUtils;
@@ -10,7 +11,6 @@ import org.apache.jena.riot.RDFFormat;
 import org.apache.jena.riot.system.StreamRDF;
 import org.apache.jena.riot.system.StreamRDFWriter;
 
-import javax.rmi.CORBA.Util;
 import javax.xml.stream.XMLEventReader;
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamException;
@@ -33,10 +33,20 @@ public class Main {
     public static String monthFile = "query.json";
 
 //    Directory of tests on Pedro's computer
-    public static String outputFile = "/home/pedro/Documentos/WDAqua/dblpDocuments/dblp2.nt";
-    public static String inputFile = "/home/pedro/Documentos/WDAqua/dblpDocuments/dblp.xml.temp";
+//    public static String outputFile = "/home/pedro/Documentos/WDAqua/dblpDocuments/dblp2.nt";
+//    public static String inputFile = "/home/pedro/Documentos/WDAqua/dblpDocuments/dblp.xml.temp";
 
-    public static void main(String[] args) throws IOException, XMLStreamException, IllegalAccessException {
+    public static void main(String[] argv) throws IOException, XMLStreamException, IllegalAccessException {
+
+        Args args = new Args();
+
+        JCommander.newBuilder().addObject(args).build().parse(argv);
+
+        String outputFile = args.output;
+        String inputFile = args.input;
+
+        System.out.println("Input File: " + inputFile);
+        System.out.println("Output File: " + outputFile);
 
         Map<String, String> month = Utility.readMonthJson(monthFile);
 
@@ -48,7 +58,7 @@ public class Main {
 
         StreamRDF writer = StreamRDFWriter.getWriterStream(new FileOutputStream(outputFile), RDFFormat.NTRIPLES);
 
-        Map<String, String> persons = Persons.extractPersonRecords();
+        Map<String, String> persons = Persons.extractPersonRecords(inputFile);
         Utility.writeVocabulary(writer);
 
         boolean affiliation = false;
