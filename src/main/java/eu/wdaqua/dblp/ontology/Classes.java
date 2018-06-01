@@ -19,7 +19,8 @@ public class Classes {
             new Mapping("phdthesis","http://www.eurocris.org/ontologies/cerif/1.3#Publication",Type.CLASS),
             new Mapping("mastersthesis","http://sw-portal.deri.org/ontologies/swportal#MasterThesis",Type.CLASS),
             new Mapping("mastersthesis","http://www.eurocris.org/ontologies/cerif/1.3#Publication",Type.CLASS),
-            new Mapping("www","http://xmlns.com/foaf/0.1/Person",Type.CLASS)
+            new Mapping("www","http://xmlns.com/foaf/0.1/Person",Type.CLASS),
+            new Mapping("journal","http://xmlns.com/foaf/0.1/Person",Type.CUSTOM)
     ));
 
     public static Map<String,String> getFields() {
