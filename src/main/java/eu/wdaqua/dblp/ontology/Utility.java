@@ -70,31 +70,7 @@ public class Utility {
     }
 
     public static Node createURI(String s){
-        if (s.contains(">")){
-            System.out.println("This URI "+s+"contains illigal caracter >");
-            s = s.replace(">","");
-        }
-        if (s.contains("<")){
-            System.out.println("This URI "+s+"contains illigal caracter <");
-            s = s.replace("<","");
-        }
-        if (s.contains("\\")){
-            System.out.println("This URI "+s+"contains illigal caracter \\");
-            s = s.replace("\\","");
-        }
-        if (s.contains("}")){
-            System.out.println("This URI "+s+"contains illigal caracter }");
-            s = s.replace("}","");
-        }
-        if (s.contains("{")){
-            System.out.println("This URI "+s+"contains illigal caracter {");
-            s = s.replace("{","");
-        }
-        if (s.contains("\"")){
-            System.out.println("This URI "+s+"contains illigal caracter \"");
-            s = s.replace("\"","");
-        }
-
+        s = s.replace(" ","_");
         s = removeSpecialCharacteres(s);
 
         if(!s.contains("http"))
@@ -105,6 +81,34 @@ public class Utility {
     }
 
     public static String removeSpecialCharacteres(String s){
+        if (s.contains(">")){
+            //System.out.println("This URI "+s+"contains illigal caracter >");
+            s = s.replace(">","\u003E");
+        }
+        if (s.contains("<")){
+            //System.out.println("This URI "+s+"contains illigal caracter <");
+            s = s.replace("<","\u003C");
+        }
+        if (s.contains("\\")){
+            //System.out.println("This URI "+s+"contains illigal caracter \\");
+            s = s.replace("\\","\u005C");
+        }
+        if (s.contains("}")){
+            //System.out.println("This URI "+s+"contains illigal caracter }");
+            s = s.replace("}","\u007D");
+        }
+        if (s.contains("{")){
+            //System.out.println("This URI "+s+"contains illigal caracter {");
+            s = s.replace("{","\u007B");
+        }
+        if (s.contains("\"")){
+            //System.out.println("This URI "+s+"contains illigal caracter \"");
+            s = s.replace("\"","\u0022");
+        }
+        if (s.contains("|")){
+            //System.out.println("This URI "+s+"contains illigal caracter |");
+            s = s.replace("|","\u0007C");
+        }
         if (s.contains("\\|")){
             System.out.println("This URI "+s+"contains illigal caracter |");
             s = s.replace("\\|","");

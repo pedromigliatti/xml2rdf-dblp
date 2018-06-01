@@ -73,7 +73,7 @@ public class Main {
         int line = 0;
         while (reader.hasNext()) {
             line++;
-            if (line % 100000 == 0) {
+            if (line % 1000000 == 0) {
                 System.out.println(line);
             }
             XMLEvent event = reader.nextEvent();
