@@ -165,7 +165,7 @@ public class Main {
                                                 object = createURI(tagEntry);
                                             Triple t = new Triple(subject, predicate, object);
                                             writer.triple(t);
-                                            if (!path.get(1).equals("www")) {
+                                            if (path.get(1).equals("article") || path.get(1).equals("proceedings") || path.get(1).equals("inproceedings") || path.get(1).equals("incollection") || path.get(1).equals("book") || path.get(1).equals("journal") ) {
                                                 for (Mapping p : Properties.getMapping("/booktitle")) {
                                                     if (!p.getPropertyUri().contains("#label")) {
                                                         String newTagEntry = "";

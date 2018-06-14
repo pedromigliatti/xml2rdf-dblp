@@ -9,8 +9,5 @@
         <module name="xml2rdf-dblp" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="xml2rdf-dblp" target="1.8" />
-    </bytecodeTargetLevel>
   </component>
 </project>
