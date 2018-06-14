@@ -134,7 +134,7 @@ public class Main {
                                             Triple t = new Triple(subject, predicate, object);
                                             writer.triple(t);
                                         } else if (path.get(2).equals("series")) {
-                                            for (Mapping p : Properties.getMapping("series")) {
+                                            for (Mapping p : Properties.getMapping("/series")) {
                                                 Node predicate = createURI(p.getPropertyUri());
                                                 Triple t;
                                                 if (!p.getPropertyUri().contains("#label")) {
@@ -149,9 +149,11 @@ public class Main {
                                             }
                                         } else if (path.get(2).equals("month")) {
                                             Node predicate = createURI(mapping.getPropertyUri());
-                                            Node object = createURI(month.get(tagEntry));
-                                            Triple t = new Triple(subject, predicate, object);
-                                            writer.triple(t);
+                                            if (month.get(tagEntry)!=null){
+                                                Node object = createURI(month.get(tagEntry));
+                                                Triple t = new Triple(subject, predicate, object);
+                                                writer.triple(t);
+                                            }
                                         } else if (path.get(2).equals("booktitle")) {
                                             booktitle = tagEntry;
                                         } else if (path.get(2).equals("url")) {
@@ -164,7 +166,7 @@ public class Main {
                                             Triple t = new Triple(subject, predicate, object);
                                             writer.triple(t);
                                             if (!path.get(1).equals("www")) {
-                                                for (Mapping p : Properties.getMapping("booktitle")) {
+                                                for (Mapping p : Properties.getMapping("/booktitle")) {
                                                     if (!p.getPropertyUri().contains("#label")) {
                                                         String newTagEntry = "";
                                                         predicate = createURI(p.getPropertyUri());
@@ -211,7 +213,7 @@ public class Main {
                                             Triple t = new Triple(subject, predicate, object);
                                             writer.triple(t);
                                             if (path.get(1).equals("www")) {
-                                                for (Mapping mappingName : Properties.getMapping("name")) {
+                                                for (Mapping mappingName : Properties.getMapping("/name")) {
                                                     String name = tagEntry.replaceAll("[0-9]", "");
                                                     name = name.replaceAll("\\s$", "");
                                                     t = eu.wdaqua.dblp.ontology.Utility.map(subject, name, mappingName);
@@ -227,7 +229,7 @@ public class Main {
                                             }
                                         } else if(path.get(2).equals("note")) {
                                             if(affiliation){
-                                                for(Mapping mappingAff : Properties.getMapping("affiliation")) {
+                                                for(Mapping mappingAff : Properties.getMapping("/affiliation")) {
                                                     Triple t = eu.wdaqua.dblp.ontology.Utility.map(subject, tagEntry, mappingAff);
                                                     writer.triple(t);
                                                     affiliation = false;
