@@ -21,6 +21,7 @@ import java.io.*;
 import java.util.*;
 
 import static eu.wdaqua.dblp.ontology.Utility.createURI;
+import static eu.wdaqua.dblp.ontology.Utility.map;
 
 public class Main {
 
@@ -52,14 +53,8 @@ public class Main {
         Map<String, String> persons = Persons.extractPersonRecords(inputFile);
         Utility.writeVocabulary(writer);
 
-        boolean affiliation = false;
-
         List<String> path = new ArrayList<>();
-        List<Node> published_in = new ArrayList<>();
         Node subject = null;
-
-        String journal = "";
-        String booktitle = "";
 
         Map<String, String> attributes = new HashMap<String, String>();
 
@@ -108,7 +103,7 @@ public class Main {
                     for (Mapping mapping : Properties.getMappings()) {
                         if (String.join("/", path).contains(mapping.getTag())) {
                             if (mapping.getType() != Type.CUSTOM) {
-                                Triple t = eu.wdaqua.dblp.ontology.Utility.map(subject, tagEntry, mapping);
+                                Triple t = map(subject, tagEntry, mapping);
                                 writer.triple(t);
                             } else {
                                 if (path.get(2).equals("crossref")) {
@@ -126,12 +121,10 @@ public class Main {
                                         writer.triple(t);
                                     }
                                 } else if (path.get(2).equals("author")) {
-                                    for (Mapping mappingName : Properties.getMapping("/name")) {
-                                        String name = tagEntry.replaceAll("[0-9]", "");
-                                        name = name.replaceAll("\\s$", "");
-                                        Triple t = eu.wdaqua.dblp.ontology.Utility.map(subject, name, mappingName);
-                                        writer.triple(t);
-                                    }
+                                    Node predicate = createURI(mapping.getPropertyUri());
+                                    Node object = createURI(persons.get(tagEntry));
+                                    Triple t = new Triple(subject, predicate, object);
+                                    writer.triple(t);
                                 } else if (path.get(2).equals("series")) {
                                     if (!attributes.get("href").isEmpty()) {
                                         for (Mapping p : Properties.getMapping("/series")) {
@@ -167,13 +160,12 @@ public class Main {
                                     Node object = NodeFactory.createLiteral(tagEntry);
                                     if (!attributes.get("type").isEmpty()) {
                                         for (Mapping p : Properties.getMapping("/affiliation")) {
-                                            Node predicate = createURI(p.getPropertyUri());
-                                            Triple t = new Triple(subject, predicate, object);
+                                            Triple t = map(subject, tagEntry, p);
                                             writer.triple(t);
-                                            attributes.remove("type");
                                         }
+                                        attributes.remove("type");
                                     } else {
-                                        for (Mapping p : Properties.getMapping("/affiliation")) {
+                                        for (Mapping p : Properties.getMapping("/note")) {
                                             Node predicate = createURI(p.getPropertyUri());
                                             Triple t = new Triple(subject, predicate, object);
                                             writer.triple(t);

@@ -11,11 +11,10 @@ import java.util.Map;
 public class Properties {
     public static final ArrayList<Mapping> mappings = new ArrayList<Mapping>(Arrays.asList(
             new Mapping("/mdate","http://schema.org/dateModified",Type.DATE),
-            new Mapping("/name","https://schema.org/name",Type.STRING),
-            new Mapping("/name","http://www.w3.org/2000/01/rdf-schema#label",Type.STRING),
 
-            new Mapping("/www/author","http://dbpedia.org/ontology/author",Type.CUSTOM),
-            new Mapping("/author","http://dbpedia.org/ontology/author",Type.STRING),
+            new Mapping("/www/author","https://schema.org/name",Type.STRING),
+            new Mapping("/www/author","http://www.w3.org/2000/01/rdf-schema#label",Type.STRING),
+            new Mapping("/author","http://dbpedia.org/ontology/author",Type.CUSTOM),
 
             new Mapping("/article/title","http://purl.org/dc/elements/1.1/title",Type.STRING),
             new Mapping("/article/title","http://www.w3.org/2000/01/rdf-schema#label",Type.STRING),
