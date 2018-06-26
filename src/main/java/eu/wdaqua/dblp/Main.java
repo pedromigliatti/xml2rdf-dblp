@@ -40,23 +40,23 @@ public class Main {
         System.out.println("Input File: " + inputFile);
         System.out.println("Output File: " + outputFile);
 
+        Map<String, String> attributes = new HashMap<String, String>();
+        Map<String, String> persons = Persons.extractPersonRecords(inputFile);
         Map<String, String> months = Utility.readMonthJson(monthFile);
 
         XMLInputFactory factory = XMLInputFactory.newInstance();
         factory.setProperty(XMLInputFactory.IS_VALIDATING, true);
         factory.setProperty(WstxInputProperties.P_MAX_ENTITY_COUNT, 999999999);
+
         FileInputStream fileXML = new FileInputStream(inputFile);
         XMLEventReader reader = factory.createXMLEventReader(inputFile, fileXML);
 
         StreamRDF writer = StreamRDFWriter.getWriterStream(new FileOutputStream(outputFile), RDFFormat.NTRIPLES);
 
-        Map<String, String> persons = Persons.extractPersonRecords(inputFile);
         Utility.writeVocabulary(writer);
 
         List<String> path = new ArrayList<>();
         Node subject = null;
-
-        Map<String, String> attributes = new HashMap<String, String>();
 
         int line = 0;
         while (reader.hasNext()) {
@@ -67,34 +67,36 @@ public class Main {
             XMLEvent event = reader.nextEvent();
             if (event.isStartElement()) {
                 path.add(event.asStartElement().getName().toString());
-
-                Iterator elementAttributes = event.asStartElement().getAttributes();
-                while (elementAttributes.hasNext()) {
-                    Attribute attribute = (Attribute) elementAttributes.next();
-                    attributes.put(attribute.getName().toString(), attribute.getValue());
-                }
-
-                switch (path.get(1)) {
-                    case "www":
-                        subject = createURI("https://dblp.org/pid/" + attributes.get("key").replace("homepages/", ""));
-                        break;
-                    case "book":
-                        subject = createURI("https://dblp.org/db/" + attributes.get("key"));
-                        break;
-                    default:
-                        subject = createURI("https://dblp.org/rec/html/" + attributes.get("key"));
-
-                }
-                Map<String, ObjectUtils.Null> classes = Classes.getMappedTags();
-                if (classes.containsKey(path.get(1))) {
-                    Node predicate = createURI("http://www.w3.org/1999/02/22-rdf-syntax-ns#type");
-                    for (Mapping c : Classes.getMapping(path.get(1))) {
-                        Node object = NodeFactory.createURI(c.getPropertyUri());
-                        Triple t = new Triple(subject, predicate, object);
-                        writer.triple(t);
+                if(path.size()>1) {
+                    Iterator elementAttributes = event.asStartElement().getAttributes();
+                    while (elementAttributes.hasNext()) {
+                        Attribute attribute = (Attribute) elementAttributes.next();
+                        attributes.put(attribute.getName().toString(), attribute.getValue());
                     }
-                } else {
-                    System.out.println("Unmapped class tag " + path.get(1));
+                    if(path.size()==2) {
+                        switch (path.get(1)) {
+                            case "www":
+                                subject = createURI("https://dblp.org/pid/" + attributes.get("key").replace("homepages/", ""));
+                                break;
+                            case "book":
+                                subject = createURI("https://dblp.org/db/" + attributes.get("key"));
+                                break;
+                            default:
+                                subject = createURI("https://dblp.org/rec/html/" + attributes.get("key"));
+
+                        }
+                        Map<String, ObjectUtils.Null> classes = Classes.getMappedTags();
+                        if (classes.containsKey(path.get(1))) {
+                            Node predicate = createURI("http://www.w3.org/1999/02/22-rdf-syntax-ns#type");
+                            for (Mapping c : Classes.getMapping(path.get(1))) {
+                                Node object = NodeFactory.createURI(c.getPropertyUri());
+                                Triple t = new Triple(subject, predicate, object);
+                                writer.triple(t);
+                            }
+                        } else {
+                            System.out.println("Unmapped class tag " + path.get(1));
+                        }
+                    }
                 }
 
             } else if (event.isCharacters()) {
@@ -126,7 +128,7 @@ public class Main {
                                     Triple t = new Triple(subject, predicate, object);
                                     writer.triple(t);
                                 } else if (path.get(2).equals("series")) {
-                                    if (!attributes.get("href").isEmpty()) {
+                                    if (attributes.containsKey("href")) {
                                         for (Mapping p : Properties.getMapping("/series")) {
                                             Node predicate = createURI(p.getPropertyUri());
                                             Triple t;
@@ -142,28 +144,30 @@ public class Main {
                                         }
                                     }
                                 } else if (path.get(2).equals("booktitle") || path.get(2).equals("journal")) {
-                                    for (Mapping p : Properties.getMapping(path.get(2))) {
+                                    for (Mapping p : Properties.getMapping("/" + path.get(2))) {
                                         if (p.getPropertyUri().contains("#label")) {
                                             Node predicate = createURI(p.getPropertyUri());
                                             String[] url = attributes.get("key").split("/");
-                                            Node object = createURI("db/" + url[0] + url[1]);
-                                            Triple t = new Triple(subject, predicate, object);
+                                            Triple t = new Triple(createURI("db/" + url[0] + "/" + url[1]), predicate, NodeFactory.createLiteral(tagEntry));
                                             writer.triple(t);
                                         } else {
                                             Node predicate = createURI(p.getPropertyUri());
                                             String[] url = attributes.get("key").split("/");
-                                            Triple t = new Triple(createURI("db/" + url[0] + url[1]), predicate, NodeFactory.createLiteral(tagEntry));
+                                            Node object = createURI("db/" + url[0] + "/" + url[1]);
+                                            Triple t = new Triple(subject, predicate, object);
                                             writer.triple(t);
                                         }
                                     }
                                 } else if (path.get(2).equals("note")) {
                                     Node object = NodeFactory.createLiteral(tagEntry);
-                                    if (!attributes.get("type").isEmpty()) {
-                                        for (Mapping p : Properties.getMapping("/affiliation")) {
-                                            Triple t = map(subject, tagEntry, p);
-                                            writer.triple(t);
-                                        }
+                                    if (attributes.containsKey("type")) {
+                                        if(attributes.get("type").equals("affiliation")){
+                                            for (Mapping p : Properties.getMapping("/affiliation")) {
+                                                Triple t = map(subject, tagEntry, p);
+                                                writer.triple(t);
+                                            }
                                         attributes.remove("type");
+                                        }
                                     } else {
                                         for (Mapping p : Properties.getMapping("/note")) {
                                             Node predicate = createURI(p.getPropertyUri());
