@@ -15,6 +15,11 @@ import java.io.*;
 import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.FileHandler;
+import java.util.logging.Level;
+import java.util.logging.SimpleFormatter;
+
+import static eu.wdaqua.dblp.Main.logger;
 
 public class Utility {
 
@@ -30,8 +35,7 @@ public class Utility {
         }
     }
 
-    public static Triple map(Node subject, String value, Mapping mapping){
-//        List<Triple> triples = new ArrayList<Triple>();
+    public static Triple map(Node subject, String value, Mapping mapping) throws IOException {
         Triple t = null;
                 Node predicate;
                 Node object;
@@ -64,7 +68,7 @@ public class Utility {
                          t = (new Triple(subject, predicate, object));
                         break;
                     default:
-                        System.out.println("Type not supported " + mapping.getType());
+                        logger.info("Type not supported " + mapping.getType());
                 }
         return t;
     }
@@ -82,47 +86,47 @@ public class Utility {
 
     public static String removeSpecialCharacteres(String s){
         if (s.contains(">")){
-            System.out.println("This string "+s+"contains illigal caracter >");
+            logger.info("This string "+s+"contains illigal caracter >");
             //s = s.replace(">","\\u003E");
             s = s.replace(">","");
         }
         if (s.contains("<")){
-            System.out.println("This string "+s+"contains illigal caracter <");
+            logger.info("This string "+s+"contains illigal caracter <");
             //s = s.replace("<","\\u003C");
             s = s.replace("<","");
         }
         if (s.contains("\\")){
-            System.out.println("This string "+s+"contains illigal caracter \\");
+            logger.info("This string "+s+"contains illigal caracter \\");
             //s = s.replace("\\","\\u005C");
             s = s.replace("\\","");
         }
         if (s.contains("}")){
-            System.out.println("This string "+s+"contains illigal caracter }");
+            logger.info("This string "+s+"contains illigal caracter }");
             //s = s.replace("}","\\u007D");
             s = s.replace("}","");
         }
         if (s.contains("{")){
-            System.out.println("This string "+s+"contains illigal caracter {");
+            logger.info("This string "+s+"contains illigal caracter {");
             //s = s.replace("{","\\u007B");
             s = s.replace("{","");
         }
         if (s.contains("\"")){
-            System.out.println("This string "+s+"contains illigal caracter \"");
+            logger.info("This string "+s+"contains illigal caracter \"");
             //s = s.replace("\"","\\u0022");
             s = s.replace("\"","");
         }
         if (s.contains("|")){
-            System.out.println("This string "+s+"contains illigal caracter |");
+            logger.info("This string "+s+"contains illigal caracter |");
             //s = s.replace("|","\\u0007C");
             s = s.replace("|","");
         }
         if (s.contains("\\|")){
-            System.out.println("This string "+s+"contains illigal caracter |");
+            logger.info("This string "+s+"contains illigal caracter |");
             //s = s.replace("\\|","");
             s = s.replace("\\|","");
         }
         if (s.contains("|")){
-            System.out.println("This string "+s+"contains illigal caracter |");
+            logger.info("This string "+s+"contains illigal caracter |");
             //s = s.replace("|","\\u0007C");
             s = s.replace("|","");
         }
@@ -170,5 +174,11 @@ public class Utility {
             e.printStackTrace();
         }
         return months;
+    }
+
+    public static void printLogger(Level level, String msg){
+        logger.setUseParentHandlers(true);
+        logger.log(level, msg);
+        logger.setUseParentHandlers(false);
     }
 }

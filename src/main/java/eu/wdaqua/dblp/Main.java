@@ -19,14 +19,33 @@ import javax.xml.stream.events.Attribute;
 import javax.xml.stream.events.XMLEvent;
 import java.io.*;
 import java.util.*;
+import java.util.logging.FileHandler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.logging.SimpleFormatter;
 
 import static eu.wdaqua.dblp.ontology.Utility.createURI;
 import static eu.wdaqua.dblp.ontology.Utility.map;
+import static eu.wdaqua.dblp.ontology.Utility.printLogger;
 
 public class Main {
 
     public static String vocabularyFile = "vocabulary.nt";
     public static String monthFile = "query.json";
+
+    public static Logger logger = Logger.getLogger("log");
+    private static FileHandler fh;
+    static {
+        try {
+            fh = new FileHandler("status.log");
+            logger.addHandler(fh);
+            SimpleFormatter formatter = new SimpleFormatter();
+            fh.setFormatter(formatter);
+            logger.setUseParentHandlers(false);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     public static void main(String[] argv) throws IOException, XMLStreamException, IllegalAccessException {
 
@@ -37,11 +56,13 @@ public class Main {
         String outputFile = args.output;
         String inputFile = args.input;
 
-        System.out.println("Input File: " + inputFile);
-        System.out.println("Output File: " + outputFile);
+        printLogger(Level.INFO, "Input File: " + inputFile);
+        printLogger(Level.INFO, "Output File: " + outputFile);
 
         Map<String, String> attributes = new HashMap<String, String>();
+        logger.info("Extracting persons records");
         Map<String, String> persons = Persons.extractPersonRecords(inputFile);
+        logger.info("Reading months file");
         Map<String, String> months = Utility.readMonthJson(monthFile);
 
         XMLInputFactory factory = XMLInputFactory.newInstance();
@@ -58,11 +79,12 @@ public class Main {
         List<String> path = new ArrayList<>();
         Node subject = null;
 
+        logger.info("Starting convertion");
         int line = 0;
         while (reader.hasNext()) {
             line++;
             if (line % 1000000 == 0) {
-                System.out.println(line);
+                printLogger(Level.INFO,"Processed lines: " + line);
             }
             XMLEvent event = reader.nextEvent();
             if (event.isStartElement()) {
@@ -94,7 +116,7 @@ public class Main {
                                 writer.triple(t);
                             }
                         } else {
-                            System.out.println("Unmapped class tag " + path.get(1));
+                            printLogger(Level.WARNING, "Unmapped class tag: " + path.get(1));
                         }
                     }
                 }
@@ -176,7 +198,8 @@ public class Main {
                                         }
                                     }
                                 } else {
-                                    System.out.println("This tag is not mapped " + path.get(2));
+
+                                    printLogger(Level.WARNING, "Unmapped property tag: " + path.get(2));
                                 }
                             }
                         }
@@ -187,7 +210,9 @@ public class Main {
             }
         }
         writer.finish();
+        logger.info("Finishing convertion");
 
+        logger.info("Writing vocabulary");
         StringBuffer sb = new StringBuffer();
         BufferedReader br = new BufferedReader(new FileReader(vocabularyFile));
 
