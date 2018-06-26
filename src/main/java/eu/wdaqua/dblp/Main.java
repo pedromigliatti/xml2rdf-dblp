@@ -134,18 +134,20 @@ public class Main {
                                             Triple t = new Triple(subject, predicate, object);
                                             writer.triple(t);
                                         } else if (path.get(2).equals("series")) {
-                                            for (Mapping p : Properties.getMapping("/series")) {
-                                                Node predicate = createURI(p.getPropertyUri());
-                                                Triple t;
-                                                if (!p.getPropertyUri().contains("#label")) {
-                                                    Node object = createURI(href);
-                                                    t = new Triple(subject, predicate, object);
-                                                } else {
-                                                    Node object = NodeFactory.createLiteral(tagEntry);
-                                                    Node newSub = createURI(href);
-                                                    t = new Triple(newSub, predicate, object);
+                                            if(!href.isEmpty()) {
+                                                for (Mapping p : Properties.getMapping("/series")) {
+                                                    Node predicate = createURI(p.getPropertyUri());
+                                                    Triple t;
+                                                    if (!p.getPropertyUri().contains("#label")) {
+                                                        Node object = createURI(href);
+                                                        t = new Triple(subject, predicate, object);
+                                                    } else {
+                                                        Node object = NodeFactory.createLiteral(tagEntry);
+                                                        Node newSub = createURI(href);
+                                                        t = new Triple(newSub, predicate, object);
+                                                    }
+                                                    writer.triple(t);
                                                 }
-                                                writer.triple(t);
                                             }
                                         } else if (path.get(2).equals("month")) {
                                             Node predicate = createURI(mapping.getPropertyUri());
