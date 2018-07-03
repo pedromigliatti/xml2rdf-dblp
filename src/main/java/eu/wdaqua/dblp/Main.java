@@ -154,13 +154,13 @@ public class Main {
                                         for (Mapping p : Properties.getMapping("/series")) {
                                             Node predicate = createURI(p.getPropertyUri());
                                             Triple t;
-                                            if (!p.getPropertyUri().contains("#label")) {
-                                                Node object = createURI(attributes.get("href"));
-                                                t = new Triple(subject, predicate, object);
-                                            } else {
+                                            if (p.getPropertyUri().contains("#label")) {
                                                 Node object = NodeFactory.createLiteral(tagEntry);
                                                 Node newSub = createURI(attributes.get("href"));
                                                 t = new Triple(newSub, predicate, object);
+                                            } else {
+                                                Node object = createURI(attributes.get("href"));
+                                                t = new Triple(subject, predicate, object);
                                             }
                                             writer.triple(t);
                                         }

@@ -34,7 +34,7 @@ public class Properties {
             new Mapping("/year","http://purl.org/dc/terms/issued",Type.YEAR),
             new Mapping("/volume","http://swrc.ontoware.org/ontology#volume",Type.INTEGER),
             new Mapping("/journal","http://data.europa.eu/eli/ontology#published_in",Type.CUSTOM),
-            new Mapping("/journal","http://www.w3.org/2000/01/rdf-schema#label",Type.STRING),
+            new Mapping("/journal","http://www.w3.org/2000/01/rdf-schema#label",Type.CUSTOM),
             new Mapping("/number","http://swrc.ontoware.org/ontology#number",Type.INTEGER),
 
             new Mapping("/url","http://purl.org/dc/elements/1.1/identifier",Type.URI),
@@ -46,7 +46,7 @@ public class Properties {
             new Mapping("/cite","http://www.w3.org/1999/xhtml/vocab#cite",Type.URI),
             new Mapping("/editor","http://schema.org/editor",Type.STRING),
             new Mapping("/booktitle","http://data.europa.eu/eli/ontology#published_in",Type.CUSTOM),
-            new Mapping("/booktitle","http://www.w3.org/2000/01/rdf-schema#label",Type.STRING),
+            new Mapping("/booktitle","http://www.w3.org/2000/01/rdf-schema#label",Type.CUSTOM),
             new Mapping("/address","http://schema.org/address",Type.STRING),
             new Mapping("/month","http://purl.org/dc/terms/issued",Type.CUSTOM),
             new Mapping("/cdrom","http://lsdis.cs.uga.edu/projects/semdis/opus#cdrom",Type.STRING),
@@ -54,9 +54,9 @@ public class Properties {
             new Mapping("/crossref","http://data.europa.eu/eli/ontology#published_in",Type.URI), //"http://purl.org/net/nknouf/ns/bibtex#hasCrossref";
             new Mapping("/isbn","http://schema.org/isbn",Type.STRING),
             new Mapping("/series","http://lsdis.cs.uga.edu/projects/semdis/opus#in_series",Type.CUSTOM),
-            new Mapping("/series","http://www.w3.org/2000/01/rdf-schema#label",Type.STRING),
+            new Mapping("/series","http://www.w3.org/2000/01/rdf-schema#label",Type.CUSTOM),
             new Mapping("/school","http://lsdis.cs.uga.edu/projects/semdis/opus#School",Type.STRING),
-            new Mapping("/school","http://www.w3.org/2000/01/rdf-schema#label",Type.STRING),
+            new Mapping("/school","http://www.w3.org/2000/01/rdf-schema#label",Type.CUSTOM),
             new Mapping("/chapter","http://lsdis.cs.uga.edu/projects/semdis/opus#chapter",Type.INTEGER),
             new Mapping("/orcid","http://wdaqua.eu/P496",Type.URI))); //I could not map
 
