@@ -10,7 +10,6 @@ public class Classes {
             new Mapping("article","http://swrc.ontoware.org/ontology#Article",Type.CLASS),
             new Mapping("article","http://www.eurocris.org/ontologies/cerif/1.3#Publication",Type.CLASS),
             new Mapping("proceedings","http://purl.org/ontology/bibo/Proceedings",Type.CLASS),
-            new Mapping("proceedings","http://www.eurocris.org/ontologies/cerif/1.3#Publication",Type.CLASS),
             new Mapping("inproceedings","http://swrc.ontoware.org/ontology#InProceedings",Type.CLASS),
             new Mapping("inproceedings","http://www.eurocris.org/ontologies/cerif/1.3#Publication",Type.CLASS),
             new Mapping("incollection","http://swrc.ontoware.org/ontology#InCollection",Type.CLASS),

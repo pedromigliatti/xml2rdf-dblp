@@ -158,10 +158,10 @@ public class Main {
             if (!tagEntry.equals("\n") && !tagEntry.equals("...")) {
                 for (Mapping mapping : Properties.getMappings()) {
                     if (entry.getKey().contains(mapping.getTag())) {
-                        if (mapping.getType() != Type.CUSTOM) {
+                        if (mapping.getType() != Type.CUSTOM && mapping.getType() != Type.LABEL) {
                             Triple t = map(subject, tagEntry, mapping);
                             writer.triple(t);
-                        } else {
+                        } else if(mapping.getType() != Type.LABEL){
                             if (path.get(2).equals("crossref")) {
                                 String[] crossref = tagEntry.split("/");
                                 Node predicate = createURI(mapping.getPropertyUri());
@@ -200,15 +200,20 @@ public class Main {
                             } else if (path.get(2).equals("booktitle") || path.get(2).equals("journal")) {
                                 for (Mapping p : Properties.getMapping("/" + path.get(2))) {
                                     Node predicate = createURI(p.getPropertyUri());
-                                    String url = selects.get(path.get(0) + "/" + path.get(1) + "/" + "url").split("#")[0];
-                                    Triple t;
-                                    if (p.getPropertyUri().contains("#label")) {
-                                        t = new Triple(createURI(url), predicate, NodeFactory.createLiteral(tagEntry));
-                                    } else {
-                                        Node object = createURI(url);
-                                        t = new Triple(subject, predicate, object);
+                                    if(selects.containsKey(path.get(0) + "/" + path.get(1) + "/" + "url")) {
+                                        String url = selects.get(path.get(0) + "/" + path.get(1) + "/" + "url").split("#")[0];
+                                        Triple t;
+                                        if (p.getPropertyUri().contains("#label")) {
+                                            t = new Triple(createURI(url), predicate, NodeFactory.createLiteral(tagEntry));
+                                        } else {
+                                            Node object = createURI(url);
+                                            t = new Triple(subject, predicate, object);
+                                        }
+                                        writer.triple(t);
+                                    } else if (p.getPropertyUri().contains("#label")) {
+                                            Triple t = new Triple(subject, predicate, NodeFactory.createLiteral(tagEntry));
+                                            writer.triple(t);
                                     }
-                                    writer.triple(t);
                                 }
                             } else if (path.get(2).equals("note")) {
                                 Node object = NodeFactory.createLiteral(tagEntry);
