@@ -209,11 +209,7 @@ public class Main {
                                     for (Mapping p : Properties.getMapping("/" + path.get(2))) {
                                         Node predicate = createURI(p.getPropertyUri());
                                         if (selects.containsKey(path.get(0) + "/" + path.get(1) + "/" + "url")) {
-                                            List<String> listUrl = selects.get(path.get(0) + "/" + path.get(1) + "/" + "url");
-                                            String url = "";
-                                            for(String u : listUrl){
-                                                url = u.split("#")[0];
-                                            }
+                                            String url = selects.get(path.get(0) + "/" + path.get(1) + "/" + "url").get(0).split("#")[0];
                                             Triple t;
                                             if (p.getPropertyUri().contains("#label")) {
                                                 t = new Triple(createURI(url), predicate, NodeFactory.createLiteral(tagEntry));
