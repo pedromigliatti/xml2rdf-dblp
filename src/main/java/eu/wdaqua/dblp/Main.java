@@ -59,6 +59,7 @@ public class Main {
         printLogger(Level.INFO, "Input File: " + inputFile);
         printLogger(Level.INFO, "Output File: " + outputFile);
 
+        Map<String,String> entry = new HashMap<String, String>();
         Map<String, String> attributes = new HashMap<String, String>();
         logger.info("Extracting persons records");
         Map<String, String> persons = Persons.extractPersonRecords(inputFile);
@@ -123,90 +124,13 @@ public class Main {
 
             } else if (event.isCharacters()) {
                 String tagEntry = event.asCharacters().getData();
-                if (!tagEntry.equals("\n") && path.size() > 2 && !tagEntry.equals("...")) {
-                    for (Mapping mapping : Properties.getMappings()) {
-                        if (String.join("/", path).contains(mapping.getTag())) {
-                            if (mapping.getType() != Type.CUSTOM) {
-                                Triple t = map(subject, tagEntry, mapping);
-                                writer.triple(t);
-                            } else {
-                                if (path.get(2).equals("crossref")) {
-                                    String[] crossref = tagEntry.split("/");
-                                    Node predicate = createURI(mapping.getPropertyUri());
-                                    Node object = createURI(crossref[0] + "/" + crossref[1]);
-                                    Triple t = new Triple(subject, predicate, object);
-                                    writer.triple(t);
-                                } else if (path.get(2).equals("month")) {
-                                    Node predicate = createURI(mapping.getPropertyUri());
-                                    String month = months.get(tagEntry);
-                                    if (month != null) {
-                                        Node object = createURI(month);
-                                        Triple t = new Triple(subject, predicate, object);
-                                        writer.triple(t);
-                                    }
-                                } else if (path.get(2).equals("author")) {
-                                    Node predicate = createURI(mapping.getPropertyUri());
-                                    Node object = createURI(persons.get(tagEntry));
-                                    Triple t = new Triple(subject, predicate, object);
-                                    writer.triple(t);
-                                } else if (path.get(2).equals("series")) {
-                                    if (attributes.containsKey("href")) {
-                                        for (Mapping p : Properties.getMapping("/series")) {
-                                            Node predicate = createURI(p.getPropertyUri());
-                                            Triple t;
-                                            if (!p.getPropertyUri().contains("#label")) {
-                                                Node object = createURI(attributes.get("href"));
-                                                t = new Triple(subject, predicate, object);
-                                            } else {
-                                                Node object = NodeFactory.createLiteral(tagEntry);
-                                                Node newSub = createURI(attributes.get("href"));
-                                                t = new Triple(newSub, predicate, object);
-                                            }
-                                            writer.triple(t);
-                                        }
-                                    }
-                                } else if (path.get(2).equals("booktitle") || path.get(2).equals("journal")) {
-                                    for (Mapping p : Properties.getMapping("/" + path.get(2))) {
-                                        if (p.getPropertyUri().contains("#label")) {
-                                            Node predicate = createURI(p.getPropertyUri());
-                                            String[] url = attributes.get("key").split("/");
-                                            Triple t = new Triple(createURI("db/" + url[0] + "/" + url[1]), predicate, NodeFactory.createLiteral(tagEntry));
-                                            writer.triple(t);
-                                        } else {
-                                            Node predicate = createURI(p.getPropertyUri());
-                                            String[] url = attributes.get("key").split("/");
-                                            Node object = createURI("db/" + url[0] + "/" + url[1]);
-                                            Triple t = new Triple(subject, predicate, object);
-                                            writer.triple(t);
-                                        }
-                                    }
-                                } else if (path.get(2).equals("note")) {
-                                    Node object = NodeFactory.createLiteral(tagEntry);
-                                    if (attributes.containsKey("type")) {
-                                        if(attributes.get("type").equals("affiliation")){
-                                            for (Mapping p : Properties.getMapping("/affiliation")) {
-                                                Triple t = map(subject, tagEntry, p);
-                                                writer.triple(t);
-                                            }
-                                        attributes.remove("type");
-                                        }
-                                    } else {
-                                        for (Mapping p : Properties.getMapping("/note")) {
-                                            Node predicate = createURI(p.getPropertyUri());
-                                            Triple t = new Triple(subject, predicate, object);
-                                            writer.triple(t);
-                                        }
-                                    }
-                                } else {
-
-                                    printLogger(Level.WARNING, "Unmapped property tag: " + path.get(2));
-                                }
-                            }
-                        }
-                    }
-                }
+                entry.put(path.get(2), tagEntry);
             } else if (event.isEndElement()) {
                 path.remove(path.size() - 1);
+                if(path.size()==1){
+                    processEntry(entry, attributes, path, subject, writer, months, persons);
+                }
+                entry.clear();
             }
         }
         writer.finish();
@@ -223,5 +147,91 @@ public class Main {
         }
 
         Utility.writeStringBuffer(sb, outputFile, true);
+    }
+
+    public static void processEntry(Map<String, String> selects, Map<String, String> attributes, List<String> path, Node subject, StreamRDF writer, Map<String, String> months, Map<String, String> persons) throws IOException {
+        for(Map.Entry<String, String> entry : selects.entrySet()) {
+            String tagEntry = entry.getValue();
+            if (!tagEntry.equals("\n") && path.size() > 2 && !tagEntry.equals("...")) {
+                for (Mapping mapping : Properties.getMappings()) {
+                    if (String.join("/", path).contains(mapping.getTag())) {
+                        if (mapping.getType() != Type.CUSTOM) {
+                            Triple t = map(subject, tagEntry, mapping);
+                            writer.triple(t);
+                        } else {
+                            if (path.get(2).equals("crossref")) {
+                                String[] crossref = tagEntry.split("/");
+                                Node predicate = createURI(mapping.getPropertyUri());
+                                Node object = createURI(crossref[0] + "/" + crossref[1]);
+                                Triple t = new Triple(subject, predicate, object);
+                                writer.triple(t);
+                            } else if (path.get(2).equals("month")) {
+                                Node predicate = createURI(mapping.getPropertyUri());
+                                String month = months.get(tagEntry);
+                                if (month != null) {
+                                    Node object = createURI(month);
+                                    Triple t = new Triple(subject, predicate, object);
+                                    writer.triple(t);
+                                }
+                            } else if (path.get(2).equals("author")) {
+                                Node predicate = createURI(mapping.getPropertyUri());
+                                Node object = createURI(persons.get(tagEntry));
+                                Triple t = new Triple(subject, predicate, object);
+                                writer.triple(t);
+                            } else if (path.get(2).equals("series")) {
+                                if (attributes.containsKey("href")) {
+                                    for (Mapping p : Properties.getMapping("/series")) {
+                                        Node predicate = createURI(p.getPropertyUri());
+                                        Triple t;
+                                        if (!p.getPropertyUri().contains("#label")) {
+                                            Node object = createURI(attributes.get("href"));
+                                            t = new Triple(subject, predicate, object);
+                                        } else {
+                                            Node object = NodeFactory.createLiteral(tagEntry);
+                                            Node newSub = createURI(attributes.get("href"));
+                                            t = new Triple(newSub, predicate, object);
+                                        }
+                                        writer.triple(t);
+                                    }
+                                }
+                            } else if (path.get(2).equals("booktitle") || path.get(2).equals("journal")) {
+                                for (Mapping p : Properties.getMapping("/" + path.get(2))) {
+                                    Node predicate = createURI(p.getPropertyUri());
+                                    String url = selects.get("url").split("#")[0];
+                                    Triple t;
+                                    if (p.getPropertyUri().contains("#label")) {
+                                        t = new Triple(createURI(url), predicate, NodeFactory.createLiteral(tagEntry));
+                                    } else {
+                                        Node object = createURI(url);
+                                        t = new Triple(subject, predicate, object);
+                                    }
+                                    writer.triple(t);
+                                }
+                            } else if (path.get(2).equals("note")) {
+                                Node object = NodeFactory.createLiteral(tagEntry);
+                                if (attributes.containsKey("type")) {
+                                    if (attributes.get("type").equals("affiliation")) {
+                                        for (Mapping p : Properties.getMapping("/affiliation")) {
+                                            Triple t = map(subject, tagEntry, p);
+                                            writer.triple(t);
+                                        }
+                                        attributes.remove("type");
+                                    }
+                                } else {
+                                    for (Mapping p : Properties.getMapping("/note")) {
+                                        Node predicate = createURI(p.getPropertyUri());
+                                        Triple t = new Triple(subject, predicate, object);
+                                        writer.triple(t);
+                                    }
+                                }
+                            } else {
+
+                                printLogger(Level.WARNING, "Unmapped property tag: " + path.get(2));
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 }
