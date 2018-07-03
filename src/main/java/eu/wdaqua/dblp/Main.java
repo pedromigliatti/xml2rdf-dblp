@@ -75,7 +75,7 @@ public class Main {
 
         StreamRDF writer = StreamRDFWriter.getWriterStream(new FileOutputStream(outputFile), RDFFormat.NTRIPLES);
 
-        Utility.writeVocabulary(writer);
+//        Utility.writeVocabulary(writer);
 
         List<String> path = new ArrayList<>();
         Node subject = null;
@@ -124,13 +124,15 @@ public class Main {
 
             } else if (event.isCharacters()) {
                 String tagEntry = event.asCharacters().getData();
-                entry.put(path.get(2), tagEntry);
+                if(path.size() > 2 ) {
+                    entry.put(String.join("/", path), tagEntry);
+                }
             } else if (event.isEndElement()) {
                 path.remove(path.size() - 1);
                 if(path.size()==1){
-                    processEntry(entry, attributes, path, subject, writer, months, persons);
+                    processEntry(entry, attributes, subject, writer, months, persons);
+                    entry.clear();
                 }
-                entry.clear();
             }
         }
         writer.finish();
@@ -149,12 +151,13 @@ public class Main {
         Utility.writeStringBuffer(sb, outputFile, true);
     }
 
-    public static void processEntry(Map<String, String> selects, Map<String, String> attributes, List<String> path, Node subject, StreamRDF writer, Map<String, String> months, Map<String, String> persons) throws IOException {
+    public static void processEntry(Map<String, String> selects, Map<String, String> attributes, Node subject, StreamRDF writer, Map<String, String> months, Map<String, String> persons) throws IOException {
         for(Map.Entry<String, String> entry : selects.entrySet()) {
             String tagEntry = entry.getValue();
-            if (!tagEntry.equals("\n") && path.size() > 2 && !tagEntry.equals("...")) {
+            List<String> path = Arrays.asList(entry.getKey().split("/"));
+            if (!tagEntry.equals("\n") && !tagEntry.equals("...")) {
                 for (Mapping mapping : Properties.getMappings()) {
-                    if (String.join("/", path).contains(mapping.getTag())) {
+                    if (entry.getKey().contains(mapping.getTag())) {
                         if (mapping.getType() != Type.CUSTOM) {
                             Triple t = map(subject, tagEntry, mapping);
                             writer.triple(t);
@@ -197,7 +200,7 @@ public class Main {
                             } else if (path.get(2).equals("booktitle") || path.get(2).equals("journal")) {
                                 for (Mapping p : Properties.getMapping("/" + path.get(2))) {
                                     Node predicate = createURI(p.getPropertyUri());
-                                    String url = selects.get("url").split("#")[0];
+                                    String url = selects.get(path.get(0) + "/" + path.get(1) + "/" + "url").split("#")[0];
                                     Triple t;
                                     if (p.getPropertyUri().contains("#label")) {
                                         t = new Triple(createURI(url), predicate, NodeFactory.createLiteral(tagEntry));
