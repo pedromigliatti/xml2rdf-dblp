@@ -126,10 +126,10 @@ public class Main {
                 if (!tagEntry.equals("\n") && path.size() > 2 && !tagEntry.equals("...")) {
                     for (Mapping mapping : Properties.getMappings()) {
                         if (String.join("/", path).contains(mapping.getTag())) {
-                            if (mapping.getType() != Type.CUSTOM) {
+                            if (mapping.getType() != Type.CUSTOM && mapping.getType() != Type.LABEL) {
                                 Triple t = map(subject, tagEntry, mapping);
                                 writer.triple(t);
-                            } else {
+                            } else if(mapping.getType() != Type.LABEL){
                                 if (path.get(2).equals("crossref")) {
                                     String[] crossref = tagEntry.split("/");
                                     Node predicate = createURI(mapping.getPropertyUri());
@@ -141,6 +141,15 @@ public class Main {
                                     String month = months.get(tagEntry);
                                     if (month != null) {
                                         Node object = createURI(month);
+                                        Triple t = new Triple(subject, predicate, object);
+                                        writer.triple(t);
+                                    }
+                                } else if (path.get(2).equals("author") && path.get(1).equals("www")) {
+                                    String name = tagEntry.replaceAll("[0-9]", "");
+                                    name = name.replaceAll("\\s$", "");
+                                    for (Mapping p : Properties.getMapping("/www/author")) {
+                                        Node predicate = createURI(p.getPropertyUri());
+                                        Node object = NodeFactory.createLiteral(name);
                                         Triple t = new Triple(subject, predicate, object);
                                         writer.triple(t);
                                     }
