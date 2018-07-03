@@ -60,6 +60,8 @@ public class Main {
         printLogger(Level.INFO, "Output File: " + outputFile);
 
         Map<String, String> attributes = new HashMap<String, String>();
+        Map<String, String> elements = new HashMap<String, String>();
+
         logger.info("Extracting persons records");
         Map<String, String> persons = Persons.extractPersonRecords(inputFile);
         logger.info("Reading months file");
@@ -123,6 +125,7 @@ public class Main {
 
             } else if (event.isCharacters()) {
                 String tagEntry = event.asCharacters().getData();
+                elements.put(path.get(2), tagEntry);
                 if (!tagEntry.equals("\n") && path.size() > 2 && !tagEntry.equals("...")) {
                     for (Mapping mapping : Properties.getMappings()) {
                         if (String.join("/", path).contains(mapping.getTag())) {
