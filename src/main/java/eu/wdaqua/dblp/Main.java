@@ -184,6 +184,15 @@ public class Main {
                                         Triple t = new Triple(subject, predicate, object);
                                         writer.triple(t);
                                     }
+                                } else if (entry.getKey().contains("/www/author")) {
+                                    String name = tagEntry.replaceAll("[0-9]", "");
+                                    name = name.replaceAll("\\s$", "");
+                                    for (Mapping p : Properties.getMapping("/www/author")) {
+                                        Node predicate = createURI(p.getPropertyUri());
+                                        Node object = NodeFactory.createLiteral(name);
+                                        Triple t = new Triple(subject, predicate, object);
+                                        writer.triple(t);
+                                    }
                                 } else if (path.get(2).equals("author")) {
                                     Node predicate = createURI(mapping.getPropertyUri());
                                     Node object = createURI(persons.get(tagEntry));
