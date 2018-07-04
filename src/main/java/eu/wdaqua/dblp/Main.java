@@ -205,7 +205,7 @@ public class Main {
                                             writer.triple(t);
                                         }
                                     }
-                                } else if (path.get(2).equals("booktitle") || path.get(2).equals("journal")) {
+                                } else if (entry.getKey().contains("incollection/booktitle") || path.get(2).equals("journal")) {
                                     for (Mapping p : Properties.getMapping("/" + path.get(2))) {
                                         Node predicate = createURI(p.getPropertyUri());
                                         if (selects.containsKey(path.get(0) + "/" + path.get(1) + "/" + "url")) {
@@ -223,6 +223,8 @@ public class Main {
                                             writer.triple(t);
                                         }
                                     }
+                                } else if (path.get(2).equals("booktitle")){
+
                                 } else if (path.get(2).equals("note")) {
                                     Node object = NodeFactory.createLiteral(tagEntry);
                                     if (attributes.containsKey("type")) {

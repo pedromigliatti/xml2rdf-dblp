@@ -43,8 +43,13 @@ public class Utility {
                     case URI:
                         predicate = createURI(mapping.getPropertyUri());
                         if(!value.contains("http"))
-                            value = value.replace("db/","");
-                            value = "http://dblp.uni-trier.de/db/" + value;
+                            if(mapping.getTag().equals("/crossref")){
+                                value = value.replace("db/","");
+                                value = "https://dblp.org/rec/html/" + value;
+                            } else {
+                                value = value.replace("db/", "");
+                                value = "http://dblp.uni-trier.de/db/" + value;
+                            }
                         object = createURI(value);
                         t = (new Triple(subject, predicate, object));
                         break;

@@ -35,8 +35,8 @@ public class Properties {
             new Mapping("/volume","http://swrc.ontoware.org/ontology#volume",Type.INTEGER),
             new Mapping("/number","http://swrc.ontoware.org/ontology#number",Type.INTEGER),
 
-//            new Mapping("/url","http://purl.org/dc/elements/1.1/identifier",Type.URI),
-            new Mapping("/url","http://data.europa.eu/eli/ontology#published_in",Type.URI),
+            new Mapping("/url","http://purl.org/dc/elements/1.1/identifier",Type.URI),
+//            new Mapping("/url","http://data.europa.eu/eli/ontology#published_in",Type.URI),
             new Mapping("www/url","http://schema.org/url",Type.URI),
 
             new Mapping("/booktitle","http://data.europa.eu/eli/ontology#published_in",Type.CUSTOM),
